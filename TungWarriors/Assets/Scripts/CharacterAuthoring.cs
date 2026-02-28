@@ -3,6 +3,12 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.Rendering;
 using Unity.Physics;
+using Unity.Burst;
+
+public struct InitializeCharacterFlag : IComponentData, IEnableableComponent
+{
+
+}
 public struct CharacterMoveDirection : IComponentData
 {
     public float2 Value;
@@ -22,6 +28,7 @@ public class CharacterAuthoring : MonoBehaviour
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent<CharacterMoveDirection>(entity);
+            AddComponent<InitializeCharacterFlag>(entity);
             AddComponent(entity, new CharacterMoveSpeed()
             {
                 Value = authoring.MoveSpeed
@@ -30,8 +37,22 @@ public class CharacterAuthoring : MonoBehaviour
     }
 }
 
+[UpdateInGroup(typeof(InitializationSystemGroup))]
+public partial struct CharacterInitializationSystem : ISystem
+{
+    [BurstCompile]
+    public void OnUpdate(ref SystemState state)
+    {
+        foreach(var (mass, shouldInitialize) in SystemAPI.Query<RefRW<PhysicsMass>, EnabledRefRW<InitializeCharacterFlag>>())
+        {
+            mass.ValueRW.InverseInertia = float3.zero;
+            shouldInitialize.ValueRW = false;
+        }
+    }
+}
 public partial struct CharacterMoveSystem : ISystem 
 {
+    [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {
         foreach (var (velocity, direction, speed) in SystemAPI.Query<RefRW<PhysicsVelocity>, CharacterMoveDirection, CharacterMoveSpeed>())

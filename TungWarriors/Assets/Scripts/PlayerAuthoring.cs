@@ -1,16 +1,34 @@
 using UnityEngine;
-
+using Unity.Entities;
+using Unity.Mathematics;
+public struct PlayerTag : IComponentData {}
 public class PlayerAuthoring : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private class Baker : Baker<PlayerAuthoring>
     {
-        
+        public override void Bake(PlayerAuthoring authoring)
+        {
+            var entity = GetEntity(TransformUsageFlags.Dynamic);
+            AddComponent<PlayerTag>(entity);
+        }
     }
+}
 
-    // Update is called once per frame
-    void Update()
+public partial class PlayerInputSystem : SystemBase
+{
+    private SurvivorsInput _inputActions;
+
+    protected override void OnCreate()
     {
-        
+        _inputActions = new SurvivorsInput();
+        _inputActions.Enable();
+    }
+    protected override void OnUpdate()
+    {
+        var currentInput = (float2)_inputActions.Player.Move.ReadValue<Vector2>();
+        foreach(var direction in SystemAPI.Query<RefRW<CharacterMoveDirection>>().WithAll<PlayerTag>())
+        {
+            direction.ValueRW.Value = currentInput;
+        }
     }
 }
