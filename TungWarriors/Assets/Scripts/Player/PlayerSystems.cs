@@ -47,7 +47,7 @@ public partial struct ResolvePlayerStatsSystem : ISystem
             var resolvedHealthRegen = regen.ValueRO.ValuePerSecond;
             var resolvedCritChance = equipmentStats.CritChance;
             var resolvedCritDamage = equipmentStats.CritDamage;
-            var resolvedMaxHp = (baseStats.MaxHitPoints + equipmentStats.Health) * equipmentStats.HealthValueMultiplicator * equipmentStats.HealthValueMultiplicator;
+            var resolvedMaxHp = baseStats.MaxHitPoints + equipmentStats.Health;
 
             foreach (var modifier in statModifiers)
             {
@@ -61,7 +61,7 @@ public partial struct ResolvePlayerStatsSystem : ISystem
                         resolvedMoveSpeed = (resolvedMoveSpeed + modifier.AddValue) * mul;
                         break;
                     case PlayerStatType.Defense:
-                        resolvedDefense = (int)((resolvedDefense + modifier.AddValue) * mul);
+                        resolvedDefense = (resolvedDefense + modifier.AddValue) * mul;
                         break;
                     case PlayerStatType.HealthRegen:
                         resolvedHealthRegen = (resolvedHealthRegen + modifier.AddValue) * mul;
@@ -210,6 +210,11 @@ public partial struct ApplyEquipmentBuffsSystem : ISystem
         if (playerQuery.IsEmpty) return;
 
         var playerEntity = playerQuery.GetSingletonEntity();
+        if (systemState.EntityManager.HasBuffer<PlayerStatModifier>(playerEntity))
+        {
+            var modifiers = systemState.EntityManager.GetBuffer<PlayerStatModifier>(playerEntity);
+            modifiers.Clear();
+        }
 
         foreach (var equipment in PlayerData.Instance.EquipmentOnPlayer.Values)
         {
