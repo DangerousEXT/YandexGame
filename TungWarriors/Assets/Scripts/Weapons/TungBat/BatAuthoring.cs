@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class BatWeaponAuthoring : MonoBehaviour
 {
-    public int Damage;
+    public float PlayerDamageCoefficient = 1f;
+    public float CritChanceCoefficient = 1f;
+    public float CritDamageCoefficient = 1f;
     public float Cooldown;
     public float Range;
     public float ConeAngleDegrees;
@@ -17,7 +19,9 @@ public class BatWeaponAuthoring : MonoBehaviour
 
             AddComponent(entity, new BatWeaponData
             {
-                Damage = authoring.Damage,
+                PlayerDamageCoefficient = authoring.PlayerDamageCoefficient,
+                CritChanceCoefficient = authoring.CritChanceCoefficient,
+                CritDamageCoefficient = authoring.CritDamageCoefficient,
                 Cooldown = authoring.Cooldown,
                 Range = authoring.Range,
                 ConeAngleDegrees = authoring.ConeAngleDegrees,

@@ -13,8 +13,8 @@ public partial struct BatAttackSystem : ISystem
         var ecbSingleton = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
         var ecb = ecbSingleton.CreateCommandBuffer(state.WorldUnmanaged);
 
-        foreach (var (batWeaponData, playerTransform, playerEntity) in
-                 SystemAPI.Query<RefRW<BatWeaponData>, RefRO<LocalTransform>>()
+        foreach (var (batWeaponData, playerTransform, playerStats, playerEntity) in
+                 SystemAPI.Query<RefRW<BatWeaponData>, RefRO<LocalTransform>, RefRO<PlayerResolvedStats>>()
                      .WithAll<PlayerTag>()
                      .WithEntityAccess())
         {
@@ -52,12 +52,26 @@ public partial struct BatAttackSystem : ISystem
                 Radius = radius,
                 AngularSpeed = math.radians(180f),
                 CurrentAngle = startAngle,
-                Damage = batWeaponData.ValueRO.Damage
+                Damage = CalculateScaledDamage(
+                    playerStats.ValueRO.Damage,
+                    playerStats.ValueRO.CritChance,
+                    playerStats.ValueRO.CritDamage,
+                    batWeaponData.ValueRO.PlayerDamageCoefficient,
+                    batWeaponData.ValueRO.CritChanceCoefficient,
+                    batWeaponData.ValueRO.CritDamageCoefficient)
             });
 
             batWeaponData.ValueRW.HasSpawned = true;
             Debug.Log("Bat spawned");
         }
+    }
+
+    private static int CalculateScaledDamage(float playerDamage, float critChance, float critDamage, float damageCoef, float critChanceCoef, float critDamageCoef)
+    {
+        var damageWithStats = playerDamage * damageCoef;
+        var normalizedCritChance = math.max(0f, critChance * critChanceCoef) / 100f;
+        var critMultiplier = 1f + normalizedCritChance * (math.max(0f, critDamage * critDamageCoef) / 100f);
+        return math.max(1, (int)math.round(damageWithStats * critMultiplier));
     }
 }
 

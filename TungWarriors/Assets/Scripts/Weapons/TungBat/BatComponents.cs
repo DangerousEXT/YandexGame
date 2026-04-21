@@ -2,7 +2,9 @@
 
 public struct BatWeaponData : IComponentData
 {
-    public int Damage;
+    public float PlayerDamageCoefficient;
+    public float CritChanceCoefficient;
+    public float CritDamageCoefficient;
     public float Cooldown;
     public float Range;
     public float ConeAngleDegrees;

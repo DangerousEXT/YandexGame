@@ -14,18 +14,9 @@ public class MulSpeedBuff : Buff
 
     public override void Apply(Entity playerEntity)
     {
-        var world = World.DefaultGameObjectInjectionWorld;
-        if (world == null || !world.EntityManager.Exists(playerEntity)) return;
-
-        if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
-        {
-            var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
-            stats.Speed *= Value;
-            world.EntityManager.SetComponentData(playerEntity, stats);
-        }
-        else
-        {
-            Debug.LogWarning($"PlayerStats not found on entity {playerEntity}");
-        }
+        PlayerStatModifierUtility.TryAddModifier(
+            playerEntity,
+            PlayerStatType.MoveSpeedBonus,
+            mulValue: PlayerStatModifierUtility.MultiplierToMulDelta(Value));
     }
 }
