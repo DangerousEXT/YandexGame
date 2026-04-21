@@ -6,7 +6,7 @@ public class PlasmaBlastAuthoring : MonoBehaviour
     public float MoveSpeed;
     public int AttackDamage;
     public float PlayerDamageCoefficient = 1f;
-    public float PlayerMoveSpeedCoefficient = 0f;
+    public float PlayerMoveSpeedCoefficient = 0.1f;
     public float CritChanceCoefficient = 1f;
     public float CritDamageCoefficient = 1f;
 

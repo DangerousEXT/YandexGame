@@ -7,12 +7,14 @@ public struct EquipmentStats : IComponentData
     public float Health;
     public float CritChance;
     public float CritDamage;
+    public float HealthValueMultiplicator;
+    public float HealthPercentageMultiplicator;
 }
 
 public struct PlayerBaseStats : IComponentData
 {
     public float MoveSpeed;
-    public int MaxHitPoints;
+    public float MaxHitPoints;
 }
 
 public struct PlayerResolvedStats : IComponentData
@@ -23,7 +25,7 @@ public struct PlayerResolvedStats : IComponentData
     public float HealthRegen;
     public float CritChance;
     public float CritDamage;
-    public int MaxHitPoints;
+    public float MaxHitPoints;
 }
 
 public struct InitializePlayerStatsFlag : IComponentData, IEnableableComponent { }

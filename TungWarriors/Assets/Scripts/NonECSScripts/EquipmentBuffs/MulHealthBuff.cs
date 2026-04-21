@@ -19,10 +19,21 @@ public class MulHealthBuff : Buff
 
         if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
         {
+
             var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
-            stats.Health *= Value;
+            stats.HealthValueMultiplicator = (1 + Value);
             world.EntityManager.SetComponentData(playerEntity, stats);
+            Debug.Log($"Applied {Description} to player. New MaxHitPoints: {stats.Health * stats.HealthValueMultiplicator} MULTIPLICATOR");
+            //var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
+            //stats.Health += stats.Health * Value;
+            //world.EntityManager.SetComponentData(playerEntity, stats);
         }
+        //if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
+        //{
+        //    var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
+        //    stats.Health *= Value;
+        //    world.EntityManager.SetComponentData(playerEntity, stats);
+        //}
         else
         {
             Debug.LogWarning($"PlayerStats not found on entity {playerEntity}");

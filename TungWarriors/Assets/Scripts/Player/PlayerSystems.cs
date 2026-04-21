@@ -47,7 +47,7 @@ public partial struct ResolvePlayerStatsSystem : ISystem
             var resolvedHealthRegen = regen.ValueRO.ValuePerSecond;
             var resolvedCritChance = equipmentStats.CritChance;
             var resolvedCritDamage = equipmentStats.CritDamage;
-            var resolvedMaxHp = baseStats.MaxHitPoints + equipmentStats.Health;
+            var resolvedMaxHp = (baseStats.MaxHitPoints + equipmentStats.Health) * equipmentStats.HealthValueMultiplicator * equipmentStats.HealthValueMultiplicator;
 
             foreach (var modifier in statModifiers)
             {
@@ -61,7 +61,7 @@ public partial struct ResolvePlayerStatsSystem : ISystem
                         resolvedMoveSpeed = (resolvedMoveSpeed + modifier.AddValue) * mul;
                         break;
                     case PlayerStatType.Defense:
-                        resolvedDefense = (resolvedDefense + modifier.AddValue) * mul;
+                        resolvedDefense = (int)((resolvedDefense + modifier.AddValue) * mul);
                         break;
                     case PlayerStatType.HealthRegen:
                         resolvedHealthRegen = (resolvedHealthRegen + modifier.AddValue) * mul;
