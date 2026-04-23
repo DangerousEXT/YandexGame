@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
+using static YG.YG2;
 
 public class PlayerData : MonoBehaviour
 {
@@ -62,6 +64,7 @@ public class PlayerData : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    
     public void AddEquipment(Equipment equip)
     {
         inventory.Add(equip);
