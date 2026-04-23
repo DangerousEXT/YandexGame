@@ -38,7 +38,8 @@ public partial struct BatWeaponAttackSystem : ISystem
             if (cooldown.ValueRO.NextAttackTime > elapsedTime)
                 continue;
 
-            cooldown.ValueRW.NextAttackTime = elapsedTime + weapon.Cooldown;
+            var attackSpeedMultiplier = 1f + math.max(0f, resolvedStats.AttackSpeed);
+            cooldown.ValueRW.NextAttackTime = elapsedTime + (weapon.Cooldown / attackSpeedMultiplier);
 
             var forward = lastDirection.Value;
             if (math.lengthsq(forward) < 0.0001f)

@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using Unity.Collections;
+using Unity.Entities;
 using Unity.Mathematics;
 
 public struct PlayerLevel : IComponentData
@@ -24,6 +25,12 @@ public struct SelectedLevelUpCard : IComponentData, IEnableableComponent
 public struct PlayerCardRandom : IComponentData
 {
     public Random Value;
+}
+
+public struct PlayerUpgradeProgressElement : IBufferElementData
+{
+    public FixedString64Bytes UpgradeId;
+    public int CurrentLevel;
 }
 
 public struct AvailableLevelUpCardElement : IBufferElementData

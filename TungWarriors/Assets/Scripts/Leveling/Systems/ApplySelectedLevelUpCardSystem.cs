@@ -1,4 +1,4 @@
-﻿
+﻿using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
@@ -12,10 +12,11 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
         Entity playerEntity = Entity.Null;
         Entity selectedCardEntity = Entity.Null;
 
-        foreach (var (selectedCard, availableCards, offeredCards, entity) in
+        foreach (var (selectedCard, availableCards, offeredCards, upgradeProgress, entity) in
                  SystemAPI.Query<RefRO<SelectedLevelUpCard>,
                          DynamicBuffer<AvailableLevelUpCardElement>,
-                         DynamicBuffer<OfferedLevelUpCardElement>>()
+                         DynamicBuffer<OfferedLevelUpCardElement>,
+                         DynamicBuffer<PlayerUpgradeProgressElement>>()
                      .WithAll<PlayerTag>()
                      .WithEntityAccess())
         {
@@ -29,11 +30,14 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
 
             if (selected == Entity.Null || !Contains(offeredCards, selected))
                 continue;
+            if (!IsCardEligible(entityManager, selected, upgradeProgress))
+                continue;
 
             playerEntity = entity;
             selectedCardEntity = selected;
 
             RemoveFromAvailable(availableCards, selected);
+            ApplyUpgradeProgress(entityManager, upgradeProgress, selectedCardEntity);
             offeredCards.Clear();
         }
 
@@ -66,31 +70,108 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
         }
     }
 
-    private static void ApplyCardEffects(EntityManager em, Entity player, Entity card)
+    private static bool IsCardEligible(EntityManager entityManager, Entity cardEntity, DynamicBuffer<PlayerUpgradeProgressElement> progress)
     {
-        if (!em.HasBuffer<PlayerStatModifier>(player))
+        if (entityManager.HasComponent<LevelUpCardRequirement>(cardEntity))
+        {
+            var requirement = entityManager.GetComponentData<LevelUpCardRequirement>(cardEntity);
+            if (requirement.RequiredLevel > 0)
+            {
+                var requirementCurrent = GetPlayerUpgradeLevel(progress, requirement.UpgradeId);
+                if (requirementCurrent < requirement.RequiredLevel)
+                    return false;
+            }
+        }
+
+        if (!entityManager.HasComponent<LevelUpCardUpgradeTrack>(cardEntity))
+            return true;
+
+        var track = entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEntity);
+        var currentUpgradeLevel = GetPlayerUpgradeLevel(progress, track.UpgradeId);
+        if (currentUpgradeLevel >= track.MaxLevel)
+            return false;
+
+        return currentUpgradeLevel + 1 == track.UpgradeLevel;
+    }
+
+    private static void ApplyUpgradeProgress(EntityManager entityManager, DynamicBuffer<PlayerUpgradeProgressElement> progress, Entity cardEntity)
+    {
+        if (!entityManager.HasComponent<LevelUpCardUpgradeTrack>(cardEntity))
             return;
 
-        var statModifiers = em.GetBuffer<PlayerStatModifier>(player);
+        var track = entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEntity);
+        if (track.UpgradeId.Length == 0)
+            return;
 
-        if (em.HasComponent<CardDamageBonusEffect>(card))
+        for (int i = 0; i < progress.Length; i++)
         {
-            AddModifier(statModifiers, PlayerStatType.Damage, em.GetComponentData<CardDamageBonusEffect>(card).Value, 0f);
+            if (!progress[i].UpgradeId.Equals(track.UpgradeId))
+                continue;
+
+            progress[i] = new PlayerUpgradeProgressElement
+            {
+                UpgradeId = track.UpgradeId,
+                CurrentLevel = track.UpgradeLevel
+            };
+            return;
         }
 
-        if (em.HasComponent<CardDefenseBonusEffect>(card))
+        progress.Add(new PlayerUpgradeProgressElement
         {
-            AddModifier(statModifiers, PlayerStatType.Defense, em.GetComponentData<CardDefenseBonusEffect>(card).Value, 0f);
+            UpgradeId = track.UpgradeId,
+            CurrentLevel = track.UpgradeLevel
+        });
+    }
+
+    private static int GetPlayerUpgradeLevel(DynamicBuffer<PlayerUpgradeProgressElement> progress, FixedString64Bytes upgradeId)
+    {
+        if (upgradeId.Length == 0)
+            return 0;
+
+        for (int i = 0; i < progress.Length; i++)
+        {
+            if (progress[i].UpgradeId.Equals(upgradeId))
+                return progress[i].CurrentLevel;
         }
 
-        if (em.HasComponent<CardHealthRegenEffect>(card))
-        {
-            AddModifier(statModifiers, PlayerStatType.HealthRegen, em.GetComponentData<CardHealthRegenEffect>(card).ValuePerSecond, 0f);
-        }
+        return 0;
+    }
 
-        if (em.HasComponent<CardMoveSpeedBonusEffect>(card))
+    private static void ApplyCardEffects(EntityManager em, Entity player, Entity card)
+    {
+        if (em.HasBuffer<PlayerStatOperationElement>(player))
         {
-            AddModifier(statModifiers, PlayerStatType.MoveSpeedBonus, em.GetComponentData<CardMoveSpeedBonusEffect>(card).Value, 0f);
+            var statOperations = em.GetBuffer<PlayerStatOperationElement>(player);
+
+            if (em.HasBuffer<CardStatModifierEffectElement>(card))
+            {
+                var cardModifiers = em.GetBuffer<CardStatModifierEffectElement>(card);
+                for (int i = 0; i < cardModifiers.Length; i++)
+                {
+                    var modifier = cardModifiers[i];
+                    EnqueueModifier(statOperations, modifier.Type, modifier.AddValue, modifier.MulValue);
+                }
+            }
+
+            if (em.HasComponent<CardDamageBonusEffect>(card))
+            {
+                EnqueueModifier(statOperations, PlayerStatType.Damage, em.GetComponentData<CardDamageBonusEffect>(card).Value, 0f);
+            }
+
+            if (em.HasComponent<CardDefenseBonusEffect>(card))
+            {
+                EnqueueModifier(statOperations, PlayerStatType.Defense, em.GetComponentData<CardDefenseBonusEffect>(card).Value, 0f);
+            }
+
+            if (em.HasComponent<CardHealthRegenEffect>(card))
+            {
+                EnqueueModifier(statOperations, PlayerStatType.HealthRegen, em.GetComponentData<CardHealthRegenEffect>(card).ValuePerSecond, 0f);
+            }
+
+            if (em.HasComponent<CardMoveSpeedBonusEffect>(card))
+            {
+                EnqueueModifier(statOperations, PlayerStatType.MoveSpeedBonus, em.GetComponentData<CardMoveSpeedBonusEffect>(card).Value, 0f);
+            }
         }
 
         if (em.HasComponent<CardUnlockBatWeaponEffect>(card) && !em.HasComponent<BatWeaponData>(player))
@@ -98,7 +179,7 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
             var effect = em.GetComponentData<CardUnlockBatWeaponEffect>(card);
             var batData = em.GetComponentData<BatWeaponData>(effect.BatPrefab);
             var batCooldown = em.GetComponentData<BatWeaponCooldown>(effect.BatPrefab);
-            
+
             em.AddComponentData(player, batData);
             em.AddComponentData(player, batCooldown);
 
@@ -106,9 +187,9 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
         }
     }
 
-    private static void AddModifier(DynamicBuffer<PlayerStatModifier> statModifiers, PlayerStatType type, float addValue, float mulValue)
+    private static void EnqueueModifier(DynamicBuffer<PlayerStatOperationElement> statOperations, PlayerStatType type, float addValue, float mulValue)
     {
-        statModifiers.Add(new PlayerStatModifier
+        statOperations.Add(new PlayerStatOperationElement
         {
             Type = type,
             AddValue = addValue,

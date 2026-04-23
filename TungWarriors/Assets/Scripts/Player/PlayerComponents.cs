@@ -35,6 +35,7 @@ public struct PlayerResolvedStats : IComponentData
     public float HealthRegen;
     public float CritChance;
     public float CritDamage;
+    public float AttackSpeed;
     public float MaxHitPoints;
 }
 
@@ -48,10 +49,19 @@ public enum PlayerStatType : byte
     HealthRegen = 3,
     CritChance = 4,
     CritDamage = 5,
-    MaxHitPoints = 6
+    MaxHitPoints = 6,
+    AttackSpeed = 7
 }
 
 public struct PlayerStatModifier : IBufferElementData
+{
+    public PlayerStatType Type;
+    public float AddValue;
+    public float MulValue;
+}
+
+
+public struct PlayerStatOperationElement : IBufferElementData
 {
     public PlayerStatType Type;
     public float AddValue;

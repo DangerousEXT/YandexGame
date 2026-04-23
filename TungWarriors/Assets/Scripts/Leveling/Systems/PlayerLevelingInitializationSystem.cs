@@ -14,12 +14,14 @@ public partial struct PlayerLevelingInitializationSystem : ISystem
         var poolEntity = SystemAPI.GetSingletonEntity<LevelUpCardPoolTag>();
         var initialCards = SystemAPI.GetBuffer<InitialLevelUpCardElement>(poolEntity);
 
-        foreach (var (availableCards, offeredCards, initFlag) in
-                 SystemAPI.Query<DynamicBuffer<AvailableLevelUpCardElement>,
+        foreach (var (upgradeProgress, availableCards, offeredCards, initFlag) in
+                 SystemAPI.Query<DynamicBuffer<PlayerUpgradeProgressElement>,
+                         DynamicBuffer<AvailableLevelUpCardElement>,
                          DynamicBuffer<OfferedLevelUpCardElement>,
                          EnabledRefRW<InitializePlayerLevelingFlag>>()
                          .WithAll<PlayerTag>())
         {
+            upgradeProgress.Clear();
             availableCards.Clear();
             offeredCards.Clear();
             for (int i = 0; i < initialCards.Length; i++)
