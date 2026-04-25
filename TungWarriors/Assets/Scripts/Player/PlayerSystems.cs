@@ -58,6 +58,8 @@ public partial struct ResolvePlayerStatsSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
+        var DamageFromSkillTree = PlayerData.Instance.SkillsStats.GetBaseDamage();
+        var SpeedFromSkillTree = PlayerData.Instance.SkillsStats.GetBaseSpeed();
         foreach (var (baseStats, equipmentStats, statModifiers, resolvedStats, entity) in
                  SystemAPI.Query<PlayerBaseStats, EquipmentStats, DynamicBuffer<PlayerStatModifier>, RefRW<PlayerResolvedStats>>()
                      .WithAll<PlayerTag, PlayerDamageBonus, CharacterMoveSpeedBonus>()
@@ -138,11 +140,11 @@ public partial struct ResolvePlayerStatsSystem : ISystem
             playerCurrentHP.ValueRW.Value = math.min(playerCurrentHP.ValueRO.Value, playerMaxHP.ValueRO.Value);
 
             resolvedStats.ValueRW.Damage =
-                (baseStats.Damage + equipmentStats.Damage + damageAdd) *
+                (baseStats.Damage + equipmentStats.Damage + damageAdd + DamageFromSkillTree) *
                 (equipmentStats.DamageValueMultiplicator + 1f) *
                 (equipmentStats.DamagePercentageMultiplicator + 1f) *
                 (1f + math.max(0f, damageMul));
-            resolvedStats.ValueRW.MoveSpeedBonus = (equipmentStats.Speed + moveSpeedAdd) * (1f + math.max(0f, moveSpeedMul));
+            resolvedStats.ValueRW.MoveSpeedBonus = (equipmentStats.Speed + moveSpeedAdd + SpeedFromSkillTree) * (1f + math.max(0f, moveSpeedMul));
             resolvedStats.ValueRW.Defense = (int)math.max(0f, defenseAdd * (1f + math.max(0f, defenseMul)));
             resolvedStats.ValueRW.HealthRegen = math.max(0f, healthRegenAdd * (1f + math.max(0f, healthRegenMul)));
             resolvedStats.ValueRW.CritChance = math.max(0f, critChanceAdd * (1f + math.max(0f, critChanceMul)));

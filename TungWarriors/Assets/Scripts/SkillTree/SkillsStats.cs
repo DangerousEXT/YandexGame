@@ -26,6 +26,14 @@ public class SkillsStats : MonoBehaviour
         return BaseDamageUp;
     }
 
+    public void SetBaseSpeed(float value)
+    {
+        BaseSpeedUp = value;
+    }
+    public float GetBaseSpeed()
+    {
+        return BaseSpeedUp;
+    }
 
     private void Awake()
     {

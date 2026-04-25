@@ -17,6 +17,7 @@ public class SkillTreePanelManager : MonoBehaviour
     public void Start()
     {
         buyDamageUpgrade.onClick.AddListener(() => BuyUpgrade("Damage", damageUpgradeCost));
+        buySpeedUpgrade.onClick.AddListener(() => BuyUpgrade("Speed", speedUpgradeCost));
     }
 
 
@@ -32,7 +33,10 @@ public class SkillTreePanelManager : MonoBehaviour
         switch (statType)
         {
             case "Damage":
-                PlayerData.Instance.SkillsStats.SetBaseDamage(PlayerData.Instance.SkillsStats.GetBaseDamage() + 10);
+                PlayerData.Instance.SkillsStats.SetBaseDamage(PlayerData.Instance.SkillsStats.GetBaseDamage()+1);
+                break;
+            case "Speed":
+                PlayerData.Instance.SkillsStats.SetBaseSpeed(PlayerData.Instance.SkillsStats.GetBaseSpeed() + 1f); 
                 break;
             default:
                 Debug.LogError("Unknown stat type: " + statType);
