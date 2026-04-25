@@ -53,7 +53,7 @@ public class ShopPanelManager : MonoBehaviour
 
     private EquipmentFactory equipmentFactory;
 
-    private void Awake()
+    private void Start()
     {
         equipmentFactory = new(PlayerData.Instance.ShopItems);
         messagePanel.SetActive(false);
@@ -178,9 +178,11 @@ public class ShopPanelManager : MonoBehaviour
         Debug.Log($"Buy Diamonds For MoneyLarge");
     }
 
-    private void GetNewEquipment()
+    private bool GetNewEquipment()
     {
-        newEquipmentPanel.NewEquipment(equipmentFactory.CreateRandomEquipment());
+        var eq = newEquipmentPanel.NewEquipment(equipmentFactory.CreateRandomEquipment());
+        Debug.Log(eq.Name);
+        return true;
     }
 
     private void OpenMessagePanel(string message)

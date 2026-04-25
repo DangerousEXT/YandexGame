@@ -18,8 +18,9 @@ public class NewEquipmentPanelManager : MonoBehaviour
 
     private Equipment _equipment;
 
-    private void Awake()
+    private void Start()
     {
+        newEquipmentPanel.SetActive(true);
         newEquipmentPanel.SetActive(false);
     }
 
@@ -35,12 +36,13 @@ public class NewEquipmentPanelManager : MonoBehaviour
         takeButton.onClick.RemoveListener(TakeButton);
     }
 
-    public void NewEquipment(Equipment equipment)
+    public Equipment NewEquipment(Equipment equipment)
     {
         _equipment = equipment;
         newEquipmentPanel.SetActive(true);
         sellCost.text = $"Sell: {equipment.Cost}";
-        equipmentUIManager.NewEquipment(equipment);
+        var eq = equipmentUIManager.NewEquipment(equipment);
+        return eq;
     }
 
     private void SellButton()

@@ -4,7 +4,7 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class DamageUpSkill : Skill
 {
-    public override string Name => "Банка брейн-колы";
+/*stats*/    public override string Name => "Банка брейн-колы";
 
     public override string Description => "Увеличивает вашу силу брейн-жижей!";
 
@@ -24,9 +24,9 @@ public class DamageUpSkill : Skill
 
     public float DamageIncreaseStartValue = 1f;
 
-    public float DamageIncreaseCoefficient = 1.2f;
+    public float DamageIncreaseCoefficient = 1f;
     public override void ApplyEffect(Entity playerEntity)
     {
-        SkillsStats.getInstance().Damage += DamageIncreaseStartValue * Mathf.Pow(DamageIncreaseCoefficient, CurrentLevel - 1);
+        SkillsStats.getInstance().SetBaseDamage(DamageIncreaseStartValue + DamageIncreaseCoefficient * (CurrentLevel - 1));
     }
 }

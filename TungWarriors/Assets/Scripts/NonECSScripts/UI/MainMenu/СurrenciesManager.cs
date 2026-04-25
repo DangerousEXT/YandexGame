@@ -42,7 +42,7 @@ public class СurrenciesManager : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerData.Instance.OnGoldChanged -= ChangeGold;
+        PlayerData.Instance.OnGoldChanged -= ChangeGold; 
         PlayerData.Instance.OnGemsChanged -= ChangeGems;
     }
 

@@ -16,12 +16,13 @@ public class EquipmentUIManager : MonoBehaviour
 
     public Equipment Equipment => equipment;
 
-    public void NewEquipment(Equipment equipment)
+    public Equipment NewEquipment(Equipment equipment)
     {
         this.equipment = equipment;
         name.text = equipment.Name;
         description.text = string.Join("\n", equipment.Buffs.Select(buff => buff.Description));
         equipmentImage.sprite = equipment.Icon;
         equipmentImage.preserveAspect = true;
+        return equipment;
     }
 }
