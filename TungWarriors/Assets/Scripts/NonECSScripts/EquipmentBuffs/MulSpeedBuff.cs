@@ -1,7 +1,9 @@
 ﻿using System;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class MulSpeedBuff : Buff
 {
     public override EquipmentType[] Type => new EquipmentType[] { EquipmentType.Accessory, EquipmentType.Armor };

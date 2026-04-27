@@ -6,12 +6,33 @@ using System.Threading.Tasks;
 using Unity.Entities;
 using UnityEngine;
 
+[Serializable]
 public class Equipment
 {
-    public string Name { get; set; }
-    public Sprite Icon { get; set; }
-    public EquipmentType Type { get; set; }
-    public List<Buff> Buffs { get; set; } = new List<Buff>();
+    [SerializeField] private string name;
+    [SerializeField] private string iconId;
+    [SerializeField] private EquipmentType type;
+    [SerializeField] private List<Buff> buffs = new();
+    public string Name 
+    { 
+        get { return name; } 
+        set { name = value; } 
+    }
+    public Sprite Icon 
+    {
+        get { return SpritesBase.GetSprite(iconId); }
+        set { iconId = SpritesBase.GetId(value); }
+    }
+    public EquipmentType Type 
+    { 
+        get { return type; }
+        set { type = value; }
+    }
+    public List<Buff> Buffs 
+    { 
+        get { return buffs; } 
+        set { buffs = value; }
+    }
     public int Cost => Buffs.Count * 15;
     public void ApplyToPlayer(Entity playerEntity)
     {

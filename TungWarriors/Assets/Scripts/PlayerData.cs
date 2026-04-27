@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using YG;
-using static YG.YG2;
+
 
 public class PlayerData : MonoBehaviour
 {
@@ -64,7 +64,20 @@ public class PlayerData : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    
+    private void Start()
+    {
+        var playerData = YG2.saves.playerData;
+
+        var x = new AddDamageBuff();
+        var t = x.GetType().ToString();
+        var newX = Type.GetType(t);
+
+        if (playerData == null)
+        {
+            // Если сохранений нет, создаем новые
+            playerData = new PlayerData();
+        }
+    }
     public void AddEquipment(Equipment equip)
     {
         inventory.Add(equip);
