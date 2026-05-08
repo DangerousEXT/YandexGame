@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.Entities;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -18,9 +19,14 @@ public class Equipment
         get { return name; } 
         set { name = value; } 
     }
+    public string IconId
+    {
+        get { return iconId; }
+        set { iconId = value; }
+    }
     public Sprite Icon 
     {
-        get { return SpritesBase.GetSprite(iconId); }
+        get { return iconId != null ? SpritesBase.GetSprite(iconId): null; }
         set { iconId = SpritesBase.GetId(value); }
     }
     public EquipmentType Type 
@@ -40,5 +46,34 @@ public class Equipment
         {
             buff.Apply(playerEntity);
         }
+    }
+
+    public EquipmentToSaveData Serialize()
+    {
+        return new()
+        {
+            name = this.name,
+            iconId = this.iconId,
+            type = this.type,
+            buffsData = this.buffs.Select(b => b.Serialize()).ToList()
+        };
+    }
+
+    public static Equipment Deserialize(EquipmentToSaveData data)
+    {
+        if (data == null) return null;
+
+        var equipment = new Equipment
+        {
+            Name = data.name,
+            IconId = data.iconId,
+            Type = data.type,
+            Buffs = data.buffsData
+            .Select(buffJson => Buff.Deserialize(buffJson))
+            .Where(b => b != null)
+            .ToList()
+        };
+
+        return equipment;
     }
 }

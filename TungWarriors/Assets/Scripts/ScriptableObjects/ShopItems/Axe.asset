@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c74aec2be1291439a48c08debf8e48, type: 3}
   m_Name: Axe
   m_EditorClassIdentifier: 
-  img: {fileID: 21300000, guid: 64e7c06ccb17923458fb028fea05447b, type: 3}
+  img: {fileID: 21300000, guid: 793b0291400f69744b6e9c4fc4e59c1c, type: 3}
   name: Axe
   type: 1

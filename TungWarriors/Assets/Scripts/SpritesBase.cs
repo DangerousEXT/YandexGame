@@ -26,7 +26,7 @@ public static class SpritesBase
 
     public static void LoadAllIcons()
     {
-        var sprites = Resources.LoadAll<Sprite>("Icons");
+        var sprites = Resources.LoadAll<Sprite>("Sprites/EquipmentIcons");
         foreach (var sprite in sprites)
         {
             Register(sprite.name, sprite);

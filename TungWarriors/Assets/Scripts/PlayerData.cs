@@ -46,12 +46,38 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public List<Equipment> Inventory => inventory;
-    public Dictionary<EquipmentOnPlayerType, Equipment> EquipmentOnPlayer => equipmentOnPlayer;
+    public int Rubies
+    {
+        get => rubies;
+        set
+        {
+            rubies = Mathf.Max(0, value);
+        }
+    }
+
+    public List<Equipment> Inventory
+    {
+        get => inventory;
+        set
+        {
+            inventory = value;
+        }
+    } 
+
+    public Dictionary<EquipmentOnPlayerType, Equipment> EquipmentOnPlayer
+    {
+        get => equipmentOnPlayer;
+        set
+        {
+            equipmentOnPlayer = value;
+        }
+    } 
+
     public List<ItemData> ShopItems => shopItems;
 
     private void Awake()
     {
+        SpritesBase.LoadAllIcons();
         Debug.Log("Instance PlayerData");
         if (Instance != null)
         {
@@ -64,20 +90,6 @@ public class PlayerData : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        var playerData = YG2.saves.playerData;
-
-        var x = new AddDamageBuff();
-        var t = x.GetType().ToString();
-        var newX = Type.GetType(t);
-
-        if (playerData == null)
-        {
-            // Если сохранений нет, создаем новые
-            playerData = new PlayerData();
-        }
-    }
     public void AddEquipment(Equipment equip)
     {
         inventory.Add(equip);
