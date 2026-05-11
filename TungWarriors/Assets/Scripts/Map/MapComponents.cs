@@ -2,6 +2,8 @@
 
 public struct MapTileTag : IComponentData { }
 
+public struct RockTag : IComponentData { }
+
 public struct MapSettings : IComponentData
 {
     public Entity TilePrefab;
