@@ -21,6 +21,12 @@ public struct EnemySpawnPoolState : IComponentData
     public bool IsInitialized;
 }
 
+public struct MatchTimerState : IComponentData
+{
+    public float ElapsedSeconds;
+    public int AppliedDifficultyMinute;
+}
+
 public struct EnemyPoolOwner : IComponentData
 {
     public Entity Spawner;

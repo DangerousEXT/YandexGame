@@ -33,6 +33,11 @@ public class EnemySpawnerAuthoring : MonoBehaviour
             {
                 IsInitialized = false
             });
+            AddComponent(entity, new MatchTimerState
+            {
+                ElapsedSeconds = 0f,
+                AppliedDifficultyMinute = -1
+            });
             AddBuffer<EnemyPoolElement>(entity);
         }
     }
