@@ -2,6 +2,8 @@
 
 public struct EnemyTag : IComponentData { }
 
+public struct EnemyActiveFlag : IComponentData, IEnableableComponent { }
+
 public struct EnemyAttackData : IComponentData
 {
     public int HitPoints;

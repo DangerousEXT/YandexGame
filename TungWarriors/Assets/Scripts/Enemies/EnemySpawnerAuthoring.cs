@@ -29,6 +29,11 @@ public class EnemySpawnerAuthoring : MonoBehaviour
                 CurrentSpawnedEnemies = authoring.CurrentSpawnedEnemies,
                 MaxSpawnedEnemies = authoring.MaxSpawnedEnemies
             });
+            AddComponent(entity, new EnemySpawnPoolState
+            {
+                IsInitialized = false
+            });
+            AddBuffer<EnemyPoolElement>(entity);
         }
     }
 }

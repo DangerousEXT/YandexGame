@@ -33,6 +33,7 @@ public partial struct PlasmaBlastAttackSystem : ISystem
         {
             PlasmaBlastDataLookup = SystemAPI.GetComponentLookup<PlasmaBlastData>(true),
             EnemyLookup = SystemAPI.GetComponentLookup<EnemyTag>(true),
+            EnemyActiveLookup = SystemAPI.GetComponentLookup<EnemyActiveFlag>(true),
             EnemyAttackDataLookup = SystemAPI.GetComponentLookup<EnemyAttackData>(true),
             DamageBufferLookup = SystemAPI.GetBufferLookup<DamageThisFrame>(),
             DestroyEntityFlagLookup = SystemAPI.GetComponentLookup<DestroyEntityFlag>(),
@@ -49,6 +50,7 @@ public struct PlasmaBlastAttackJob : ITriggerEventsJob
 {
     [ReadOnly] public ComponentLookup<PlasmaBlastData> PlasmaBlastDataLookup;
     [ReadOnly] public ComponentLookup<EnemyTag> EnemyLookup;
+    [ReadOnly] public ComponentLookup<EnemyActiveFlag> EnemyActiveLookup;
     [ReadOnly] public ComponentLookup<EnemyAttackData> EnemyAttackDataLookup;
     [ReadOnly] public ComponentLookup<PlayerResolvedStats> PlayerStatsLookup;
     public BufferLookup<DamageThisFrame> DamageBufferLookup;
@@ -73,6 +75,9 @@ public struct PlasmaBlastAttackJob : ITriggerEventsJob
         {
             return;
         }
+
+        if (!EnemyActiveLookup.HasComponent(enemyEntity) || !EnemyActiveLookup.IsComponentEnabled(enemyEntity))
+            return;
 
         var plasmaBlastData = PlasmaBlastDataLookup[plasmaBlastEntity];
         var attackDamage = plasmaBlastData.AttackDamage;

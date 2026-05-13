@@ -25,7 +25,7 @@ public partial struct EnemyMoveToPlayerSystem : ISystem
 }
 
 [BurstCompile]
-[WithAll(typeof(EnemyTag))]
+[WithAll(typeof(EnemyTag), typeof(EnemyActiveFlag))]
 public partial struct EnemyMoveToPlayerJob : IJobEntity
 {
     public float2 playerPosition;
@@ -58,6 +58,7 @@ public partial struct EnemyAttackSystem : ISystem
         {
             PlayerLookup = SystemAPI.GetComponentLookup<PlayerTag>(true),
             AttackDataLookup = SystemAPI.GetComponentLookup<EnemyAttackData>(true),
+            EnemyActiveLookup = SystemAPI.GetComponentLookup<EnemyActiveFlag>(true),
             CooldownLookup = SystemAPI.GetComponentLookup<EnemyCooldownExpirationTimestamp>(),
             DamageBufferLookup = SystemAPI.GetBufferLookup<DamageThisFrame>(),
             ElapsedTime = elapsedTime
@@ -73,6 +74,7 @@ public struct EnemyAttackJob : ICollisionEventsJob
 {
     [ReadOnly] public ComponentLookup<PlayerTag> PlayerLookup;
     [ReadOnly] public ComponentLookup<EnemyAttackData> AttackDataLookup;
+    [ReadOnly] public ComponentLookup<EnemyActiveFlag> EnemyActiveLookup;
     public ComponentLookup<EnemyCooldownExpirationTimestamp> CooldownLookup;
     public BufferLookup<DamageThisFrame> DamageBufferLookup;
     public double ElapsedTime;
@@ -95,6 +97,9 @@ public struct EnemyAttackJob : ICollisionEventsJob
         {
             return;
         }
+
+        if (!EnemyActiveLookup.HasComponent(enemyEntity) || !EnemyActiveLookup.IsComponentEnabled(enemyEntity))
+            return;
 
         if (CooldownLookup.IsComponentEnabled(enemyEntity))
         {

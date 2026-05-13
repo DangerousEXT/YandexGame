@@ -14,6 +14,7 @@ public partial struct BatWeaponAttackSystem : ISystem
 
         _enemyQuery = state.GetEntityQuery(
             ComponentType.ReadOnly<EnemyTag>(),
+            ComponentType.ReadOnly<EnemyActiveFlag>(),
             ComponentType.ReadOnly<LocalTransform>(),
             ComponentType.ReadWrite<DamageThisFrame>());
     }

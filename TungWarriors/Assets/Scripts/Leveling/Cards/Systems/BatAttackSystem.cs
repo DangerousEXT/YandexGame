@@ -132,6 +132,7 @@ public partial struct BatDamageSystem : ISystem
         {
             BatLookup = SystemAPI.GetComponentLookup<BatOrbitData>(true),
             EnemyLookup = SystemAPI.GetComponentLookup<EnemyTag>(true),
+            EnemyActiveLookup = SystemAPI.GetComponentLookup<EnemyActiveFlag>(true),
             DamageBufferLookup = SystemAPI.GetBufferLookup<DamageThisFrame>()
         };
 
@@ -145,6 +146,7 @@ public struct BatDamageJob : ITriggerEventsJob
 {
     [ReadOnly] public ComponentLookup<BatOrbitData> BatLookup;
     [ReadOnly] public ComponentLookup<EnemyTag> EnemyLookup;
+    [ReadOnly] public ComponentLookup<EnemyActiveFlag> EnemyActiveLookup;
     public BufferLookup<DamageThisFrame> DamageBufferLookup;
 
     public void Execute(TriggerEvent triggerEvent)
@@ -166,6 +168,9 @@ public struct BatDamageJob : ITriggerEventsJob
         {
             return;
         }
+
+        if (!EnemyActiveLookup.HasComponent(enemyEntity) || !EnemyActiveLookup.IsComponentEnabled(enemyEntity))
+            return;
 
         if (!DamageBufferLookup.HasBuffer(enemyEntity))
             return;
