@@ -7,57 +7,86 @@
         false,
         false
     ],
-    "idSave": 5,
-    "gold": 600,
+    "idSave": 21,
+    "gold": 115,
     "gems": 0,
     "rubies": 0,
     "inventory": [
         {
-            "name": "Axe",
+            "name": "helmet_name",
+            "iconId": "helmet",
+            "type": 0,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9990924596786499
+                },
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.6228715777397156
+                }
+            ]
+        },
+        {
+            "name": "ringmail_name",
+            "iconId": "helmet",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.23644709587097169
+                },
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.8322705030441284
+                }
+            ]
+        },
+        {
+            "name": "ring_name",
+            "iconId": "helmet",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9855502247810364
+                }
+            ]
+        },
+        {
+            "name": "helmet_name",
+            "iconId": "helmet",
+            "type": 0,
+            "buffsData": [
+                {
+                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.7955446839332581
+                }
+            ]
+        },
+        {
+            "name": "axe_name",
             "iconId": "helmet",
             "type": 1,
             "buffsData": [
                 {
                     "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": 0.3690732717514038
-                },
-                {
-                    "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": 45.533905029296878
-                },
-                {
-                    "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": 38.66431427001953
+                    "value": 2.498673915863037
                 }
             ]
-        },
-        {
-            "name": "Helmet",
-            "iconId": "helmet",
-            "type": 0,
-            "buffsData": []
         }
     ],
     "equipmentOnPlayer": [
         {
-            "type": 0,
+            "type": 1,
             "equipmentData": {
-                "name": "Helmet",
+                "name": "ringmail_name",
                 "iconId": "helmet",
-                "type": 0,
-                "buffsData": []
-            }
-        },
-        {
-            "type": 4,
-            "equipmentData": {
-                "name": "Necklace",
-                "iconId": "helmet",
-                "type": 3,
+                "type": 2,
                 "buffsData": [
                     {
-                        "typeName": "AddPercentHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                        "value": -0.9951422810554504
+                        "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                        "value": 238.66534423828126
                     }
                 ]
             }

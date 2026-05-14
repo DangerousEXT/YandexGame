@@ -10,7 +10,7 @@ public class AddPercentSpeedBuff : Buff
 
     public override float MaxValue => 1;
 
-    public override string Description => $"Speed {(Value >= 0 ? "+" : "-")}{Math.Abs(Value * 100)}%";
+    public override string Id => "add_percent_speed_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {

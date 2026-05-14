@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   img: {fileID: 21300000, guid: 793b0291400f69744b6e9c4fc4e59c1c, type: 3}
-  name: Axe
+  name: axe_name
   type: 1

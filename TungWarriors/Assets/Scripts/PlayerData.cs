@@ -119,7 +119,7 @@ public class PlayerData : MonoBehaviour
             if (equipment == null)
                 return;
             AddEquipment(equipment);
-            equipmentOnPlayer[type] = null;
+            equipmentOnPlayer.Remove(type);
         }
     }
 }

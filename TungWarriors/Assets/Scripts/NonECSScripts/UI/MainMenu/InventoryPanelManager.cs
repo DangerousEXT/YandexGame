@@ -118,7 +118,7 @@ public class InventoryPanelManager : MonoBehaviour
     {
         selectedEquipmentPanel.SetActive(true);
         selectedEquipmentUI.NewEquipment(equipment);
-        sellText.text = $"Sell: {equipment.Cost}";
+        sellText.text = $"{LocalizationManager.Instance.Get(LocalizationCategories.buttons, "sell_bt")}: {equipment.Cost}";
     }
 
     private void OpenWarnItemPanel(EquipmentOnPlayerType type)
@@ -158,6 +158,8 @@ public class InventoryPanelManager : MonoBehaviour
     private void TakeOffWarnEquipment()
     {
         PlayerData.Instance.TakeOffEquipment(currentEquipmentOnPlayerType);
+        var ceil = equipmentOnPlayerCells.Where(cell => cell.equipmentOnPlayerType == currentEquipmentOnPlayerType).Select(ceil => ceil.cellPrefabData).FirstOrDefault();
+        ceil.Image.sprite = null;
         CloseItemPanels();
     }
 

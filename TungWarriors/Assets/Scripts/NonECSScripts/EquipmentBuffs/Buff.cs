@@ -20,11 +20,13 @@ public abstract class Buff
         get => (float)Math.Round(_value, 2);
         set => _value = value;
     }
+    public string Description => string.Format(LocalizationManager.Instance.Get(LocalizationCategories.buffs_description, Id), Value);
+
     public abstract EquipmentType[] Type { get; }
     public abstract float MinValue { get; }
     public abstract float MaxValue { get; }
-    public abstract string Description { get;}
-
+    public abstract string Id { get; }
+    
     public abstract void Apply(Entity playerEntity);
 
     public virtual BuffToSaveData Serialize()

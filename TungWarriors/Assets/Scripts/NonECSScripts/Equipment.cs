@@ -16,7 +16,7 @@ public class Equipment
     [SerializeField] private List<Buff> buffs = new();
     public string Name 
     { 
-        get { return name; } 
+        get { return LocalizationManager.Instance.Get(LocalizationCategories.equipment, name); } 
         set { name = value; } 
     }
     public string IconId

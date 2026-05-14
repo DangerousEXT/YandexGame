@@ -10,7 +10,7 @@ public class AddPercentHealthBuff : Buff
 
     public override float MaxValue => 1;
 
-    public override string Description => $"Health {(Value >= 0 ? "+" : "-")}{Math.Abs(Value * 100)}%";
+    public override string Id => "add_percent_health_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {
