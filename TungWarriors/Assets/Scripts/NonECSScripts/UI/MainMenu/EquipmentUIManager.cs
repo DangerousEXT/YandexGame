@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class EquipmentUIManager : MonoBehaviour
 {
@@ -16,6 +17,16 @@ public class EquipmentUIManager : MonoBehaviour
 
     public Equipment Equipment => equipment;
 
+    public void OnEnable()
+    {
+        YG2.onSwitchLang += ChangeLanguage;
+    }
+
+    public void OnDisable()
+    {
+        YG2.onSwitchLang -= ChangeLanguage;
+    }
+
     public void NewEquipment(Equipment equipment)
     {
         this.equipment = equipment;
@@ -24,4 +35,10 @@ public class EquipmentUIManager : MonoBehaviour
         equipmentImage.sprite = equipment.Icon;
         equipmentImage.preserveAspect = true;
     }
+
+    private void ChangeLanguage(string language)
+    {
+        NewEquipment(equipment);
+    }
+
 }

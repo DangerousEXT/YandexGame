@@ -14,7 +14,7 @@ public class AddDamageBuff : Buff
 
     public override EquipmentType[] Type => new EquipmentType[] { EquipmentType.Weapon, EquipmentType.Accessory };
 
-    public override string Description => $"Damage {(Value >= 0 ? "+" : "-")}{Math.Abs(Value)}";
+    public override string Id => "add_damage_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {

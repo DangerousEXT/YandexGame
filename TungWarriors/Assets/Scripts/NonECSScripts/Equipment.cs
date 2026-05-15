@@ -4,14 +4,41 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Unity.Entities;
+using Unity.VisualScripting;
 using UnityEngine;
 
+[Serializable]
 public class Equipment
 {
-    public string Name { get; set; }
-    public Sprite Icon { get; set; }
-    public EquipmentType Type { get; set; }
-    public List<Buff> Buffs { get; set; } = new List<Buff>();
+    [SerializeField] private string name;
+    [SerializeField] private string iconId;
+    [SerializeField] private EquipmentType type;
+    [SerializeField] private List<Buff> buffs = new();
+    public string Name 
+    { 
+        get { return LocalizationManager.Instance.Get(LocalizationCategories.equipment, name); } 
+        set { name = value; } 
+    }
+    public string IconId
+    {
+        get { return iconId; }
+        set { iconId = value; }
+    }
+    public Sprite Icon 
+    {
+        get { return iconId != null ? SpritesBase.GetSprite(iconId): null; }
+        set { iconId = SpritesBase.GetId(value); }
+    }
+    public EquipmentType Type 
+    { 
+        get { return type; }
+        set { type = value; }
+    }
+    public List<Buff> Buffs 
+    { 
+        get { return buffs; } 
+        set { buffs = value; }
+    }
     public int Cost => Buffs.Count * 15;
     public void ApplyToPlayer(Entity playerEntity)
     {
@@ -19,5 +46,34 @@ public class Equipment
         {
             buff.Apply(playerEntity);
         }
+    }
+
+    public EquipmentToSaveData Serialize()
+    {
+        return new()
+        {
+            name = this.name,
+            iconId = this.iconId,
+            type = this.type,
+            buffsData = this.buffs.Select(b => b.Serialize()).ToList()
+        };
+    }
+
+    public static Equipment Deserialize(EquipmentToSaveData data)
+    {
+        if (data == null) return null;
+
+        var equipment = new Equipment
+        {
+            Name = data.name,
+            IconId = data.iconId,
+            Type = data.type,
+            Buffs = data.buffsData
+            .Select(buffJson => Buff.Deserialize(buffJson))
+            .Where(b => b != null)
+            .ToList()
+        };
+
+        return equipment;
     }
 }

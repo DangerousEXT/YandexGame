@@ -14,7 +14,7 @@ public class AddSpeedBuff : Buff
 
     public override float MaxValue => 1;
 
-    public override string Description => $"Speed {(Value >= 0 ? "+" : "-")}{Math.Abs(Value)}";
+    public override string Id => "add_speed_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {

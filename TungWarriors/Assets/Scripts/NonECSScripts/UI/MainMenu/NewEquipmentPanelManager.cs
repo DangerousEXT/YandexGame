@@ -18,11 +18,6 @@ public class NewEquipmentPanelManager : MonoBehaviour
 
     private Equipment _equipment;
 
-    private void Awake()
-    {
-        newEquipmentPanel.SetActive(false);
-    }
-
     private void OnEnable()
     {
         sellButton.onClick.AddListener(SellButton);
@@ -39,7 +34,7 @@ public class NewEquipmentPanelManager : MonoBehaviour
     {
         _equipment = equipment;
         newEquipmentPanel.SetActive(true);
-        sellCost.text = $"Sell: {equipment.Cost}";
+        sellCost.text = $"{LocalizationManager.Instance.Get(LocalizationCategories.buttons, "sell_bt")}: {equipment.Cost}";
         equipmentUIManager.NewEquipment(equipment);
     }
 
