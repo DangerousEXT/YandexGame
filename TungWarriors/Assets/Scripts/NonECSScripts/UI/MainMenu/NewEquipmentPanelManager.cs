@@ -18,6 +18,12 @@ public class NewEquipmentPanelManager : MonoBehaviour
 
     private Equipment _equipment;
 
+    private void Start()
+    {
+        newEquipmentPanel.SetActive(true);
+        newEquipmentPanel.SetActive(false);
+    }
+
     private void OnEnable()
     {
         sellButton.onClick.AddListener(SellButton);
@@ -30,7 +36,7 @@ public class NewEquipmentPanelManager : MonoBehaviour
         takeButton.onClick.RemoveListener(TakeButton);
     }
 
-    public void NewEquipment(Equipment equipment)
+    public Equipment NewEquipment(Equipment equipment)
     {
         _equipment = equipment;
         newEquipmentPanel.SetActive(true);

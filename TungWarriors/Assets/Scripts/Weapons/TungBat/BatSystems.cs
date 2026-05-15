@@ -14,6 +14,7 @@ public partial struct BatWeaponAttackSystem : ISystem
 
         _enemyQuery = state.GetEntityQuery(
             ComponentType.ReadOnly<EnemyTag>(),
+            ComponentType.ReadOnly<EnemyActiveFlag>(),
             ComponentType.ReadOnly<LocalTransform>(),
             ComponentType.ReadWrite<DamageThisFrame>());
     }
@@ -30,15 +31,16 @@ public partial struct BatWeaponAttackSystem : ISystem
         var enemyTransformLookup = SystemAPI.GetComponentLookup<LocalTransform>(true);
         var damageBufferLookup = SystemAPI.GetBufferLookup<DamageThisFrame>();
 
-        foreach (var (weapon, cooldown, transform, lastDirection, damageBonus) in
+        foreach (var (weapon, cooldown, transform, lastDirection, resolvedStats) in
                  SystemAPI.Query<BatWeaponData, RefRW<BatWeaponCooldown>, LocalTransform,
-                         LastNonZeroMoveDirection, PlayerDamageBonus>()
+                         LastNonZeroMoveDirection, PlayerResolvedStats>()
                      .WithAll<PlayerTag>())
         {
             if (cooldown.ValueRO.NextAttackTime > elapsedTime)
                 continue;
 
-            cooldown.ValueRW.NextAttackTime = elapsedTime + weapon.Cooldown;
+            var attackSpeedMultiplier = 1f + math.max(0f, resolvedStats.AttackSpeed);
+            cooldown.ValueRW.NextAttackTime = elapsedTime + (weapon.Cooldown / attackSpeedMultiplier);
 
             var forward = lastDirection.Value;
             if (math.lengthsq(forward) < 0.0001f)
@@ -48,7 +50,8 @@ public partial struct BatWeaponAttackSystem : ISystem
 
             var rangeSquared = weapon.Range * weapon.Range;
             var cosHalfCone = math.cos(math.radians(weapon.ConeAngleDegrees * 0.5f));
-            var totalDamage = weapon.Damage + damageBonus.Value;
+            var totalDamage = CalculateScaledDamage(0, resolvedStats.Damage, resolvedStats.CritChance, resolvedStats.CritDamage,
+                weapon.PlayerDamageCoefficient, weapon.CritChanceCoefficient, weapon.CritDamageCoefficient);
 
             foreach (var enemyEntity in enemyEntities)
             {
@@ -70,5 +73,13 @@ public partial struct BatWeaponAttackSystem : ISystem
                 });
             }
         }
+    }
+
+    private static int CalculateScaledDamage(int baseDamage, float playerDamage, float critChance, float critDamage, float damageCoef, float critChanceCoef, float critDamageCoef)
+    {
+        var damageWithStats = baseDamage + playerDamage * damageCoef;
+        var normalizedCritChance = math.max(0f, critChance * critChanceCoef) / 100f;
+        var critMultiplier = 1f + normalizedCritChance * (math.max(0f, critDamage * critDamageCoef) / 100f);
+        return math.max(1, (int)math.round(damageWithStats * critMultiplier));
     }
 }

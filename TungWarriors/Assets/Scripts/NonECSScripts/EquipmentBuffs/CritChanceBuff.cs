@@ -24,7 +24,7 @@ public class CritChanceBuff : Buff
         if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
         {
             var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
-            stats.CritChance += stats.CritChance * Value / 100;
+            stats.CritChance += Value;
             world.EntityManager.SetComponentData(playerEntity, stats);
         }
         else

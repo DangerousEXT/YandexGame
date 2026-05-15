@@ -237,7 +237,7 @@ RectTransform:
   m_Father: {fileID: 270750666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -437,6 +437,9 @@ MonoBehaviour:
   CooldownTime: 1
   DetectionSize: 10
   WorldUiPrefab: {fileID: 6848332979229617546, guid: 1b8519ce5d7dc6e48bb4d207983180ca, type: 3}
+  BaseDamage: 3
+  BaseMoveSpeed: 2
+  BaseHealth: 100
 --- !u!114 &1158497032
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -691,7 +694,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e5df01bf3f8354a8a54f941e8585ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
+  PlayerDamageCoefficient: 1
+  CritChanceCoefficient: 1
+  CritDamageCoefficient: 1
   Cooldown: 1
   Range: 1
   ConeAngleDegrees: 30

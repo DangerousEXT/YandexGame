@@ -75,7 +75,9 @@ public class PlayerData : MonoBehaviour
 
     public List<ItemData> ShopItems => shopItems;
 
-    private void Awake()
+    public SkillsStats SkillsStats => SkillsStats.getInstance();
+
+    private void Start()
     {
         SpritesBase.LoadAllIcons();
         Debug.Log("Instance PlayerData");

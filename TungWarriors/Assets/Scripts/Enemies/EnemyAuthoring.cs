@@ -11,8 +11,16 @@ public partial class EnemyAuthoring : MonoBehaviour
     {
         public override void Bake(EnemyAuthoring enemyAuthoring)
         {
+            var characterAuthoring = enemyAuthoring.GetComponent<CharacterAuthoring>();
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             AddComponent<EnemyTag>(entity);
+            AddComponent<EnemyActiveFlag>(entity);
+            SetComponentEnabled<EnemyActiveFlag>(entity, true);
+            AddComponent(entity, new EnemyBaseStats
+            {
+                MaxHitPoints = characterAuthoring.HitPoints,
+                AttackDamage = enemyAuthoring.attackDamage
+            });
             AddComponent(entity, new EnemyAttackData() { CooldownTime = enemyAuthoring.attackCooldownTime, HitPoints = enemyAuthoring.attackDamage });
             AddComponent<EnemyCooldownExpirationTimestamp>(entity);
             SetComponentEnabled<EnemyCooldownExpirationTimestamp>(entity, false);

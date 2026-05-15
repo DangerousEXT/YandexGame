@@ -15,3 +15,24 @@ public struct InitialLevelUpCardElement : IBufferElementData
 {
     public Entity Value;
 }
+
+public struct LevelUpCardUpgradeTrack : IComponentData
+{
+    public FixedString64Bytes UpgradeId;
+    public int UpgradeLevel;
+    public int MaxLevel;
+    public int OfferWeight;
+}
+
+public struct LevelUpCardRequirement : IComponentData
+{
+    public FixedString64Bytes UpgradeId;
+    public int RequiredLevel;
+}
+
+public struct CardStatModifierEffectElement : IBufferElementData
+{
+    public PlayerStatType Type;
+    public float AddValue;
+    public float MulValue;
+}

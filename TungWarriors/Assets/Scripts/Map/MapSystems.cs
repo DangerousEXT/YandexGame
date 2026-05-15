@@ -130,6 +130,7 @@ public partial struct RockInitializationSystem : ISystem
                 var ry = random.NextFloat(-halfSize, halfSize);
                 var localPos = new float3(rx, ry, -0.1f);
                 ecb.SetComponent(rock, LocalTransform.FromPosition(localPos));
+                ecb.AddComponent<RockTag>(rock);
                 ecb.AddComponent(rock, new Parent { Value = tileEntity });
             }
         }

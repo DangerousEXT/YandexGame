@@ -6,9 +6,9 @@ public class MulHealthBuff : Buff
 {
     public override EquipmentType[] Type => new EquipmentType[] { EquipmentType.Accessory, EquipmentType.Armor, EquipmentType.Helmet };
 
-    public override float MinValue => 0;
+    public override float MinValue => 1;
 
-    public override float MaxValue => 2;
+    public override float MaxValue => 1000;
 
     public override string Id => "mul_health_buff_desc";
 
@@ -19,10 +19,21 @@ public class MulHealthBuff : Buff
 
         if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
         {
+
             var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
-            stats.Health *= Value;
+            stats.HealthValueMultiplicator = (1 + Value);
             world.EntityManager.SetComponentData(playerEntity, stats);
+            Debug.Log($"Applied {Description} to player. MULTIPLICATOR");
+            //var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
+            //stats.Health += stats.Health * Value;
+            //world.EntityManager.SetComponentData(playerEntity, stats);
         }
+        //if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
+        //{
+        //    var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
+        //    stats.Health *= Value;
+        //    world.EntityManager.SetComponentData(playerEntity, stats);
+        //}
         else
         {
             Debug.LogWarning($"PlayerStats not found on entity {playerEntity}");

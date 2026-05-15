@@ -20,7 +20,7 @@ public class AddPercentSpeedBuff : Buff
         if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
         {
             var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
-            stats.Speed += stats.Speed * Value * 100;
+            stats.Speed += stats.Speed * Value;
             world.EntityManager.SetComponentData(playerEntity, stats);
         }
         else

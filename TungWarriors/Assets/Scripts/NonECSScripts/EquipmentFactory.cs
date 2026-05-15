@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using UnityEngine;
 
-public class EquipmentFactory : MonoBehaviour
+public class EquipmentFactory 
 {
     private float distributionPower = 2f;
     private int minCountAmplifications;

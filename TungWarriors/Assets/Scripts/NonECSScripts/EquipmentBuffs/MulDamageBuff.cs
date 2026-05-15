@@ -20,12 +20,13 @@ public class MulDamageBuff : Buff
     {
         var world = World.DefaultGameObjectInjectionWorld;
         if (world == null || !world.EntityManager.Exists(playerEntity)) return;
-
         if (world.EntityManager.HasComponent<EquipmentStats>(playerEntity))
         {
+
             var stats = world.EntityManager.GetComponentData<EquipmentStats>(playerEntity);
-            stats.Damage *= Value;
+            stats.DamageValueMultiplicator = (1 + Value);
             world.EntityManager.SetComponentData(playerEntity, stats);
+            Debug.Log($"Applied {Description} to player. MULTIPLICATOR DAMAGE");
         }
         else
         {

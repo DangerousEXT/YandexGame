@@ -1,6 +1,4 @@
 ﻿using Unity.Entities;
-using Unity.Mathematics;
-using Unity.Physics;
 
 public struct EquipmentStats : IComponentData
 {
@@ -9,6 +7,65 @@ public struct EquipmentStats : IComponentData
     public float Health;
     public float CritChance;
     public float CritDamage;
+
+    public float HealthValueMultiplicator;
+    public float HealthPercentageMultiplicator;
+
+    public float DamageValueMultiplicator;
+    public float DamagePercentageMultiplicator;
+}
+
+public struct PlayerBaseStats : IComponentData
+{
+    public float Damage; 
+    public float MoveSpeed;
+    public float MaxHitPoints;
+}
+
+public struct PlayerStatsResolvedAfterMainMenu : IComponentData
+{
+    public bool HasResolved;
+}
+
+public struct PlayerResolvedStats : IComponentData
+{
+    public float Damage;
+    public float MoveSpeedBonus;
+    public int Defense;
+    public float HealthRegen;
+    public float CritChance;
+    public float CritDamage;
+    public float AttackSpeed;
+    public float MaxHitPoints;
+}
+
+public struct InitializePlayerStatsFlag : IComponentData, IEnableableComponent { }
+
+public enum PlayerStatType : byte
+{
+    Damage = 0,
+    MoveSpeedBonus = 1,
+    Defense = 2,
+    HealthRegen = 3,
+    CritChance = 4,
+    CritDamage = 5,
+    MaxHitPoints = 6,
+    AttackSpeed = 7
+}
+
+public struct PlayerStatModifier : IBufferElementData
+{
+    public PlayerStatType Type;
+    public float AddValue;
+    public float MulValue;
+}
+
+
+public struct PlayerStatOperationElement : IBufferElementData
+{
+    public PlayerStatType Type;
+    public float AddValue;
+    public float MulValue;
 }
 
 public struct RevivePlayerCount : IComponentData
@@ -18,16 +75,3 @@ public struct RevivePlayerCount : IComponentData
 }
 
 public struct PlayerTag : IComponentData { }
-
-public struct PlayerAttackData : IComponentData
-{
-    public Entity AttackPrefab;
-    public float CooldownTime;
-    public float3 DetectionSize;
-    public CollisionFilter CollisionFilter;
-}
-
-public struct PlayerCooldownExpirationTimestamp : IComponentData
-{
-    public double Value;
-}

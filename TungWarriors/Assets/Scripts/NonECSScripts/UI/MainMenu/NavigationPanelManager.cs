@@ -12,10 +12,12 @@ public class NavigationPanelManager : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject shopPanel;
+    [SerializeField] private GameObject skillTreePanel;
 
     [SerializeField] private Button toMainMenuPanel;
     [SerializeField] private Button toInventoryPanel;
     [SerializeField] private Button toShopPanel;
+    [SerializeField] private Button toSkillTreePanel;
 
     private GameObject currentPanel;
 
@@ -25,6 +27,7 @@ public class NavigationPanelManager : MonoBehaviour
         mainMenuPanel.SetActive(true);
         inventoryPanel.SetActive(false);
         shopPanel.SetActive(false);
+        skillTreePanel.SetActive(false);
     }
 
     private void OnEnable()
@@ -32,6 +35,7 @@ public class NavigationPanelManager : MonoBehaviour
         toMainMenuPanel.onClick.AddListener(ChangePanelToMainMenu);
         toInventoryPanel.onClick.AddListener(ChangePanelToInventory);
         toShopPanel.onClick.AddListener(ChangePanelToShop);
+        toSkillTreePanel.onClick.AddListener(ChangePanelToSkillTree);
     }
 
     private void OnDisable()
@@ -40,6 +44,7 @@ public class NavigationPanelManager : MonoBehaviour
         toMainMenuPanel.onClick.RemoveListener(ChangePanelToMainMenu);
         toInventoryPanel.onClick.RemoveListener(ChangePanelToInventory);
         toShopPanel.onClick.RemoveListener(ChangePanelToShop);
+        toSkillTreePanel.onClick.RemoveListener(ChangePanelToSkillTree);
     }
 
     private void ChangePanel(GameObject panel)
@@ -62,6 +67,11 @@ public class NavigationPanelManager : MonoBehaviour
     private void ChangePanelToShop()
     {
         ChangePanel(shopPanel);
+    }
+
+    private void ChangePanelToSkillTree()
+    {
+        ChangePanel(skillTreePanel);
     }
 }
 

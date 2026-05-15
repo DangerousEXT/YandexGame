@@ -10,6 +10,9 @@ public class PlayerAuthoring : MonoBehaviour
     public float CooldownTime;
     public float DetectionSize;
     public GameObject WorldUiPrefab;
+    public float BaseDamage;
+    public float BaseMoveSpeed;
+    public float BaseHealth;
     private class Baker : Baker<PlayerAuthoring>
     {
         public override void Bake(PlayerAuthoring authoring)
@@ -37,7 +40,7 @@ public class PlayerAuthoring : MonoBehaviour
             AddComponent<PlayerThinkingFlag>(entity);
             SetComponentEnabled<PlayerThinkingFlag>(entity, false);
 
-            AddComponent(entity, new PlayerAttackData()
+            AddComponent(entity, new PlasmaBlastWeaponData()
             {
                 AttackPrefab = GetEntity(authoring.AttackPrefab, TransformUsageFlags.Dynamic),
                 CooldownTime = authoring.CooldownTime,
@@ -45,14 +48,25 @@ public class PlayerAuthoring : MonoBehaviour
                 CollisionFilter = attackCollisionFilter
             });
 
-            AddComponent<PlayerCooldownExpirationTimestamp>(entity);
+            AddComponent<PlasmaBlastWeaponCooldown>(entity);
             AddComponent(entity, new GemsCollectedCount { Value = 0 });
             AddComponent<UpdateGemUIFlag>(entity);
             AddComponent(entity, new PlayerWorldUIPrefab()
             {
                 Value = authoring.WorldUiPrefab
             });
-            AddComponent<EquipmentStats>(entity);
+            AddComponent(entity, new EquipmentStats());
+            AddComponent(entity, new PlayerResolvedStats());
+            AddBuffer<PlayerStatModifier>(entity);
+            AddBuffer<PlayerStatOperationElement>(entity);
+            AddComponent<InitializePlayerStatsFlag>(entity);
+            SetComponentEnabled<InitializePlayerStatsFlag>(entity, true);
+            AddComponent(entity, new PlayerStatsResolvedAfterMainMenu { HasResolved = false });
+            AddComponent(entity, new PlayerBaseStats { 
+                Damage = authoring.BaseDamage, 
+                MoveSpeed = authoring.BaseMoveSpeed, 
+                MaxHitPoints = authoring.BaseHealth 
+            });
 
             Debug.Log("Player Creates");
         }

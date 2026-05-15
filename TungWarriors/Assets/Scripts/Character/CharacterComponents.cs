@@ -15,12 +15,12 @@ public struct CharacterMoveSpeed : IComponentData
 
 public struct CharacterMaxHitPoints : IComponentData
 {
-    public int Value;
+    public float Value;
 }
 
 public struct CharacterCurrentHitPoints : IComponentData
 {
-    public int Value;
+    public float Value;
 }
 
 public struct DamageThisFrame : IBufferElementData

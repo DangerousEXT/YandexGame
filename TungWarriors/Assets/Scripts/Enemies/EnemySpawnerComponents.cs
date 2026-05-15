@@ -15,3 +15,24 @@ public struct EnemySpawnState : IComponentData
     public int MaxSpawnedEnemies;
     public Random Random;
 }
+
+public struct EnemySpawnPoolState : IComponentData
+{
+    public bool IsInitialized;
+}
+
+public struct MatchTimerState : IComponentData
+{
+    public float ElapsedSeconds;
+    public int AppliedDifficultyMinute;
+}
+
+public struct EnemyPoolOwner : IComponentData
+{
+    public Entity Spawner;
+}
+
+public struct EnemyPoolElement : IBufferElementData
+{
+    public Entity Value;
+}

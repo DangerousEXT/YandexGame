@@ -54,6 +54,7 @@ public struct CollectGemJob : ITriggerEventsJob
 
         var gemsCollected = GemsCollectedLookup[playerEntity];
         gemsCollected.Value += 1;
+        PlayerData.Instance.Gold += 1;
         GemsCollectedLookup[playerEntity] = gemsCollected;
         if (PlayerExperienceLookup.HasComponent(playerEntity))
         {

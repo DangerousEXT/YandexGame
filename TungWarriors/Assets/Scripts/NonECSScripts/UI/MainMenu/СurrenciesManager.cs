@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TMPro;
-using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class СurrenciesManager : MonoBehaviour
@@ -42,7 +41,7 @@ public class СurrenciesManager : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerData.Instance.OnGoldChanged -= ChangeGold;
+        PlayerData.Instance.OnGoldChanged -= ChangeGold; 
         PlayerData.Instance.OnGemsChanged -= ChangeGems;
     }
 

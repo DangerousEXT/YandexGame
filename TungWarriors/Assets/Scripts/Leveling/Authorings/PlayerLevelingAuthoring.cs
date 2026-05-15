@@ -31,6 +31,7 @@ public class PlayerLevelingAuthoring : MonoBehaviour
             {
                 Value = Random.CreateFromIndex(seed)
             });
+            AddBuffer<PlayerUpgradeProgressElement>(entity);
             AddBuffer<AvailableLevelUpCardElement>(entity);
             AddBuffer<OfferedLevelUpCardElement>(entity);
             AddComponent(entity, new CharacterMoveSpeedBonus { Value = 0f });
