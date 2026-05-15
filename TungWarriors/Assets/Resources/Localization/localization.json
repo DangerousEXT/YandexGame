@@ -1,0 +1,246 @@
+{
+  "buttons": [
+    {
+      "id": "start_bt",
+      "ru": "Старт",
+      "en": "Start",
+      "tr": "Başlat"
+    },
+    {
+      "id": "exit_bt",
+      "ru": "Выйти",
+      "en": "Exit",
+      "tr": "Çıkış"
+    },
+    {
+      "id": "to_inventory_bt",
+      "ru": "Инвентарь",
+      "en": "Inventory",
+      "tr": "Envanter"
+    },
+    {
+      "id": "to_main_menu_bt",
+      "ru": "Главное меню",
+      "en": "Main Menu",
+      "tr": "Ana Menü"
+    },
+    {
+      "id": "to_shop_bt",
+      "ru": "Магазин",
+      "en": "Shop",
+      "tr": "Mağaza"
+    },
+    {
+      "id": "watch_adv_bt",
+      "ru": "Смотреть рекламу",
+      "en": "Watch Ad",
+      "tr": "Reklam İzle"
+    },
+    {
+      "id": "close_bt",
+      "ru": "Закрыть",
+      "en": "Close",
+      "tr": "Kapat"
+    },
+    {
+      "id": "put_on_bt",
+      "ru": "Надеть",
+      "en": "Equip",
+      "tr": "Giy"
+    },
+    {
+      "id": "take_off_bt",
+      "ru": "Снять",
+      "en": "Unequip",
+      "tr": "Çıkar"
+    },
+    {
+      "id": "take_bt",
+      "ru": "Взять",
+      "en": "Take",
+      "tr": "Al"
+    },
+    {
+      "id": "sell_bt",
+      "ru": "Продать",
+      "en": "Sell",
+      "tr": "Sat"
+    }
+  ],
+  "shop": [
+    {
+      "id": "shop_title",
+      "ru": "Магазин",
+      "en": "Shop",
+      "tr": "Mağaza"
+    },
+    {
+      "id": "chests_title",
+      "ru": "Сундуки",
+      "en": "Chests",
+      "tr": "Sandıklar"
+    },
+    {
+      "id": "ordinary_chest",
+      "ru": "Обычный сундук",
+      "en": "Ordinary Chest",
+      "tr": "Sıradan Sandık"
+    },
+    {
+      "id": "rare_chest",
+      "ru": "Редкий сундук",
+      "en": "Rare Chest",
+      "tr": "Nadir Sandık"
+    },
+    {
+      "id": "random_chest",
+      "ru": "Случайный сундук",
+      "en": "Random Chest",
+      "tr": "Rastgele Sandık"
+    },
+    {
+      "id": "gold_title",
+      "ru": "Золото",
+      "en": "Gold",
+      "tr": "Altın"
+    },
+    {
+      "id": "diamonds_title",
+      "ru": "Самоцветы",
+      "en": "Gems",
+      "tr": "Mücevher"
+    },
+    {
+      "id": "ad_error",
+      "ru": "Произошла ошибка при загрузке рекламы",
+      "en": "An error occurred while loading the ad",
+      "tr": "Reklam yüklenirken bir hata oluştu"
+    },
+    {
+      "id": "not_enough_gems",
+      "ru": "Вам не хватает {0} гемов",
+      "en": "You need {0} more gems",
+      "tr": "{0} daha mücevhere ihtiyacınız var"
+    },
+    {
+      "id": "not_enough_gold",
+      "ru": "Вам не хватает {0} золота",
+      "en": "You need {0} more gold",
+      "tr": "{0} daha altına ihtiyacınız var"
+    }
+  ],
+  "equipment": [
+    {
+      "id": "axe_name",
+      "ru": "Топор",
+      "en": "Axe",
+      "tr": "Balta"
+    },
+    {
+      "id": "helmet_name",
+      "ru": "Шлем",
+      "en": "Helmet",
+      "tr": "Miyfer"
+    },
+    {
+      "id": "necklace_name",
+      "ru": "Ожерелье",
+      "en": "Necklace",
+      "tr": "Kolye"
+    },
+    {
+      "id": "ring_name",
+      "ru": "Кольцо",
+      "en": "Ring",
+      "tr": "Yüzük"
+    },
+    {
+      "id": "ringmail_name",
+      "ru": "Кольчуга",
+      "en": "Ringmail",
+      "tr": "Zincir Zırh"
+    },
+    {
+      "id": "sword_name",
+      "ru": "Меч",
+      "en": "Sword",
+      "tr": "Kılıç"
+    }
+  ],
+  "buffs_description": [
+    {
+      "id": "add_damage_buff_desc",
+      "ru": "Увеличивает урон на {0}",
+      "en": "Increases damage by {0}",
+      "tr": "Hasarı {0} artırır"
+    },
+    {
+      "id": "add_health_buff_desc",
+      "ru": "Увеличивает здоровье на {0}",
+      "en": "Increases health by {0}",
+      "tr": "Sağlığı {0} artırır"
+    },
+    {
+      "id": "add_percent_damage_buff_desc",
+      "ru": "Увеличивает урон на {0}%",
+      "en": "Increases damage by {0}%",
+      "tr": "Hasarı {0}% artırır"
+    },
+    {
+      "id": "add_percent_health_buff_desc",
+      "ru": "Увеличивает здоровье на {0}%",
+      "en": "Increases health by {0}%",
+      "tr": "Sağlığı {0}% artırır"
+    },
+    {
+      "id": "add_percent_speed_buff_desc",
+      "ru": "Увеличивает скорость на {0}%",
+      "en": "Increases speed by {0}%",
+      "tr": "Hızı {0}% artırır"
+    },
+    {
+      "id": "add_crit_chance_buff_desc",
+      "ru": "Увеличивает шанс крита на {0}%",
+      "en": "Increases crit chance by {0}%",
+      "tr": "Kritik şansını {0}% artırır"
+    },
+    {
+      "id": "add_crit_damage_buff_desc",
+      "ru": "Увеличивает крит урон на {0}%",
+      "en": "Increases crit damage by {0}%",
+      "tr": "Kritik hasarını {0}% artırır"
+    },
+    {
+      "id": "mul_damage_buff_desc",
+      "ru": "Умножает урон на x{0}",
+      "en": "Multiplies damage by x{0}",
+      "tr": "Hasarı x{0} ile çarpar"
+    },
+    {
+      "id": "mul_health_buff_desc",
+      "ru": "Умножает здоровье на x{0}",
+      "en": "Multiplies health by x{0}",
+      "tr": "Sağlığı x{0} ile çarpar"
+    },
+    {
+      "id": "mul_speed_buff_desc",
+      "ru": "Умножает скорость на x{0}",
+      "en": "Multiplies speed by x{0}",
+      "tr": "Hızı x{0} ile çarpar"
+    },
+    {
+      "id": "add_speed_buff_desc",
+      "ru": "Увеличивает скорость на {0}",
+      "en": "Increases speed by {0}",
+      "tr": "Hızı {0} artırır"
+    }
+  ],
+  "inventory": [
+    {
+      "id": "equipment_on_player_title",
+      "ru": "Экипировано",
+      "en": "On Player",
+      "tr": "Giyilmiş"
+    }
+  ]
+}

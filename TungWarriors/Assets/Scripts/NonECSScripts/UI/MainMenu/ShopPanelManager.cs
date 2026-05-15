@@ -102,7 +102,7 @@ public class ShopPanelManager : MonoBehaviour
         }
         else
         {
-            OpenMessagePanel($"Вам не хватает {chestForGoldCost - PlayerData.Instance.Gold} золота");
+            OpenMessagePanel(string.Format(LocalizationManager.Instance.Get(LocalizationCategories.shop, "not_enough_gold"), chestForGoldCost - PlayerData.Instance.Gold));
         }
     }
 
@@ -115,7 +115,7 @@ public class ShopPanelManager : MonoBehaviour
         }
         else
         {
-            OpenMessagePanel($"Вам не хватает {chestForDiamondCost - PlayerData.Instance.Gems} гемов");
+            OpenMessagePanel(string.Format(LocalizationManager.Instance.Get(LocalizationCategories.shop, "not_enough_gems"), chestForDiamondCost - PlayerData.Instance.Gems));
         }
     }
 
@@ -124,7 +124,7 @@ public class ShopPanelManager : MonoBehaviour
         RewardedAdvController.Instance.ShowRewardedAdv(
             RewardedAdvAwards.chest,
             () => GetNewEquipment(),
-            () => OpenMessagePanel($"Произошла ошибка при загрузке рекламы"));
+            () => OpenMessagePanel(LocalizationManager.Instance.Get(LocalizationCategories.shop, "ad_error")));
         
     }
 
@@ -137,7 +137,7 @@ public class ShopPanelManager : MonoBehaviour
         }
         else
         {
-            OpenMessagePanel($"Вам не хватает {goldForDiamondCost - PlayerData.Instance.Gems} гемов");
+            OpenMessagePanel(string.Format(LocalizationManager.Instance.Get(LocalizationCategories.shop, "not_enough_gems"), goldForDiamondCost - PlayerData.Instance.Gems));
         }
     }
 
@@ -154,7 +154,7 @@ public class ShopPanelManager : MonoBehaviour
             {
                 PlayerData.Instance.Gold += goldForAdvCount;
             },
-            () => OpenMessagePanel($"Произошла ошибка при загрузке рекламы"));
+            () => OpenMessagePanel(LocalizationManager.Instance.Get(LocalizationCategories.shop, "ad_error")));
     }
     
     private void BuyDiamondsForAdv()
@@ -165,7 +165,7 @@ public class ShopPanelManager : MonoBehaviour
             {
                 PlayerData.Instance.Gems += diamondsForAdvCount;
             },
-            () => OpenMessagePanel($"Произошла ошибка при загрузке рекламы"));
+            () => OpenMessagePanel(LocalizationManager.Instance.Get(LocalizationCategories.shop, "ad_error")));
     }
 
     private void BuyDiamondsForMoneyLittle()

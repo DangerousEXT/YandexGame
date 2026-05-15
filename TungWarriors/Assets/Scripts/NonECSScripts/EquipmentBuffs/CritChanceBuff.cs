@@ -14,7 +14,7 @@ public class CritChanceBuff : Buff
 
     public override float MaxValue => 15;
 
-    public override string Description => $"CritChance {(Value >= 0 ? "+" : "-")}{Math.Abs(Value)}%";
+    public override string Id => "add_crit_chance_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {

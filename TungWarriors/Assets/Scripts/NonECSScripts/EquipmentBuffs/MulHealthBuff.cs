@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MulHealthBuff : Buff
 {
-    public override EquipmentType[] Type => new EquipmentType[] { EquipmentType.Accessory, EquipmentType.Armor };
+    public override EquipmentType[] Type => new EquipmentType[] { EquipmentType.Accessory, EquipmentType.Armor, EquipmentType.Helmet };
 
     public override float MinValue => 0;
 
     public override float MaxValue => 2;
 
-    public override string Description => $"Health *{Math.Abs(Value * 100)}";
+    public override string Id => "mul_health_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {

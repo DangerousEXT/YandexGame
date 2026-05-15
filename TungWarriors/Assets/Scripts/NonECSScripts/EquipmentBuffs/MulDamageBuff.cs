@@ -14,7 +14,7 @@ public class MulDamageBuff : Buff
 
     public override EquipmentType[] Type => new EquipmentType[] { EquipmentType.Weapon, EquipmentType.Accessory };
 
-    public override string Description => $"Damage *{Math.Abs(Value * 100)}";
+    public override string Id => "mul_damage_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {

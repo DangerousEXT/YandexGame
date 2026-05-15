@@ -1,0 +1,95 @@
+{
+    "intExample": 5,
+    "strExample": "Hello!",
+    "boolExample": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "idSave": 21,
+    "gold": 115,
+    "gems": 0,
+    "rubies": 0,
+    "inventory": [
+        {
+            "name": "helmet_name",
+            "iconId": "helmet",
+            "type": 0,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9990924596786499
+                },
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.6228715777397156
+                }
+            ]
+        },
+        {
+            "name": "ringmail_name",
+            "iconId": "helmet",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.23644709587097169
+                },
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.8322705030441284
+                }
+            ]
+        },
+        {
+            "name": "ring_name",
+            "iconId": "helmet",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9855502247810364
+                }
+            ]
+        },
+        {
+            "name": "helmet_name",
+            "iconId": "helmet",
+            "type": 0,
+            "buffsData": [
+                {
+                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.7955446839332581
+                }
+            ]
+        },
+        {
+            "name": "axe_name",
+            "iconId": "helmet",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 2.498673915863037
+                }
+            ]
+        }
+    ],
+    "equipmentOnPlayer": [
+        {
+            "type": 1,
+            "equipmentData": {
+                "name": "ringmail_name",
+                "iconId": "helmet",
+                "type": 2,
+                "buffsData": [
+                    {
+                        "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                        "value": 238.66534423828126
+                    }
+                ]
+            }
+        }
+    ]
+}

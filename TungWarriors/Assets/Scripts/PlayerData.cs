@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
+
 
 public class PlayerData : MonoBehaviour
 {
@@ -44,12 +46,38 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public List<Equipment> Inventory => inventory;
-    public Dictionary<EquipmentOnPlayerType, Equipment> EquipmentOnPlayer => equipmentOnPlayer;
+    public int Rubies
+    {
+        get => rubies;
+        set
+        {
+            rubies = Mathf.Max(0, value);
+        }
+    }
+
+    public List<Equipment> Inventory
+    {
+        get => inventory;
+        set
+        {
+            inventory = value;
+        }
+    } 
+
+    public Dictionary<EquipmentOnPlayerType, Equipment> EquipmentOnPlayer
+    {
+        get => equipmentOnPlayer;
+        set
+        {
+            equipmentOnPlayer = value;
+        }
+    } 
+
     public List<ItemData> ShopItems => shopItems;
 
     private void Awake()
     {
+        SpritesBase.LoadAllIcons();
         Debug.Log("Instance PlayerData");
         if (Instance != null)
         {
@@ -91,7 +119,7 @@ public class PlayerData : MonoBehaviour
             if (equipment == null)
                 return;
             AddEquipment(equipment);
-            equipmentOnPlayer[type] = null;
+            equipmentOnPlayer.Remove(type);
         }
     }
 }

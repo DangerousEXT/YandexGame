@@ -1,7 +1,9 @@
 ﻿using System;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class MulSpeedBuff : Buff
 {
     public override EquipmentType[] Type => new EquipmentType[] { EquipmentType.Accessory, EquipmentType.Armor };
@@ -10,7 +12,7 @@ public class MulSpeedBuff : Buff
 
     public override float MaxValue => 2;
 
-    public override string Description => $"Speed *{Math.Abs(Value * 100)}";
+    public override string Id => "mul_damage_buff_desc";
 
     public override void Apply(Entity playerEntity)
     {
