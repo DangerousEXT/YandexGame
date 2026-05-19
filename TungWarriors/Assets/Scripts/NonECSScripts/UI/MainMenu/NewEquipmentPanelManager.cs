@@ -36,7 +36,7 @@ public class NewEquipmentPanelManager : MonoBehaviour
         takeButton.onClick.RemoveListener(TakeButton);
     }
 
-    public Equipment NewEquipment(Equipment equipment)
+    public void NewEquipment(Equipment equipment)
     {
         _equipment = equipment;
         newEquipmentPanel.SetActive(true);

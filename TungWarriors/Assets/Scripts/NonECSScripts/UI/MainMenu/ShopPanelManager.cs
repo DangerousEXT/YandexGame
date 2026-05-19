@@ -178,11 +178,9 @@ public class ShopPanelManager : MonoBehaviour
         Debug.Log($"Buy Diamonds For MoneyLarge");
     }
 
-    private bool GetNewEquipment()
+    private void GetNewEquipment()
     {
-        var eq = newEquipmentPanel.NewEquipment(equipmentFactory.CreateRandomEquipment());
-        Debug.Log(eq.Name);
-        return true;
+        newEquipmentPanel.NewEquipment(equipmentFactory.CreateRandomEquipment());
     }
 
     private void OpenMessagePanel(string message)

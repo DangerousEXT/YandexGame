@@ -58,8 +58,6 @@ public partial struct ResolvePlayerStatsSystem : ISystem
 {
     public void OnUpdate(ref SystemState state)
     {
-        var DamageFromSkillTree = PlayerData.Instance.SkillsStats.GetBaseDamage();
-        var SpeedFromSkillTree = PlayerData.Instance.SkillsStats.GetBaseSpeed();
         foreach (var (baseStats, equipmentStats, statModifiers, resolvedStats, entity) in
                  SystemAPI.Query<PlayerBaseStats, EquipmentStats, DynamicBuffer<PlayerStatModifier>, RefRW<PlayerResolvedStats>>()
                      .WithAll<PlayerTag, PlayerDamageBonus, CharacterMoveSpeedBonus>()
@@ -140,11 +138,11 @@ public partial struct ResolvePlayerStatsSystem : ISystem
             playerCurrentHP.ValueRW.Value = math.min(playerCurrentHP.ValueRO.Value, playerMaxHP.ValueRO.Value);
 
             resolvedStats.ValueRW.Damage =
-                (baseStats.Damage + equipmentStats.Damage + damageAdd + DamageFromSkillTree) *
+                (baseStats.Damage + equipmentStats.Damage + damageAdd) *
                 (equipmentStats.DamageValueMultiplicator + 1f) *
                 (equipmentStats.DamagePercentageMultiplicator + 1f) *
                 (1f + math.max(0f, damageMul));
-            resolvedStats.ValueRW.MoveSpeedBonus = (equipmentStats.Speed + moveSpeedAdd + SpeedFromSkillTree) * (1f + math.max(0f, moveSpeedMul));
+            resolvedStats.ValueRW.MoveSpeedBonus = (equipmentStats.Speed + moveSpeedAdd) * (1f + math.max(0f, moveSpeedMul));
             resolvedStats.ValueRW.Defense = (int)math.max(0f, defenseAdd * (1f + math.max(0f, defenseMul)));
             resolvedStats.ValueRW.HealthRegen = math.max(0f, healthRegenAdd * (1f + math.max(0f, healthRegenMul)));
             resolvedStats.ValueRW.CritChance = math.max(0f, critChanceAdd * (1f + math.max(0f, critChanceMul)));
@@ -277,6 +275,7 @@ public partial struct ResolvePlayerStatsSystem : ISystem
         {
             var world = World.DefaultGameObjectInjectionWorld;
             if (world == null) return;
+            if (PlayerData.Instance == null) return;
 
             var playerQuery = world.EntityManager.CreateEntityQuery(typeof(PlayerTag));
             if (playerQuery.IsEmpty) return;
@@ -285,8 +284,22 @@ public partial struct ResolvePlayerStatsSystem : ISystem
             var statsResolvedComponent = SystemAPI.GetComponent<PlayerStatsResolvedAfterMainMenu>(playerEntity);
             if (statsResolvedComponent.HasResolved == false)
             {
+                var metaSnapshot = PlayerData.Instance != null
+                    ? PlayerData.Instance.GetMetaProgressionSnapshot()
+                    : MetaProgressionSnapshot.Zero;
+
+                SystemAPI.SetComponent(playerEntity, new EquipmentStats
+                {
+                    Damage = metaSnapshot.DamageBonus,
+                    Speed = metaSnapshot.MoveSpeedBonus,
+                    Health = metaSnapshot.MaxHitPointsBonus
+                });
+
                 foreach (var equipment in PlayerData.Instance.EquipmentOnPlayer.Values)
                 {
+                    if (equipment == null)
+                        continue;
+
                     foreach (var buff in equipment.Buffs)
                     {
                         Debug.Log(buff.Value.ToString() + "BLYAT ITS HERE");

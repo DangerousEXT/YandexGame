@@ -65,6 +65,12 @@
       "ru": "Продать",
       "en": "Sell",
       "tr": "Sat"
+    },
+    {
+      "id": "to_meta_progression_bt",
+      "ru": "Улучшения",
+      "en": "Upgrades",
+      "tr": "Gelişim"
     }
   ],
   "shop": [
@@ -241,6 +247,74 @@
       "ru": "Экипировано",
       "en": "On Player",
       "tr": "Giyilmiş"
+    }
+  ],
+  "meta_progression": [
+    {
+      "id": "panel_title",
+      "ru": "Мета-прокачка",
+      "en": "Meta Progression",
+      "tr": "Meta Gelişim"
+    },
+    {
+      "id": "panel_hint",
+      "ru": "Бонусы прокачки добавляются к базовым характеристикам до множителей снаряжения.",
+      "en": "Meta bonuses are added to base stats before equipment multipliers.",
+      "tr": "Meta bonuslar ekipman çarpanlarından önce temel istatistiklere eklenir."
+    },
+    {
+      "id": "gold_format",
+      "ru": "Монеты: {0}",
+      "en": "Gold: {0}",
+      "tr": "Altın: {0}"
+    },
+    {
+      "id": "buy_format",
+      "ru": "Купить {0}",
+      "en": "Buy {0}",
+      "tr": "Satın al {0}"
+    },
+    {
+      "id": "max_label",
+      "ru": "Макс.",
+      "en": "Max",
+      "tr": "Maks."
+    },
+    {
+      "id": "level_format",
+      "ru": "Ур. {0}/{1}",
+      "en": "Lvl {0}/{1}",
+      "tr": "Sv {0}/{1}"
+    },
+    {
+      "id": "level_single_format",
+      "ru": "Ур. {0}",
+      "en": "Lvl {0}",
+      "tr": "Sv {0}"
+    },
+    {
+      "id": "bonus_format",
+      "ru": "+{0}",
+      "en": "+{0}",
+      "tr": "+{0}"
+    },
+    {
+      "id": "meta_health",
+      "ru": "Здоровье",
+      "en": "Health",
+      "tr": "Sağlık"
+    },
+    {
+      "id": "meta_damage",
+      "ru": "Урон",
+      "en": "Damage",
+      "tr": "Hasar"
+    },
+    {
+      "id": "meta_move_speed",
+      "ru": "Скорость",
+      "en": "Move Speed",
+      "tr": "Hız"
     }
   ]
 }

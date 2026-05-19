@@ -11,5 +11,6 @@ public enum LocalizationCategories
     shop,
     equipment,
     buffs_description,
-    inventory
+    inventory,
+    meta_progression
 }

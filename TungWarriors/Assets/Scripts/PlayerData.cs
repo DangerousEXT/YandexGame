@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using YG;
 
@@ -22,9 +23,13 @@ public class PlayerData : MonoBehaviour
     [Header("Equipment On Player")]
     [SerializeField] private Dictionary<EquipmentOnPlayerType, Equipment> equipmentOnPlayer = new();
 
+    [Header("Meta Progression")]
+    [SerializeField] private List<MetaUpgradeLevelSaveData> metaUpgradeLevels = new();
+
     public event Action<int> OnGoldChanged;
     public event Action<int> OnGemsChanged;
     public event Action<Equipment, bool> OnInventoryChanged;
+    public event Action OnMetaProgressionChanged;
 
     public int Gold
     {
@@ -75,21 +80,117 @@ public class PlayerData : MonoBehaviour
 
     public List<ItemData> ShopItems => shopItems;
 
-    public SkillsStats SkillsStats => SkillsStats.getInstance();
-
-    private void Start()
+    private void Awake()
     {
         SpritesBase.LoadAllIcons();
-        Debug.Log("Instance PlayerData");
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
-
         DontDestroyOnLoad(gameObject);
+    }
+
+    public IReadOnlyList<MetaUpgradeLevelSaveData> MetaUpgradeLevels => metaUpgradeLevels;
+
+    public void LoadMetaUpgradeLevels(List<MetaUpgradeLevelSaveData> levels)
+    {
+        metaUpgradeLevels = levels?
+            .Where(data => data != null && !string.IsNullOrWhiteSpace(data.upgradeId))
+            .GroupBy(data => data.upgradeId)
+            .Select(group => new MetaUpgradeLevelSaveData
+            {
+                upgradeId = group.Key,
+                level = Mathf.Max(0, group.Last().level)
+            })
+            .ToList()
+            ?? new List<MetaUpgradeLevelSaveData>();
+
+        OnMetaProgressionChanged?.Invoke();
+    }
+
+    public List<MetaUpgradeLevelSaveData> GetMetaUpgradeLevelsForSave()
+    {
+        return metaUpgradeLevels.Select(data => data.Clone()).ToList();
+    }
+
+    public int GetMetaUpgradeLevel(string upgradeId)
+    {
+        if (string.IsNullOrWhiteSpace(upgradeId))
+            return 0;
+
+        var upgradeData = metaUpgradeLevels.FirstOrDefault(data => data.upgradeId == upgradeId);
+        return upgradeData == null ? 0 : Mathf.Max(0, upgradeData.level);
+    }
+
+    public int GetMetaUpgradePrice(MetaUpgradeDefinition definition)
+    {
+        return MetaProgressionFormula.CalculatePrice(definition, GetMetaUpgradeLevel(definition.UpgradeId));
+    }
+
+    public bool IsMetaUpgradeMaxed(MetaUpgradeDefinition definition)
+    {
+        if (definition == null)
+            return true;
+
+        return definition.HasMaxLevel && GetMetaUpgradeLevel(definition.UpgradeId) >= definition.MaxLevel;
+    }
+
+    public bool TryPurchaseMetaUpgrade(MetaUpgradeDefinition definition)
+    {
+        if (definition == null || IsMetaUpgradeMaxed(definition))
+            return false;
+
+        var price = GetMetaUpgradePrice(definition);
+        if (Gold < price)
+            return false;
+
+        Gold -= price;
+
+        var upgradeData = GetOrCreateMetaUpgradeData(definition.UpgradeId);
+        upgradeData.level = Mathf.Max(0, upgradeData.level) + 1;
+
+        OnMetaProgressionChanged?.Invoke();
+        return true;
+    }
+
+    public float GetMetaUpgradeBonus(MetaUpgradeStatType statType)
+    {
+        float totalBonus = 0f;
+        foreach (var definition in MetaProgressionCatalog.GetDefinitions())
+        {
+            if (definition.StatType != statType)
+                continue;
+
+            totalBonus += definition.GetTotalBonusForLevel(GetMetaUpgradeLevel(definition.UpgradeId));
+        }
+
+        return totalBonus;
+    }
+
+    public MetaProgressionSnapshot GetMetaProgressionSnapshot()
+    {
+        return new MetaProgressionSnapshot(
+            GetMetaUpgradeBonus(MetaUpgradeStatType.MaxHitPoints),
+            GetMetaUpgradeBonus(MetaUpgradeStatType.Damage),
+            GetMetaUpgradeBonus(MetaUpgradeStatType.MoveSpeed));
+    }
+
+    private MetaUpgradeLevelSaveData GetOrCreateMetaUpgradeData(string upgradeId)
+    {
+        var upgradeData = metaUpgradeLevels.FirstOrDefault(data => data.upgradeId == upgradeId);
+        if (upgradeData != null)
+            return upgradeData;
+
+        upgradeData = new MetaUpgradeLevelSaveData
+        {
+            upgradeId = upgradeId,
+            level = 0
+        };
+        metaUpgradeLevels.Add(upgradeData);
+        return upgradeData;
     }
 
     public void AddEquipment(Equipment equip)

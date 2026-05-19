@@ -46,6 +46,7 @@ public class SaveManager : MonoBehaviour
         YG2.saves.rubies = 0;
         YG2.saves.inventory = new();
         YG2.saves.equipmentOnPlayer = new();
+        YG2.saves.metaUpgradeLevels = new();
         Debug.Log("End DefaultSave");
     }
 
@@ -57,6 +58,7 @@ public class SaveManager : MonoBehaviour
         YG2.saves.rubies = PlayerData.Instance.Rubies;
         YG2.saves.inventory = YG2.saves.SerializeInventory(PlayerData.Instance.Inventory);
         YG2.saves.equipmentOnPlayer = YG2.saves.SerializeEquipmentOnPlayer(PlayerData.Instance.EquipmentOnPlayer);
+        YG2.saves.metaUpgradeLevels = PlayerData.Instance.GetMetaUpgradeLevelsForSave();
         
         YG2.SaveProgress();
 
@@ -76,6 +78,7 @@ public class SaveManager : MonoBehaviour
         PlayerData.Instance.Rubies = YG2.saves.rubies;
         PlayerData.Instance.Inventory = YG2.saves.DeserializeInventory();
         PlayerData.Instance.EquipmentOnPlayer = YG2.saves.DeserializeEquipmentOnPlayer();
+        PlayerData.Instance.LoadMetaUpgradeLevels(YG2.saves.metaUpgradeLevels ?? new List<MetaUpgradeLevelSaveData>());
         Debug.Log("End LoadGame");
     }
 

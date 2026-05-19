@@ -15,6 +15,7 @@ namespace YG
 
         public List<EquipmentToSaveData> inventory;
         public List<EquipmentOnPlayerToSaveData> equipmentOnPlayer;
+        public List<MetaUpgradeLevelSaveData> metaUpgradeLevels;
 
         public List<EquipmentToSaveData> SerializeInventory(List<Equipment> inv)
         {

@@ -42,11 +42,18 @@ class LocalizationManager : MonoBehaviour
         AddCategory(LocalizationCategories.equipment, root.equipment);
         AddCategory(LocalizationCategories.buffs_description, root.buffs_description);
         AddCategory(LocalizationCategories.inventory, root.inventory);
+        AddCategory(LocalizationCategories.meta_progression, root.meta_progression);
     }
 
     private void AddCategory(LocalizationCategories category, List<LocalizationData> entries)
     {
         var dict = new Dictionary<string, LocalizationData>();
+        if (entries == null)
+        {
+            categories[category] = dict;
+            return;
+        }
+
         foreach (var entry in entries)
         {
             dict[entry.id] = entry;
