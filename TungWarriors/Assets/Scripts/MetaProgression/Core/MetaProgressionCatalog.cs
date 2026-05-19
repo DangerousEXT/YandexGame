@@ -26,7 +26,7 @@ public static class MetaProgressionCatalog
                 MetaUpgradeDefinition.CreateRuntime("meta_move_speed", "Move Speed", MetaUpgradeStatType.MoveSpeed, 100, 20, 0.25f, 10, 1.05f, 2)
             };
 
-            Debug.LogWarning("govno schitalos");
+            Debug.LogWarning("");
         }
 
         return cachedDefinitions;

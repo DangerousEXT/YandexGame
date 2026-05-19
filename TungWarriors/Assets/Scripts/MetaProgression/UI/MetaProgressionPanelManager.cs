@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using YG;
 
 public class MetaProgressionPanelManager : MonoBehaviour
@@ -74,6 +73,8 @@ public class MetaProgressionPanelManager : MonoBehaviour
 
     private void Refresh()
     {
+        if (!TryResolveUi())
+            return;
 
         var playerData = PlayerData.Instance;
         if (titleText != null)
@@ -89,6 +90,69 @@ public class MetaProgressionPanelManager : MonoBehaviour
             rowView.Refresh(playerData);
     }
 
+    private bool TryResolveUi()
+    {
+        ResolveSceneReferences();
+
+        if (titleText == null && goldText == null && hintText == null && rowsRoot == null && rowViews.Count == 0)
+            return false;
+
+        if (rowViews.Count == 0)
+        {
+            if (rowsRoot != null)
+            {
+                var discoveredRows = rowsRoot.GetComponentsInChildren<MetaUpgradeRowView>(true);
+                if (discoveredRows.Length > 0)
+                    rowViews.AddRange(discoveredRows);
+            }
+        }
+
+        if (rowViews.Count > 0)
+        {
+            var definitions = MetaProgressionCatalog.GetDefinitions();
+            for (int i = 0; i < rowViews.Count; i++)
+            {
+                var rowView = rowViews[i];
+                var definition = !string.IsNullOrWhiteSpace(rowView.UpgradeId)
+                    ? MetaProgressionCatalog.GetDefinition(rowView.UpgradeId)
+                    : i < definitions.Length ? definitions[i] : null;
+
+                if (definition != null)
+                    rowView.Initialize(definition, OnBuyClicked);
+            }
+        }
+
+        return true;
+    }
+
+    private void OnBuyClicked(MetaUpgradeDefinition definition)
+    {
+        if (PlayerData.Instance == null)
+            return;
+
+        if (!PlayerData.Instance.TryPurchaseMetaUpgrade(definition))
+            return;
+
+        Refresh();
+    }
+
+    private void ResolveSceneReferences()
+    {
+        var contentRoot = transform.Find(ContentRootName);
+        if (contentRoot == null)
+            return;
+
+        titleText ??= GetText(contentRoot, "Title");
+        goldText ??= GetText(contentRoot, "Gold");
+        hintText ??= GetText(contentRoot, "Hint");
+        rowsRoot ??= contentRoot.Find(RowsRootName);
+    }
+
+    private static TextMeshProUGUI GetText(Transform parent, string childName)
+    {
+        var child = parent.Find(childName);
+        return child == null ? null : child.GetComponent<TextMeshProUGUI>();
+    }
 
     private string GetLocalized(string key, string fallback)
     {
