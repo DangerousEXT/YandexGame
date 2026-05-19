@@ -316,5 +316,43 @@
       "en": "Move Speed",
       "tr": "Hız"
     }
+  ],
+  "settings": [
+    {
+      "id": "settings_title",
+      "ru": "Настройки",
+      "en": "Settings",
+      "tr": "Ayarlar"
+    },
+    {
+      "id": "settings_language",
+      "ru": "Язык",
+      "en": "Language",
+      "tr": "Dil"
+    },
+    {
+      "id": "settings_music_volume",
+      "ru": "Громкость музыки",
+      "en": "Music Volume",
+      "tr": "Müzik Sesi"
+    },
+    {
+      "id": "settings_sound_volume",
+      "ru": "Громкость звуков",
+      "en": "Sound Volume",
+      "tr": "Ses Efektleri"
+    },
+    {
+      "id": "save_settings",
+      "ru": "Сохранить",
+      "en": "Save",
+      "tr": "Kaydet"
+    },
+    {
+      "id": "back_bt",
+      "ru": "Назад",
+      "en": "Back",
+      "tr": "Geri"
+    }
   ]
 }

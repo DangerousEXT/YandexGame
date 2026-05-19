@@ -47,6 +47,7 @@ public class SaveManager : MonoBehaviour
         YG2.saves.inventory = new();
         YG2.saves.equipmentOnPlayer = new();
         YG2.saves.metaUpgradeLevels = new();
+        YG2.saves.lang = YG2.envir.language;
         Debug.Log("End DefaultSave");
     }
 
@@ -59,7 +60,8 @@ public class SaveManager : MonoBehaviour
         YG2.saves.inventory = YG2.saves.SerializeInventory(PlayerData.Instance.Inventory);
         YG2.saves.equipmentOnPlayer = YG2.saves.SerializeEquipmentOnPlayer(PlayerData.Instance.EquipmentOnPlayer);
         YG2.saves.metaUpgradeLevels = PlayerData.Instance.GetMetaUpgradeLevelsForSave();
-        
+        YG2.saves.lang = YG2.lang;
+
         YG2.SaveProgress();
 
         Debug.Log("End SaveGame");
@@ -79,6 +81,8 @@ public class SaveManager : MonoBehaviour
         PlayerData.Instance.Inventory = YG2.saves.DeserializeInventory();
         PlayerData.Instance.EquipmentOnPlayer = YG2.saves.DeserializeEquipmentOnPlayer();
         PlayerData.Instance.LoadMetaUpgradeLevels(YG2.saves.metaUpgradeLevels ?? new List<MetaUpgradeLevelSaveData>());
+        YG2.lang = YG2.saves.lang;
+
         Debug.Log("End LoadGame");
     }
 

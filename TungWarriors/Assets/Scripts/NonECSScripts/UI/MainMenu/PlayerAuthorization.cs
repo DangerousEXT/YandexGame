@@ -14,6 +14,7 @@ public class PlayerAuthorization : MonoBehaviour
     [SerializeField] private TextMeshProUGUI playerId;
     [SerializeField] private ImageLoadYG playerImage;
     [SerializeField] private Texture2D unauthorizedTexture;
+    [SerializeField] private Button authorizeButton;
 
     private void Awake()
     {
@@ -23,11 +24,13 @@ public class PlayerAuthorization : MonoBehaviour
     private void OnEnable()
     {
         YG2.onGetSDKData += UpdateData;
+        authorizeButton.onClick.AddListener(YG2.OpenAuthDialog);
     }
 
     private void OnDisable()
     {
         YG2.onGetSDKData -= UpdateData;
+        authorizeButton.onClick.RemoveListener(YG2.OpenAuthDialog);
     }
 
     private void UpdateData()

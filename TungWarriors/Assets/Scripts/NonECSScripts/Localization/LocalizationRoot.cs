@@ -13,4 +13,5 @@ public class LocalizationRoot
     public List<LocalizationData> buffs_description = new();
     public List<LocalizationData> inventory = new();
     public List<LocalizationData> meta_progression = new();
+    public List<LocalizationData> settings = new();
 }
