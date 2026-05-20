@@ -1,4 +1,4 @@
-{
+﻿{
   "buttons": [
     {
       "id": "start_bt",
@@ -137,40 +137,40 @@
   ],
   "equipment": [
     {
-      "id": "axe_name",
-      "ru": "Топор",
-      "en": "Axe",
-      "tr": "Balta"
+      "id": "Бурбалони Лулилоли",
+      "ru": "Бурбалони Лулилоли",
+      "en": "Bubbaloney Looliloli",
+      "tr": "Bırbaloni Lılıloli"
     },
     {
-      "id": "helmet_name",
-      "ru": "Шлем",
-      "en": "Helmet",
-      "tr": "Miyfer"
+      "id": "Бобрито Бандито",
+      "ru": "Бобрито Бандито",
+      "en": "Bobrito Bandito",
+      "tr": "Bobrişo Bandişo"
     },
     {
-      "id": "necklace_name",
-      "ru": "Ожерелье",
-      "en": "Necklace",
-      "tr": "Kolye"
+      "id": "Ананасита Совита",
+      "ru": "Ананасита Совита",
+      "en": "Pineapplita Owlita",
+      "tr": "Ananaşita Baykuşita"
     },
     {
-      "id": "ring_name",
-      "ru": "Кольцо",
-      "en": "Ring",
-      "tr": "Yüzük"
+      "id": "Аааааааро Хамстеро",
+      "ru": "Аааааааро Хамстеро",
+      "en": "Aaaaaaro Hamstero",
+      "tr": "Aaaaaaaro Hamstıro"
     },
     {
-      "id": "ringmail_name",
-      "ru": "Кольчуга",
-      "en": "Ringmail",
-      "tr": "Zincir Zırh"
+      "id": "Абононо Шимпазиноно",
+      "ru": "Абононо Шимпазиноно",
+      "en": "Abonono Chimpanzono",
+      "tr": "Abonono Maymunono"
     },
     {
-      "id": "sword_name",
-      "ru": "Меч",
-      "en": "Sword",
-      "tr": "Kılıç"
+      "id": "Бурбалони Лулилоли",
+      "ru": "Бурбалони Лулилоли",
+      "en": "Bubbaloney Looliloli",
+      "tr": "Bırbaloni Lılıloli"
     }
   ],
   "buffs_description": [
