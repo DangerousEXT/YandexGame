@@ -20,10 +20,12 @@ class LocalizationManager : MonoBehaviour
             return;
         }
 
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
         LoadLocalization();
+
     }
 
     private void LoadLocalization()
