@@ -185,10 +185,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TilePrefab: {fileID: 544978459878761847, guid: d442c722d487ee442b85aa06524c3a73, type: 3}
-  TileSize: 24.9
-  GridDimension: 3
+  TileSize: 9
+  GridDimension: 17
   RockPrefab: {fileID: 9046368672052872435, guid: c91587e18f3f1ba4bb657ed8e4d6e5cb, type: 3}
-  RocksPerTile: 9
+  RocksPerTile: 2
 --- !u!4 &349627560
 Transform:
   m_ObjectHideFlags: 0
@@ -348,7 +348,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7ffe1edc2417c37458232496f495f223, type: 2}
+  - {fileID: 2100000, guid: e1c90e7eee73c5742bdad970b68890c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -698,9 +698,9 @@ MonoBehaviour:
   CritChanceCoefficient: 1
   CritDamageCoefficient: 1
   Cooldown: 1
-  Range: 1
+  Range: 0.1
   ConeAngleDegrees: 30
-  attackPrefab: {fileID: 5853277582703909401, guid: 05b30acf8c7e3d84ca75447dd48f3ad9, type: 3}
+  attackPrefab: {fileID: 3201870017696326870, guid: d00a4434dd4189449883d87c8a6f4368, type: 3}
   HasSpawned: 0
 --- !u!1 &1997935982
 GameObject:

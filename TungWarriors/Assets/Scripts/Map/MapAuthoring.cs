@@ -6,7 +6,7 @@ public class MapAuthoring : MonoBehaviour
     public GameObject TilePrefab;
     [Tooltip("Лучше ставить нечетные числа")]
     public float TileSize;
-    [Range(3, 13)]
+    [Range(3, 51)]
     public int GridDimension; 
     public GameObject RockPrefab;
     public int RocksPerTile;

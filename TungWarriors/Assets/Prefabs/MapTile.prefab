@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5508607974525151321}
   m_Layer: 0
-  m_Name: MoonTile
+  m_Name: MapTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.01}
-  m_LocalScale: {x: 0.36956, y: 0.36956, z: 0.36956}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8648797997420595823}
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5677653957957506772, guid: 2b20e764b78a68d4081ade12317b8ddf, type: 3}
+  m_Sprite: {fileID: 2403794675428530655, guid: b5c3746ad61f6cd4b95c950358ad3aaf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

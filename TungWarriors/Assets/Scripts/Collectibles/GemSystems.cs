@@ -1,9 +1,11 @@
-﻿using Unity.Entities;
+﻿using System.Threading;
+using Unity.Entities;
 using Unity.Physics;
 using ReadOnly = Unity.Collections.ReadOnlyAttribute;
 
 public partial struct CollectGemSystem : ISystem
 {
+    internal static int s_PendingGold;
     public void OnCreate(ref SystemState state)
     {
         state.RequireForUpdate<GemTag>();
@@ -21,6 +23,12 @@ public partial struct CollectGemSystem : ISystem
 
         var simulationSingleton = SystemAPI.GetSingleton<SimulationSingleton>();
         state.Dependency = newCollectJob.Schedule(simulationSingleton, state.Dependency);
+        state.Dependency.Complete();
+        if (s_PendingGold != 0 && PlayerData.Instance != null)
+        {
+            PlayerData.Instance.Gold += s_PendingGold;
+            s_PendingGold = 0;
+        }
     }
 }
 
@@ -54,7 +62,7 @@ public struct CollectGemJob : ITriggerEventsJob
 
         var gemsCollected = GemsCollectedLookup[playerEntity];
         gemsCollected.Value += 1;
-        PlayerData.Instance.Gold += 1;
+        Interlocked.Increment(ref CollectGemSystem.s_PendingGold);
         GemsCollectedLookup[playerEntity] = gemsCollected;
         if (PlayerExperienceLookup.HasComponent(playerEntity))
         {
