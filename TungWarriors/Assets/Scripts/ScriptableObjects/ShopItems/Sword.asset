@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2c74aec2be1291439a48c08debf8e48, type: 3}
   m_Name: Sword
   m_EditorClassIdentifier: 
-  img: {fileID: 21300000, guid: 793b0291400f69744b6e9c4fc4e59c1c, type: 3}
-  name: sword_name
+  img: {fileID: -2718695608257623872, guid: f704d1f7f3d1a8b48963fcb40d98e968, type: 3}
+  name: "\u0411\u0443\u0440\u0431\u0430\u043B\u043E\u043D\u0438 \u041B\u0443\u043B\u0438\u043B\u043E\u043B\u0438"
   type: 1
