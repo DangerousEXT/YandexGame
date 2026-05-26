@@ -25,12 +25,20 @@ namespace Assets.Scripts.DeathConsequencesSystems
                     revivesCount.ValueRW.Value--;
                     currentHealth.ValueRW.Value = maxHealth.ValueRW.Value;
                     SystemAPI.SetComponentEnabled<DeathEntityFlag>(entity, false);
+                    foreach (var (_, enemyEntity) in SystemAPI.Query<RefRW<EnemyTag>>().WithEntityAccess())
+                    {
+                        SystemAPI.SetComponentEnabled<DeathEntityFlag>(enemyEntity, false);
+                    }
                 }
                 else if (!revivesCount.ValueRW.IsAdvUsed)
                 {
                     Debug.Log("Start revive");
                     revivesCount.ValueRW.IsAdvUsed = true;
                     GameUIController.Instance.SwitchDeathPanel();
+                    foreach (var (_, enemyEntity) in SystemAPI.Query<RefRW<EnemyTag>>().WithEntityAccess())
+                    {
+                        SystemAPI.SetComponentEnabled<DeathEntityFlag>(enemyEntity, false);
+                    }
                 }
                 else if(!SystemAPI.IsComponentEnabled<PlayerThinkingFlag>(entity))
                 {
