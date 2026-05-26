@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b8ff7a1a8f61b447aee30bd829a2c36, type: 2}
+  - {fileID: 2100000, guid: bec6a2b9655257449a8f307866b8f855, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,7 +121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e5df01bf3f8354a8a54f941e8585ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 1
+  PlayerDamageCoefficient: 1
+  CritChanceCoefficient: 1
+  CritDamageCoefficient: 1
   Cooldown: 1
   Range: 1
   ConeAngleDegrees: 30
