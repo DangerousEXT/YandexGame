@@ -41,6 +41,7 @@ public class SaveManager : MonoBehaviour
     private void DefaultSaves()
     {
         Debug.Log("Start DefaultSave");
+
         YG2.saves.gold = 1000;
         YG2.saves.gems = 0;
         YG2.saves.rubies = 0;
@@ -48,6 +49,9 @@ public class SaveManager : MonoBehaviour
         YG2.saves.equipmentOnPlayer = new();
         YG2.saves.metaUpgradeLevels = new();
         YG2.saves.lang = YG2.envir.language;
+        YG2.saves.musicVolume = 0.5f;
+        YG2.saves.soundVolume = 0.5f;
+
         Debug.Log("End DefaultSave");
     }
 
@@ -61,6 +65,7 @@ public class SaveManager : MonoBehaviour
         YG2.saves.equipmentOnPlayer = YG2.saves.SerializeEquipmentOnPlayer(PlayerData.Instance.EquipmentOnPlayer);
         YG2.saves.metaUpgradeLevels = PlayerData.Instance.GetMetaUpgradeLevelsForSave();
         YG2.saves.lang = YG2.lang;
+        AudioController.Instance.Save();
 
         YG2.SaveProgress();
 
@@ -69,7 +74,7 @@ public class SaveManager : MonoBehaviour
     private void LoadGame()
     {
         Debug.Log("Start LoadGame");
-        while (PlayerData.Instance == null)
+        while (PlayerData.Instance == null || AudioController.Instance == null)
         {
             Invoke(nameof(LoadGame), 0.1f);  // повторяем через 0.1 сек
             return;
@@ -82,6 +87,7 @@ public class SaveManager : MonoBehaviour
         PlayerData.Instance.EquipmentOnPlayer = YG2.saves.DeserializeEquipmentOnPlayer();
         PlayerData.Instance.LoadMetaUpgradeLevels(YG2.saves.metaUpgradeLevels ?? new List<MetaUpgradeLevelSaveData>());
         YG2.lang = YG2.saves.lang;
+        AudioController.Instance.LoadSaves();
 
         Debug.Log("End LoadGame");
     }
