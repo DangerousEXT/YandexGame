@@ -7,10 +7,11 @@
         false,
         false
     ],
-    "idSave": 262,
-    "gold": 1008,
+    "idSave": 493,
+    "gold": 1000,
     "gems": 123,
     "rubies": 123,
+    "bestSurvivalTimeMilliseconds": 0,
     "inventory": [],
     "equipmentOnPlayer": [],
     "metaUpgradeLevels": [],
