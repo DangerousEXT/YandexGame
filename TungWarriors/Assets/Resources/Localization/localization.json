@@ -76,7 +76,7 @@
       "id": "to_leaderboard_bt",
       "ru": "Лидерборд",
       "en": "Leaderboard",
-      "tr": "Leaderboard"
+      "tr": "Sıralama"
     }
   ],
   "leaderboard": [
@@ -329,12 +329,6 @@
       "ru": "Скорость",
       "en": "Move Speed",
       "tr": "Hız"
-    },
-    {
-      "id": "to_leaderboard_bt",
-      "ru": "Лидерборд",
-      "en": "Leaderboard",
-      "tr": "Sıralama"
     }
   ],
   "settings": [
