@@ -32,6 +32,7 @@ public class MainMenuPanelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(3f);
         AudioController.Instance.PlayGameMusic(); //с отложением в 3 секунды
     }
+
     private void OnExitButtonClicked()
     {
         #if UNITY_EDITOR

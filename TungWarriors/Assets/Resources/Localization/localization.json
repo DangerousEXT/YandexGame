@@ -71,6 +71,80 @@
       "ru": "Улучшения",
       "en": "Upgrades",
       "tr": "Gelişim"
+    },
+    {
+      "id": "to_leaderboard_bt",
+      "ru": "Лидерборд",
+      "en": "Leaderboard",
+      "tr": "Leaderboard"
+    }
+  ],
+  "leaderboard": [
+    {
+      "id": "panel_title",
+      "ru": "Лучшее время выживания",
+      "en": "Best survival time",
+      "tr": "Best survival time"
+    },
+    {
+      "id": "best_time_format",
+      "ru": "Лучшее время выживания: {0}",
+      "en": "Best survival time: {0}",
+      "tr": "Best survival time: {0}"
+    },
+    {
+      "id": "rank_header",
+      "ru": "Место",
+      "en": "Rank",
+      "tr": "Rank"
+    },
+    {
+      "id": "name_header",
+      "ru": "Имя",
+      "en": "Name",
+      "tr": "Name"
+    },
+    {
+      "id": "time_header",
+      "ru": "Время",
+      "en": "Time",
+      "tr": "Time"
+    },
+    {
+      "id": "loading",
+      "ru": "Загрузка...",
+      "en": "Loading...",
+      "tr": "Loading..."
+    },
+    {
+      "id": "empty",
+      "ru": "В лидерборде пока нет записей",
+      "en": "No leaderboard entries yet",
+      "tr": "No leaderboard entries yet"
+    },
+    {
+      "id": "authorize_required",
+      "ru": "Авторизуйтесь для отправки рекорда",
+      "en": "Authorize to submit your record",
+      "tr": "Authorize to submit your record"
+    },
+    {
+      "id": "your_place",
+      "ru": "Ваше место",
+      "en": "Your place",
+      "tr": "Your place"
+    },
+    {
+      "id": "no_personal_record",
+      "ru": "У вас пока нет рекорда в лидерборде",
+      "en": "You don't have a leaderboard record yet",
+      "tr": "You don't have a leaderboard record yet"
+    },
+    {
+      "id": "hidden_player",
+      "ru": "Скрытый игрок",
+      "en": "Hidden player",
+      "tr": "Hidden player"
     }
   ],
   "shop": [

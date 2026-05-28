@@ -41,6 +41,7 @@ class LocalizationManager : MonoBehaviour
 
         AddCategory(LocalizationCategories.shop, root.shop);
         AddCategory(LocalizationCategories.buttons, root.buttons);
+        AddCategory(LocalizationCategories.leaderboard, root.leaderboard);
         AddCategory(LocalizationCategories.equipment, root.equipment);
         AddCategory(LocalizationCategories.buffs_description, root.buffs_description);
         AddCategory(LocalizationCategories.inventory, root.inventory);

@@ -9,6 +9,7 @@ using YG;
 public class SaveManager : MonoBehaviour
 {
     private static SaveManager _instance;
+    public static SaveManager Instance => _instance;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class SaveManager : MonoBehaviour
         YG2.saves.gold = 1000;
         YG2.saves.gems = 0;
         YG2.saves.rubies = 0;
+        YG2.saves.bestSurvivalTimeMilliseconds = 0;
         YG2.saves.inventory = new();
         YG2.saves.equipmentOnPlayer = new();
         YG2.saves.metaUpgradeLevels = new();
@@ -57,10 +59,14 @@ public class SaveManager : MonoBehaviour
 
     private void SaveGame()
     {
+        if (PlayerData.Instance == null)
+            return;
+
         Debug.Log("Start SaveGame");
         YG2.saves.gold = PlayerData.Instance.Gold;
         YG2.saves.gems = PlayerData.Instance.Gems;
         YG2.saves.rubies = PlayerData.Instance.Rubies;
+        YG2.saves.bestSurvivalTimeMilliseconds = PlayerData.Instance.BestSurvivalTimeMilliseconds;
         YG2.saves.inventory = YG2.saves.SerializeInventory(PlayerData.Instance.Inventory);
         YG2.saves.equipmentOnPlayer = YG2.saves.SerializeEquipmentOnPlayer(PlayerData.Instance.EquipmentOnPlayer);
         YG2.saves.metaUpgradeLevels = PlayerData.Instance.GetMetaUpgradeLevelsForSave();
@@ -83,6 +89,7 @@ public class SaveManager : MonoBehaviour
         PlayerData.Instance.Gold = YG2.saves.gold;
         PlayerData.Instance.Gems = YG2.saves.gems;
         PlayerData.Instance.Rubies = YG2.saves.rubies;
+        PlayerData.Instance.BestSurvivalTimeMilliseconds = YG2.saves.bestSurvivalTimeMilliseconds;
         PlayerData.Instance.Inventory = YG2.saves.DeserializeInventory();
         PlayerData.Instance.EquipmentOnPlayer = YG2.saves.DeserializeEquipmentOnPlayer();
         PlayerData.Instance.LoadMetaUpgradeLevels(YG2.saves.metaUpgradeLevels ?? new List<MetaUpgradeLevelSaveData>());
@@ -90,6 +97,11 @@ public class SaveManager : MonoBehaviour
         AudioController.Instance.LoadSaves();
 
         Debug.Log("End LoadGame");
+    }
+
+    public void SaveGameNow()
+    {
+        SaveGame();
     }
 
     private bool OnQuit()

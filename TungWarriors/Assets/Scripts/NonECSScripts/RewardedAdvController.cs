@@ -1,10 +1,8 @@
-﻿using Assets.Scripts.DeathConsequencesSystems;
+using Assets.Scripts.DeathConsequencesSystems;
 using System;
 using Unity.Entities;
 using UnityEngine;
 using YG; // PluginYG2 пространство имен
-
-
 
 public class RewardedAdvController : MonoBehaviour
 {
@@ -20,7 +18,7 @@ public class RewardedAdvController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
@@ -45,58 +43,56 @@ public class RewardedAdvController : MonoBehaviour
 
         switch (rewardId)
         {
-            case(RewardedAdvAwards.extraLife):
+            case RewardedAdvAwards.extraLife:
                 YG2.RewardedAdvShow(rewardId.ToString(), () =>
                 {
-                    if (world == null || !world.IsCreated) return;
+                    if (world == null || !world.IsCreated)
+                        return;
 
                     var playerQuery = world.EntityManager.CreateEntityQuery(
                         typeof(CharacterCurrentHitPoints),
                         typeof(CharacterMaxHitPoints),
-                        typeof(PlayerTag)
-                    );
+                        typeof(PlayerTag));
 
                     if (!playerQuery.IsEmpty)
                     {
                         var playerEntity = playerQuery.GetSingletonEntity();
                         var maxHitPoints = world.EntityManager.GetComponentData<CharacterMaxHitPoints>(playerEntity);
 
-                        var newCurrentHitPoints = new CharacterCurrentHitPoints
+                        world.EntityManager.SetComponentData(playerEntity, new CharacterCurrentHitPoints
                         {
                             Value = maxHitPoints.Value
-                        };
-
-                        world.EntityManager.SetComponentData(playerEntity, newCurrentHitPoints);
+                        });
                         world.EntityManager.SetComponentEnabled<DeathEntityFlag>(playerEntity, false);
+                        EnemyPoolUtility.ReturnAllActiveEnemiesToPool(world.EntityManager);
 
-                        UnityEngine.Debug.Log("End Revive");
-                        
-                        playerQuery.Dispose();
+                        Debug.Log("End Revive");
                     }
+
+                    playerQuery.Dispose();
                     GameUIController.Instance.SwitchDeathPanel();
                     AudioController.Instance.PlayPlayerRevive();
                 });
                 break;
-            case(RewardedAdvAwards.chest):
+            case RewardedAdvAwards.chest:
                 YG2.RewardedAdvShow(rewardId.ToString(), () =>
                 {
                     onSuccess?.Invoke();
                 });
                 break;
-            case (RewardedAdvAwards.gold):
+            case RewardedAdvAwards.gold:
                 YG2.RewardedAdvShow(rewardId.ToString(), () =>
                 {
                     onSuccess?.Invoke();
                 });
                 break;
-            case (RewardedAdvAwards.gems):
+            case RewardedAdvAwards.gems:
                 YG2.RewardedAdvShow(rewardId.ToString(), () =>
                 {
                     onSuccess?.Invoke();
                 });
                 break;
         }
-        
     }
 
     private void OnRewardedAdvError()

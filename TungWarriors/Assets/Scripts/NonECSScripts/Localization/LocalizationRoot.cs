@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 public class LocalizationRoot
 {
     public List<LocalizationData> buttons = new();
+    public List<LocalizationData> leaderboard = new();
     public List<LocalizationData> shop = new();
     public List<LocalizationData> equipment = new();
     public List<LocalizationData> buffs_description = new();

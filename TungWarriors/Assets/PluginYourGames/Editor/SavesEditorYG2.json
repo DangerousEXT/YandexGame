@@ -1,0 +1,21 @@
+{
+    "intExample": 5,
+    "strExample": "Hello!",
+    "boolExample": [
+        false,
+        false,
+        false,
+        false
+    ],
+    "idSave": 517,
+    "gold": 1000,
+    "gems": 123,
+    "rubies": 123,
+    "bestSurvivalTimeMilliseconds": 0,
+    "inventory": [],
+    "equipmentOnPlayer": [],
+    "metaUpgradeLevels": [],
+    "lang": "en",
+    "musicVolume": 0.9989531636238098,
+    "soundVolume": 0.9989531636238098
+}
