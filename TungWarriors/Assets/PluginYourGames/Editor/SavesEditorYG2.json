@@ -7,46 +7,12 @@
         false,
         false
     ],
-    "idSave": 227,
-    "gold": 900,
-    "gems": 23,
+    "idSave": 493,
+    "gold": 1000,
+    "gems": 123,
     "rubies": 123,
-    "inventory": [
-        {
-            "name": "Аааааааро Хамстеро",
-            "iconId": "ring_0",
-            "type": 3,
-            "buffsData": [
-                {
-                    "typeName": "MulSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": 0.31833234429359438
-                },
-                {
-                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": 860.5396118164063
-                },
-                {
-                    "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": -901.659423828125
-                }
-            ]
-        },
-        {
-            "name": "Абононо Шимпазиноно",
-            "iconId": "ringmail_0",
-            "type": 2,
-            "buffsData": [
-                {
-                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": 0.6052505970001221
-                },
-                {
-                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                    "value": 584.3777465820313
-                }
-            ]
-        }
-    ],
+    "bestSurvivalTimeMilliseconds": 0,
+    "inventory": [],
     "equipmentOnPlayer": [],
     "metaUpgradeLevels": [],
     "lang": "en",
