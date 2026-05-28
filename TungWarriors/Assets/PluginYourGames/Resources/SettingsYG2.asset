@@ -195,7 +195,7 @@ MonoBehaviour:
         6. Player 6:
         340000'
       isDefault: 0
-      isInvertSortOrder: 1
+      isInvertSortOrder: 0
       decimalOffset: 0
       type: numeric
       players:
