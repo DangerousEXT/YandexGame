@@ -15,5 +15,7 @@
     "inventory": [],
     "equipmentOnPlayer": [],
     "metaUpgradeLevels": [],
-    "lang": "en"
+    "lang": "en",
+    "musicVolume": 0.248114675283432,
+    "soundVolume": 0.9958134293556213
 }

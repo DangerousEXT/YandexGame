@@ -18,12 +18,6 @@ public class NewEquipmentPanelManager : MonoBehaviour
 
     private Equipment _equipment;
 
-    private void Start()
-    {
-        newEquipmentPanel.SetActive(true);
-        newEquipmentPanel.SetActive(false);
-    }
-
     private void OnEnable()
     {
         sellButton.onClick.AddListener(SellButton);
