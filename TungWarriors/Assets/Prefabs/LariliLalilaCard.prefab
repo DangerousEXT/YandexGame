@@ -48,7 +48,7 @@ MonoBehaviour:
   CardId: larili_lalila
   Title: Larili Lalila
   Description: -1 income damage
-  Icon: {fileID: 6854849867053495550, guid: f1d364fa2aec8be43bc0ec6837858d44, type: 3}
+  Icon: {fileID: -1172219952361528130, guid: 3da8b3a2d9ae95249afead86e2ed9a7c, type: 3}
   UpgradeId: 
   UpgradeLevel: 1
   MaxLevel: 1

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 public enum LocalizationCategories
 {
     buttons,
-    leaderboard,
     shop,
     equipment,
     buffs_description,
     inventory,
     meta_progression,
     settings,
-    game
+    game,
+    leaderboard,
 }

@@ -7,15 +7,395 @@
         false,
         false
     ],
-    "idSave": 517,
-    "gold": 1000,
-    "gems": 123,
-    "rubies": 123,
-    "bestSurvivalTimeMilliseconds": 0,
-    "inventory": [],
+    "idSave": 63,
+    "gold": 102,
+    "gems": 0,
+    "rubies": 0,
+    "bestSurvivalTimeMilliseconds": 99036,
+    "inventory": [
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.06400513648986817
+                },
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.18497908115386964
+                },
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.22468501329421998
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "axe_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 31.184715270996095
+                },
+                {
+                    "typeName": "CritChanceBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 14.680100440979004
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "sword 1_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "AddDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 12.11659049987793
+                }
+            ]
+        },
+        {
+            "name": "Аааааааро Хамстеро",
+            "iconId": "ring_0",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.8318079113960266
+                }
+            ]
+        },
+        {
+            "name": "Аааааааро Хамстеро",
+            "iconId": "ring_0",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "MulDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.7069307565689087
+                },
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9029397964477539
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "axe_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "MulDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 1.3271723985671998
+                },
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.010266125202178955
+                },
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.6538150906562805
+                }
+            ]
+        },
+        {
+            "name": "Аааааааро Хамстеро",
+            "iconId": "ring_0",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -588.3941650390625
+                },
+                {
+                    "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -7.474303245544434
+                },
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.7848564386367798
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -302.0586242675781
+                },
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.3714790940284729
+                },
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.15226960182189942
+                }
+            ]
+        },
+        {
+            "name": "Аааааааро Хамстеро",
+            "iconId": "ring_0",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 1.4856730699539185
+                },
+                {
+                    "typeName": "MulSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 1.3218141794204713
+                }
+            ]
+        },
+        {
+            "name": "Аааааааро Хамстеро",
+            "iconId": "ring_0",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 18.595277786254884
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "sword 1_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.43188440799713137
+                },
+                {
+                    "typeName": "AddDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 4.043924331665039
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "sword 1_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "CritChanceBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 3.920152187347412
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "axe_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 10.364303588867188
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 140.00778198242188
+                },
+                {
+                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 944.274169921875
+                },
+                {
+                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 15.690540313720704
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -999.9042358398438
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "axe_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.065299391746521
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "MulHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 576.47900390625
+                },
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.7496457695960999
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.6046351194381714
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "sword 1_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "AddDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 10.243959426879883
+                }
+            ]
+        },
+        {
+            "name": "Ананасита Совита",
+            "iconId": "necklace_0",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "AddDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 21.97836685180664
+                }
+            ]
+        },
+        {
+            "name": "Аааааааро Хамстеро",
+            "iconId": "ring_0",
+            "type": 3,
+            "buffsData": [
+                {
+                    "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -979.4818725585938
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -958.4203491210938
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "sword 1_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "CritChanceBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 14.50406265258789
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.3595612645149231
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "sword 1_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9995822310447693
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.8910444974899292
+                }
+            ]
+        },
+        {
+            "name": "Бурбалони Лулилоли",
+            "iconId": "sword 1_0",
+            "type": 1,
+            "buffsData": [
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.7536929249763489
+                }
+            ]
+        },
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddSpeedBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9989683628082275
+                }
+            ]
+        },
+        {
+            "name": "helmet_name",
+            "iconId": "helmet",
+            "type": 0,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": 0.9709533452987671
+                }
+            ]
+        }
+    ],
     "equipmentOnPlayer": [],
     "metaUpgradeLevels": [],
-    "lang": "en",
-    "musicVolume": 0.9989531636238098,
-    "soundVolume": 0.9989531636238098
+    "lang": "ru",
+    "musicVolume": 0.3737000524997711,
+    "soundVolume": 0.46948719024658205
 }

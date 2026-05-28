@@ -48,7 +48,7 @@ MonoBehaviour:
   CardId: capuccino_assassino
   Title: Capuccino Assassino
   Description: +2 dmg
-  Icon: {fileID: 6854849867053495550, guid: f1d364fa2aec8be43bc0ec6837858d44, type: 3}
+  Icon: {fileID: 7928174699423067813, guid: cd836a61643e97044b04f789dd2c5379, type: 3}
   UpgradeId: 
   UpgradeLevel: 1
   MaxLevel: 1

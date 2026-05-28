@@ -26,12 +26,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/PluginYourGames/Modules/Storage/Example/Scenes/Storage.unity
     guid: abb058d977e9e3241a3ae83e420d91ac
+  - enabled: 0
+    path: Assets/Scenes/MainMenu_old.unity
+    guid: 46defceb8d1da3e489f68d96dc49277e
+  - enabled: 0
+    path: Assets/Scenes/DefaultLevel_old.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
-    guid: 46defceb8d1da3e489f68d96dc49277e
+    guid: bef519a400b279b4eadacc11ce4e1d6c
   - enabled: 1
     path: Assets/Scenes/DefaultLevel.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    guid: 2f57841d17641d844a35a7a5c261a629
   - enabled: 1
     path: Assets/Scenes/SampleScene/DefaultLevelScene.unity
     guid: f43b92a757bb9d94ebc47e4c2aae3ce5

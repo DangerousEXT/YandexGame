@@ -198,43 +198,7 @@ MonoBehaviour:
       isInvertSortOrder: 0
       decimalOffset: 0
       type: numeric
-      players:
-      - rank: 1
-        name: Max
-        score: 7123
-        photo: demo image
-        uniqueID: 789
-        extraData: 
-      - rank: 2
-        name: Maria
-        score: 15321
-        photo: demo image
-        uniqueID: 987
-        extraData: 
-      - rank: 3
-        name: anonymous
-        score: 62000
-        photo: anonymous
-        uniqueID: 891
-        extraData: 
-      - rank: 4
-        name: Player 4
-        score: 122000
-        photo: demo image
-        uniqueID: 321
-        extraData: 
-      - rank: 5
-        name: Player current
-        score: 127000
-        photo: demo image
-        uniqueID: 000
-        extraData: 
-      - rank: 6
-        name: Player 6
-        score: 340000
-        photo: demo image
-        uniqueID: 321
-        extraData: 
+      players: []
       currentPlayer:
         rank: 5
         score: 127000

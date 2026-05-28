@@ -45,10 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f15d46b6c3113a42bd9bff452d2560d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardId: cocosini_slonini
-  Title: Cocosini Slonini
+  CardId: cocosini_bobrini
+  Title: Cocosini Bobrini
   Description: +1 HP/sec
-  Icon: {fileID: 6854849867053495550, guid: f1d364fa2aec8be43bc0ec6837858d44, type: 3}
+  Icon: {fileID: -3776726162088173902, guid: 73902bf0dd20e724b858c0dfc9183260, type: 3}
   UpgradeId: 
   UpgradeLevel: 1
   MaxLevel: 1

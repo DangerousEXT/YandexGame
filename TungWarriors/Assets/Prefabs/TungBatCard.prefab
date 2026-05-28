@@ -48,7 +48,7 @@ MonoBehaviour:
   CardId: tung_tung_bat
   Title: TungTungBat
   Description: Cone base attack in motion
-  Icon: {fileID: 6854849867053495550, guid: f1d364fa2aec8be43bc0ec6837858d44, type: 3}
+  Icon: {fileID: -6966406976031087857, guid: c56bbe26565729043992dd992b8f34c0, type: 3}
   UpgradeId: 
   UpgradeLevel: 1
   MaxLevel: 1

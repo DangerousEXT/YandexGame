@@ -22,6 +22,7 @@ public class MainMenuPanelManager : MonoBehaviour
 
     private void OnPlayButtonClicked()
     {
+        AudioController.Instance.PlayGameMusic(); //с отложением в 3 секунды
         SceneManager.LoadScene("DefaultLevel");
         StartCoroutine(StartGameMusic());
         
