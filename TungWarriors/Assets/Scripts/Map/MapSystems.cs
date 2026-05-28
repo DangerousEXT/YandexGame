@@ -11,6 +11,8 @@ using Unity.Transforms;
 [UpdateInGroup(typeof(InitializationSystemGroup))]
 public partial struct MapInitializationSystem : ISystem
 {
+    
+
     [BurstCompile]
     public void OnUpdate(ref SystemState state)
     {

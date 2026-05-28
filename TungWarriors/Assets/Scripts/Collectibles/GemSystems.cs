@@ -26,6 +26,7 @@ public partial struct CollectGemSystem : ISystem
         state.Dependency.Complete();
         if (s_PendingGold != 0 && PlayerData.Instance != null)
         {
+            AudioController.Instance.PlayExperiencePickup();
             PlayerData.Instance.Gold += s_PendingGold;
             s_PendingGold = 0;
         }

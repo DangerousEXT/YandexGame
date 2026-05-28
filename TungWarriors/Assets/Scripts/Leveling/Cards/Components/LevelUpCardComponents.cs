@@ -4,6 +4,7 @@ using UnityEngine;
 
 public struct LevelUpCardMeta : IComponentData
 {
+    public FixedString64Bytes CardId;
     public FixedString64Bytes Title;
     public FixedString128Bytes Description;
     public UnityObjectRef<Sprite> Icon;

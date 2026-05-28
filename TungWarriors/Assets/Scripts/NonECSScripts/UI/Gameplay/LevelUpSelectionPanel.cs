@@ -34,8 +34,12 @@ public class LevelUpSelectionPanel : MonoBehaviour
             }
             var card = cards[i];
             var btn = cardButtons[i];
-            btn.Title.text = card.Title;
-            btn.Description.text = card.Description;
+
+
+            btn.Title.text = LocalizationManager.Instance.Get(LocalizationCategories.game, $"{card.CardId}_title");
+            btn.Description.text = LocalizationManager.Instance.Get(LocalizationCategories.game, $"{card.CardId}_description");
+
+
             if (btn.Icon != null)
             {
                 btn.Icon.sprite = card.Icon;

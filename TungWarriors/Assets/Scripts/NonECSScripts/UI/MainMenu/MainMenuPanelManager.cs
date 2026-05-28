@@ -1,6 +1,7 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class MainMenuPanelManager : MonoBehaviour
 {
@@ -22,8 +23,15 @@ public class MainMenuPanelManager : MonoBehaviour
     private void OnPlayButtonClicked()
     {
         SceneManager.LoadScene("DefaultLevel");
+        StartCoroutine(StartGameMusic());
+        
     }
 
+    private IEnumerator StartGameMusic()
+    {
+        yield return new WaitForSecondsRealtime(3f);
+        AudioController.Instance.PlayGameMusic(); //с отложением в 3 секунды
+    }
     private void OnExitButtonClicked()
     {
         #if UNITY_EDITOR

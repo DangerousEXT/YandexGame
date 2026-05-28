@@ -28,6 +28,8 @@ public class NavigationPanelManager : MonoBehaviour
         SetPanelState(inventoryPanel, false);
         SetPanelState(shopPanel, false);
         SetPanelState(skillTreePanel, false);
+
+        AudioController.Instance.PlayMenuMusic();
     }
 
     private void OnEnable()

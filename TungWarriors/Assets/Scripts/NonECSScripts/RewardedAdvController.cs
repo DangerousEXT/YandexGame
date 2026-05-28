@@ -74,6 +74,7 @@ public class RewardedAdvController : MonoBehaviour
                         playerQuery.Dispose();
                     }
                     GameUIController.Instance.SwitchDeathPanel();
+                    AudioController.Instance.PlayPlayerRevive();
                 });
                 break;
             case(RewardedAdvAwards.chest):

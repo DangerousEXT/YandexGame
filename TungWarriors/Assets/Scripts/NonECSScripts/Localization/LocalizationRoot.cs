@@ -14,4 +14,5 @@ public class LocalizationRoot
     public List<LocalizationData> inventory = new();
     public List<LocalizationData> meta_progression = new();
     public List<LocalizationData> settings = new();
+    public List<LocalizationData> game = new();
 }

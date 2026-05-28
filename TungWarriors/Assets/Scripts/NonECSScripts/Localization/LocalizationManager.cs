@@ -46,6 +46,7 @@ class LocalizationManager : MonoBehaviour
         AddCategory(LocalizationCategories.inventory, root.inventory);
         AddCategory(LocalizationCategories.meta_progression, root.meta_progression);
         AddCategory(LocalizationCategories.settings, root.settings);
+        AddCategory(LocalizationCategories.game, root.game);
     }
 
     private void AddCategory(LocalizationCategories category, List<LocalizationData> entries)

@@ -22,6 +22,7 @@ namespace Assets.Scripts.DeathConsequencesSystems
             {
                 if (revivesCount.ValueRW.Value > 0)
                 {
+                    AudioController.Instance.PlayPlayerRevive();
                     revivesCount.ValueRW.Value--;
                     currentHealth.ValueRW.Value = maxHealth.ValueRW.Value;
                     SystemAPI.SetComponentEnabled<DeathEntityFlag>(entity, false);
@@ -34,6 +35,7 @@ namespace Assets.Scripts.DeathConsequencesSystems
                 }
                 else if(!SystemAPI.IsComponentEnabled<PlayerThinkingFlag>(entity))
                 {
+                    AudioController.Instance.PlayPlayerDeath();
                     Debug.Log("Start Destroy");
                     SystemAPI.SetComponentEnabled<DestroyEntityFlag>(entity, true);
                 }

@@ -45,9 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f15d46b6c3113a42bd9bff452d2560d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardId: capuccino_assassino
   Title: Capuccino Assassino
   Description: +2 dmg
   Icon: {fileID: 6854849867053495550, guid: f1d364fa2aec8be43bc0ec6837858d44, type: 3}
+  UpgradeId: 
+  UpgradeLevel: 1
+  MaxLevel: 1
+  OfferWeight: 1
+  RequiredUpgradeId: 
+  RequiredUpgradeLevel: 0
 --- !u!114 &167024223750090264
 MonoBehaviour:
   m_ObjectHideFlags: 0

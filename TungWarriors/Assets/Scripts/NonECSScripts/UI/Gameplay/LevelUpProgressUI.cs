@@ -41,6 +41,6 @@ public class LevelProgressUI : MonoBehaviour
             progressSlider.value = exp.Current;
         }
         if (levelText != null)
-            levelText.text = $"LVL {level.Value}";
+            levelText.text = $"{LocalizationManager.Instance.Get(LocalizationCategories.game, "lvl")} {level.Value}";
     }
 }

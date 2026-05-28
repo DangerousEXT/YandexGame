@@ -79,7 +79,10 @@ public class GameUIController : MonoBehaviour
     {
         TogglePause(true);
         if (levelUpSelectionPanel != null)
+        {
+            AudioController.Instance.PlayLevelUp();
             levelUpSelectionPanel.Show(cards, OnLevelUpCardSelected);
+        }
     }
 
     public void HideLevelUpPanel()

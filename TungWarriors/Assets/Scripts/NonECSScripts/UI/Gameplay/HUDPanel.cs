@@ -20,8 +20,16 @@ public class HUDPanel : MonoBehaviour
         TryInitializeTimerQuery();
     }
 
-    private void OnEnable() => pauseButton.onClick.AddListener(OnPauseClicked);
-    private void OnDisable() => pauseButton.onClick.RemoveListener(OnPauseClicked);
+    private void OnEnable()
+    {
+        pauseButton.onClick.AddListener(OnPauseClicked);
+        pauseButton.onClick.AddListener(AudioController.Instance.PlayButtonClick);
+    }
+    private void OnDisable()
+    {
+        pauseButton.onClick.RemoveListener(OnPauseClicked);
+        pauseButton.onClick.RemoveListener(AudioController.Instance.PlayButtonClick);
+    }
 
     private void Update()
     {
