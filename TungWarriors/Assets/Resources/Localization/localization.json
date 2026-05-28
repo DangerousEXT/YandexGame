@@ -76,7 +76,7 @@
       "id": "to_leaderboard_bt",
       "ru": "Лидерборд",
       "en": "Leaderboard",
-      "tr": "Sıralama"
+      "tr": "Leaderboard"
     }
   ],
   "leaderboard": [
@@ -329,6 +329,12 @@
       "ru": "Скорость",
       "en": "Move Speed",
       "tr": "Hız"
+    },
+    {
+      "id": "to_leaderboard_bt",
+      "ru": "Лидерборд",
+      "en": "Leaderboard",
+      "tr": "Sıralama"
     }
   ],
   "settings": [
@@ -384,9 +390,9 @@
     },
     {
       "id": "cocosini_bobrini_title",
-      "ru": "Кокосини Бобрини",
-      "en": "Cocosini Bobrini",
-      "tr": "Kokosini Bobrini"
+"ru": "Кокосини Бобрини",
+"en": "Cocosini Bobrini",
+"tr": "Kokosini Bobrini"
     },
     {
       "id": "cocosini_bobrini_description",
