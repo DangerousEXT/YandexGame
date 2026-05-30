@@ -75,6 +75,7 @@ public partial struct ShowLevelUpSelectionSystem : ISystem
                 var meta = entityManager.GetComponentData<LevelUpCardMeta>(offeredCards[i].Value);
                 cardsToShow.Add(new LevelUpCardViewData(
                     offeredCards[i].Value,
+                    meta.CardId.ToString(),
                     meta.Title.ToString(),
                     meta.Description.ToString(),
                     meta.Icon.Value

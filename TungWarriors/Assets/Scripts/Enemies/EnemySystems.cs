@@ -5,6 +5,7 @@ using Unity.Burst;
 using Unity.Physics;
 using Unity.Collections;
 using Unity.Physics.Systems;
+using System;
 
 public partial struct EnemyMoveToPlayerSystem : ISystem
 {
@@ -78,6 +79,7 @@ public struct EnemyAttackJob : ICollisionEventsJob
     public ComponentLookup<EnemyCooldownExpirationTimestamp> CooldownLookup;
     public BufferLookup<DamageThisFrame> DamageBufferLookup;
     public double ElapsedTime;
+
     public void Execute(CollisionEvent collisionEvent)
     {
         Entity playerEntity;

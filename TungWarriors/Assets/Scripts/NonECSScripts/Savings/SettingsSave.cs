@@ -10,7 +10,7 @@ namespace YG
     public partial class SavesYG
     {
         public string lang;
-
-        
+        public float musicVolume;
+        public float soundVolume;
     }
 }

@@ -13,12 +13,18 @@ public class RevivePanel : MonoBehaviour
     {
         consentToAdvButton.onClick.AddListener(OnConsentClicked);
         rejectOfAdvButton.onClick.AddListener(TogglePanel);
+
+        consentToAdvButton.onClick.AddListener(AudioController.Instance.PlayButtonClick);
+        rejectOfAdvButton.onClick.AddListener(AudioController.Instance.PlayButtonClick);
     }
 
     private void OnDisable()
     {
         consentToAdvButton.onClick.RemoveListener(OnConsentClicked);
         rejectOfAdvButton.onClick.RemoveListener(TogglePanel);
+
+        consentToAdvButton.onClick.RemoveListener(AudioController.Instance.PlayButtonClick);
+        rejectOfAdvButton.onClick.RemoveListener(AudioController.Instance.PlayButtonClick);
     }
 
     public void TogglePanel()

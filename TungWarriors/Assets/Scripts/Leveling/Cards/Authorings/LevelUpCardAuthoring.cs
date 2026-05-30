@@ -4,6 +4,7 @@ using UnityEngine;
 public class LevelUpCardAuthoring : MonoBehaviour
 {
     [Header("Meta")]
+    public string CardId;
     public string Title;
     [TextArea] public string Description;
     public Sprite Icon;
@@ -25,6 +26,7 @@ public class LevelUpCardAuthoring : MonoBehaviour
             var entity = GetEntity(TransformUsageFlags.None);
             AddComponent(entity, new LevelUpCardMeta
             {
+                CardId = authoring.CardId,
                 Title = authoring.Title,
                 Description = authoring.Description,
                 Icon = authoring.Icon

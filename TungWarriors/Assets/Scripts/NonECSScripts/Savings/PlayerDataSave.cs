@@ -12,6 +12,7 @@ namespace YG
         public int gold;
         public int gems;
         public int rubies;
+        public int bestSurvivalTimeMilliseconds;
 
         public List<EquipmentToSaveData> inventory;
         public List<EquipmentOnPlayerToSaveData> equipmentOnPlayer;

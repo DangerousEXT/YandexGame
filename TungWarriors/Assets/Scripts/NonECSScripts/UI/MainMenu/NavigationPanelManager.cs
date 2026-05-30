@@ -10,11 +10,13 @@ public class NavigationPanelManager : MonoBehaviour
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject shopPanel;
     [SerializeField] private GameObject skillTreePanel;
+    [SerializeField] private GameObject leaderboardPanel;
 
     [SerializeField] private Button toMainMenuPanel;
     [SerializeField] private Button toInventoryPanel;
     [SerializeField] private Button toShopPanel;
     [SerializeField] private Button toSkillTreePanel;
+    [SerializeField] private Button toLeaderboardPanel;
 
     private GameObject currentPanel;
 
@@ -22,12 +24,21 @@ public class NavigationPanelManager : MonoBehaviour
     {
         EnsureSkillTreePanel();
         EnsureSkillTreeButton();
+        EnsureLeaderboardPanel();
+        EnsureLeaderboardButton();
+        LayoutNavigationButtons();
 
         currentPanel = mainMenuPanel;
         SetPanelState(mainMenuPanel, true);
         SetPanelState(inventoryPanel, false);
         SetPanelState(shopPanel, false);
         SetPanelState(skillTreePanel, false);
+
+
+        AudioController.Instance.PlayMenuMusic();
+
+        SetPanelState(leaderboardPanel, false);
+
     }
 
     private void OnEnable()
@@ -41,6 +52,8 @@ public class NavigationPanelManager : MonoBehaviour
             toShopPanel.onClick.AddListener(ChangePanelToShop);
         if (toSkillTreePanel != null)
             toSkillTreePanel.onClick.AddListener(ChangePanelToSkillTree);
+        if (toLeaderboardPanel != null)
+            toLeaderboardPanel.onClick.AddListener(ChangePanelToLeaderboard);
     }
 
     private void OnDisable()
@@ -54,6 +67,8 @@ public class NavigationPanelManager : MonoBehaviour
             toShopPanel.onClick.RemoveListener(ChangePanelToShop);
         if (toSkillTreePanel != null)
             toSkillTreePanel.onClick.RemoveListener(ChangePanelToSkillTree);
+        if (toLeaderboardPanel != null)
+            toLeaderboardPanel.onClick.RemoveListener(ChangePanelToLeaderboard);
     }
 
     private void ChangePanel(GameObject panel)
@@ -86,6 +101,11 @@ public class NavigationPanelManager : MonoBehaviour
         ChangePanel(skillTreePanel);
     }
 
+    private void ChangePanelToLeaderboard()
+    {
+        ChangePanel(leaderboardPanel);
+    }
+
     private void EnsureSkillTreePanel()
     {
         if (IsValidUniquePanel(skillTreePanel))
@@ -109,35 +129,46 @@ public class NavigationPanelManager : MonoBehaviour
         var panelObject = new GameObject("MetaProgressionPanel", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image), typeof(MetaProgressionPanelManager));
         panelObject.transform.SetParent(panelParent, false);
 
-        var rect = panelObject.GetComponent<RectTransform>();
-        if (inventoryPanel != null && inventoryPanel.transform is RectTransform inventoryRect)
-        {
-            rect.anchorMin = inventoryRect.anchorMin;
-            rect.anchorMax = inventoryRect.anchorMax;
-            rect.pivot = inventoryRect.pivot;
-            rect.anchoredPosition = inventoryRect.anchoredPosition;
-            rect.sizeDelta = inventoryRect.sizeDelta;
-            rect.offsetMin = inventoryRect.offsetMin;
-            rect.offsetMax = inventoryRect.offsetMax;
-            rect.SetSiblingIndex(inventoryPanel.transform.GetSiblingIndex());
-        }
-        else
-        {
-            rect.anchorMin = Vector2.zero;
-            rect.anchorMax = Vector2.one;
-            rect.offsetMin = Vector2.zero;
-            rect.offsetMax = Vector2.zero;
-        }
+        ConfigureRuntimePanelRect(panelObject);
 
         skillTreePanel = panelObject;
         skillTreePanel.SetActive(false);
+    }
+
+    private void EnsureLeaderboardPanel()
+    {
+        if (IsValidUniquePanel(leaderboardPanel))
+        {
+            EnsureLeaderboardPanelComponent(leaderboardPanel);
+            return;
+        }
+
+        var panelParent = inventoryPanel != null ? inventoryPanel.transform.parent : transform.parent;
+        if (panelParent == null)
+            return;
+
+        var existingPanel = panelParent.Find("LeaderboardPanel");
+        if (existingPanel != null)
+        {
+            leaderboardPanel = existingPanel.gameObject;
+            EnsureLeaderboardPanelComponent(leaderboardPanel);
+            return;
+        }
+
+        var panelObject = new GameObject("LeaderboardPanel", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+        panelObject.transform.SetParent(panelParent, false);
+        ConfigureRuntimePanelRect(panelObject);
+
+        leaderboardPanel = panelObject;
+        leaderboardPanel.SetActive(false);
+        EnsureLeaderboardPanelComponent(leaderboardPanel);
     }
 
     private void EnsureSkillTreeButton()
     {
         if (IsValidUniqueButton(toSkillTreePanel))
         {
-            SetButtonLabel(toSkillTreePanel);
+            SetSkillTreeButtonLabel(toSkillTreePanel);
             return;
         }
 
@@ -158,7 +189,36 @@ public class NavigationPanelManager : MonoBehaviour
             toSkillTreePanel = buttonObject.GetComponent<Button>();
         }
 
-        SetButtonLabel(toSkillTreePanel);
+        SetSkillTreeButtonLabel(toSkillTreePanel);
+    }
+
+    private void EnsureLeaderboardButton()
+    {
+        if (IsValidUniqueButton(toLeaderboardPanel))
+        {
+            SetLeaderboardButtonLabel(toLeaderboardPanel);
+            return;
+        }
+
+        var sourceButton = toInventoryPanel ?? toMainMenuPanel ?? toShopPanel;
+        if (sourceButton == null)
+            return;
+
+        var buttonParent = sourceButton.transform.parent;
+        var existingButton = buttonParent.Find("ToLeaderboardPanelButton");
+        if (existingButton != null && existingButton.TryGetComponent(out Button existingLeaderboardButton))
+        {
+            toLeaderboardPanel = existingLeaderboardButton;
+        }
+        else
+        {
+            var buttonObject = Instantiate(sourceButton.gameObject, buttonParent);
+            buttonObject.name = "ToLeaderboardPanelButton";
+            buttonObject.transform.SetAsFirstSibling();
+            toLeaderboardPanel = buttonObject.GetComponent<Button>();
+        }
+
+        SetLeaderboardButtonLabel(toLeaderboardPanel);
     }
 
     private void EnsureMetaPanelComponent(GameObject panel)
@@ -168,6 +228,13 @@ public class NavigationPanelManager : MonoBehaviour
 
         if (panel.GetComponent<MetaProgressionPanelManager>() == null)
             panel.AddComponent<MetaProgressionPanelManager>();
+    }
+
+    private void EnsureLeaderboardPanelComponent(GameObject panel)
+    {
+        if (panel == null)
+            return;
+
     }
 
     private bool IsValidUniquePanel(GameObject panel)
@@ -186,7 +253,67 @@ public class NavigationPanelManager : MonoBehaviour
             && button != toShopPanel;
     }
 
-  
+    private void ConfigureRuntimePanelRect(GameObject panelObject)
+    {
+        var rect = panelObject.GetComponent<RectTransform>();
+        var inventoryRect = inventoryPanel != null ? inventoryPanel.transform as RectTransform : null;
+        if (inventoryRect != null)
+        {
+            rect.anchorMin = inventoryRect.anchorMin;
+            rect.anchorMax = inventoryRect.anchorMax;
+            rect.pivot = inventoryRect.pivot;
+            rect.anchoredPosition = inventoryRect.anchoredPosition;
+            rect.sizeDelta = inventoryRect.sizeDelta;
+            rect.offsetMin = inventoryRect.offsetMin;
+            rect.offsetMax = inventoryRect.offsetMax;
+            rect.SetSiblingIndex(inventoryPanel.transform.GetSiblingIndex());
+        }
+        else
+        {
+            rect.anchorMin = Vector2.zero;
+            rect.anchorMax = Vector2.one;
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+        }
+
+        var image = panelObject.GetComponent<Image>();
+        if (image != null)
+            image.color = new Color(1f, 1f, 1f, 0.392f);
+    }
+
+    private void LayoutNavigationButtons()
+    {
+        var buttons = new List<Button>();
+        AddButton(buttons, toLeaderboardPanel);
+        AddButton(buttons, toInventoryPanel);
+        AddButton(buttons, toMainMenuPanel);
+        AddButton(buttons, toSkillTreePanel);
+        AddButton(buttons, toShopPanel);
+
+        if (buttons.Count == 0)
+            return;
+
+        const float spacing = 0.012f;
+        var width = (1f - spacing * (buttons.Count - 1)) / buttons.Count;
+
+        for (var i = 0; i < buttons.Count; i++)
+        {
+            if (buttons[i] == null)
+                continue;
+
+            var rect = buttons[i].transform as RectTransform;
+            if (rect == null)
+                continue;
+
+            var minX = i * (width + spacing);
+            rect.anchorMin = new Vector2(minX, 0f);
+            rect.anchorMax = new Vector2(minX + width, 1f);
+            rect.pivot = new Vector2(0.5f, 0.5f);
+            rect.offsetMin = Vector2.zero;
+            rect.offsetMax = Vector2.zero;
+            rect.anchoredPosition = Vector2.zero;
+        }
+    }
 
     private void AddButton(List<Button> buttons, Button button)
     {
@@ -194,21 +321,32 @@ public class NavigationPanelManager : MonoBehaviour
             buttons.Add(button);
     }
 
-    private void SetButtonLabel(Button button)
+    private void SetSkillTreeButtonLabel(Button button)
+    {
+        SetButtonLabel(button, LocalizationCategories.buttons, "to_meta_progression_bt", "Upgrades");
+    }
+
+    private void SetLeaderboardButtonLabel(Button button)
+    {
+        SetButtonLabel(button, LocalizationCategories.buttons, "to_leaderboard_bt", "Leaderboard");
+    }
+
+    private void SetButtonLabel(Button button, LocalizationCategories category, string key, string fallback)
     {
         if (button == null)
             return;
 
         var text = button.GetComponentInChildren<TextMeshProUGUI>(true);
-        if (text != null)
-        {
-            var localized = LocalizationManager.Instance != null
-                ? LocalizationManager.Instance.Get(LocalizationCategories.buttons, "to_meta_progression_bt")
-                : null;
-            text.text = string.IsNullOrWhiteSpace(localized) || localized == "to_meta_progression_bt"
-                ? "Upgrades"
-                : localized;
-        }
+        if (text == null)
+            return;
+
+        var localized = LocalizationManager.Instance != null
+            ? LocalizationManager.Instance.Get(category, key)
+            : null;
+
+        text.text = string.IsNullOrWhiteSpace(localized) || localized == key
+            ? fallback
+            : localized;
     }
 
     private void SetPanelState(GameObject panel, bool isActive)
@@ -219,6 +357,7 @@ public class NavigationPanelManager : MonoBehaviour
 
     private void OnLanguageChanged(string _)
     {
-        SetButtonLabel(toSkillTreePanel);
+        SetSkillTreeButtonLabel(toSkillTreePanel);
+        SetLeaderboardButtonLabel(toLeaderboardPanel);
     }
 }

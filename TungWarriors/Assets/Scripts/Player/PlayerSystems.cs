@@ -195,6 +195,9 @@ public partial struct ResolvePlayerStatsSystem : ISystem
         }
         public void OnUpdate(ref SystemState systemState)
         {
+            
+
+
             var elapsedTime = SystemAPI.Time.ElapsedTime;
             var entityCommandBufferSystem = SystemAPI.GetSingleton<BeginInitializationEntityCommandBufferSystem.Singleton>();
             var ecb = entityCommandBufferSystem.CreateCommandBuffer(systemState.WorldUnmanaged);
@@ -236,6 +239,9 @@ public partial struct ResolvePlayerStatsSystem : ISystem
                 var angleToClosestEnemy = math.atan2(vectorToClosestEnemy.y, vectorToClosestEnemy.x);
                 var spawnOrientation = quaternion.Euler(0f, 0f, angleToClosestEnemy);
                 var newAttack = ecb.Instantiate(attackData.AttackPrefab);
+
+                AudioController.Instance.PlayShoot();
+
                 ecb.SetComponent(newAttack, LocalTransform.FromPositionRotation(spawnPosition, spawnOrientation));
 
                 var projectileData = SystemAPI.GetComponent<PlasmaBlastData>(attackData.AttackPrefab);
@@ -256,6 +262,8 @@ public partial struct ResolvePlayerStatsSystem : ISystem
                 }
 
                 expirationTimestamp.ValueRW.Value = elapsedTime + (attackData.CooldownTime / attackSpeedMultiplier);
+
+                
             }
         }
 

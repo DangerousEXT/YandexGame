@@ -1,4 +1,0 @@
-ExampleYG2
-Authorization
-InterstitialAdv
-RewardedAdv

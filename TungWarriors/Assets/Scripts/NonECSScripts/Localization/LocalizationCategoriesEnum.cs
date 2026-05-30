@@ -13,5 +13,7 @@ public enum LocalizationCategories
     buffs_description,
     inventory,
     meta_progression,
-    settings
+    settings,
+    game,
+    leaderboard,
 }

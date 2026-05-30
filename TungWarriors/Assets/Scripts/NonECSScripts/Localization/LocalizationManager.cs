@@ -41,11 +41,13 @@ class LocalizationManager : MonoBehaviour
 
         AddCategory(LocalizationCategories.shop, root.shop);
         AddCategory(LocalizationCategories.buttons, root.buttons);
+        AddCategory(LocalizationCategories.leaderboard, root.leaderboard);
         AddCategory(LocalizationCategories.equipment, root.equipment);
         AddCategory(LocalizationCategories.buffs_description, root.buffs_description);
         AddCategory(LocalizationCategories.inventory, root.inventory);
         AddCategory(LocalizationCategories.meta_progression, root.meta_progression);
         AddCategory(LocalizationCategories.settings, root.settings);
+        AddCategory(LocalizationCategories.game, root.game);
     }
 
     private void AddCategory(LocalizationCategories category, List<LocalizationData> entries)

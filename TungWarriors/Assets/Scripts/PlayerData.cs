@@ -13,6 +13,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private int gold;
     [SerializeField] private int gems;
     [SerializeField] private int rubies;
+    [SerializeField] private int bestSurvivalTimeMilliseconds;
 
     [Header("Shop")]
     [SerializeField] private List<ItemData> shopItems = new();
@@ -28,6 +29,7 @@ public class PlayerData : MonoBehaviour
 
     public event Action<int> OnGoldChanged;
     public event Action<int> OnGemsChanged;
+    public event Action<int> OnBestSurvivalTimeChanged;
     public event Action<Equipment, bool> OnInventoryChanged;
     public event Action OnMetaProgressionChanged;
 
@@ -57,6 +59,20 @@ public class PlayerData : MonoBehaviour
         set
         {
             rubies = Mathf.Max(0, value);
+        }
+    }
+
+    public int BestSurvivalTimeMilliseconds
+    {
+        get => bestSurvivalTimeMilliseconds;
+        set
+        {
+            var sanitizedValue = Mathf.Max(0, value);
+            if (bestSurvivalTimeMilliseconds == sanitizedValue)
+                return;
+
+            bestSurvivalTimeMilliseconds = sanitizedValue;
+            OnBestSurvivalTimeChanged?.Invoke(bestSurvivalTimeMilliseconds);
         }
     }
 
@@ -176,6 +192,15 @@ public class PlayerData : MonoBehaviour
             GetMetaUpgradeBonus(MetaUpgradeStatType.MaxHitPoints),
             GetMetaUpgradeBonus(MetaUpgradeStatType.Damage),
             GetMetaUpgradeBonus(MetaUpgradeStatType.MoveSpeed));
+    }
+
+    public bool TrySetBestSurvivalTimeMilliseconds(int value)
+    {
+        if (value <= BestSurvivalTimeMilliseconds)
+            return false;
+
+        BestSurvivalTimeMilliseconds = value;
+        return true;
     }
 
     private MetaUpgradeLevelSaveData GetOrCreateMetaUpgradeData(string upgradeId)

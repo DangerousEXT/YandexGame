@@ -11,12 +11,18 @@ public class PausePanel : MonoBehaviour
     {
         resumeButton.onClick.AddListener(Hide);
         quitButton.onClick.AddListener(GameUIController.Instance.QuitToMainMenu);
+
+        resumeButton.onClick.AddListener(AudioController.Instance.PlayButtonClick);
+        quitButton.onClick.AddListener(AudioController.Instance.PlayButtonClick);
     }
 
     private void OnDisable()
     {
         resumeButton.onClick.RemoveListener(Hide);
         quitButton.onClick.RemoveListener(GameUIController.Instance.QuitToMainMenu);
+
+        resumeButton.onClick.RemoveListener(AudioController.Instance.PlayButtonClick);
+        quitButton.onClick.RemoveListener(AudioController.Instance.PlayButtonClick);
     }
 
     public void Show() => panelRoot.SetActive(true);

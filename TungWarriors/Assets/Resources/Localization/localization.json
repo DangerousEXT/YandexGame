@@ -71,6 +71,20 @@
       "ru": "Улучшения",
       "en": "Upgrades",
       "tr": "Gelişim"
+    },
+    {
+      "id": "to_leaderboard_bt",
+      "ru": "Лидерборд",
+      "en": "Leaderboard",
+      "tr": "Sıralama"
+    }
+  ],
+  "leaderboard": [
+    {
+      "id": "title",
+      "ru": "Лучшее время выживания",
+      "en": "Best survival time",
+      "tr": "En iyi hayatta kalma süresi"
     }
   ],
   "shop": [
@@ -353,6 +367,116 @@
       "ru": "Назад",
       "en": "Back",
       "tr": "Geri"
+    }
+  ],
+  "game": [
+    {
+      "id": "capuccino_assassino_title",
+      "ru": "Капучино Ассассино",
+      "en": "Capuccino Assassino",
+      "tr": "Kapuçino Assassino"
+    },
+    {
+      "id": "capuccino_assassino_description",
+      "ru": "+2 к урону",
+      "en": "+2 dmg",
+      "tr": "+2 hasar"
+    },
+    {
+      "id": "cocosini_bobrini_title",
+"ru": "Кокосини Бобрини",
+"en": "Cocosini Bobrini",
+"tr": "Kokosini Bobrini"
+    },
+    {
+      "id": "cocosini_bobrini_description",
+      "ru": "+1 HP/сек",
+      "en": "+1 HP/sec",
+      "tr": "+1 HP/saniye"
+    },
+    {
+      "id": "larili_lalila_title",
+      "ru": "Ларили Лалила",
+      "en": "Larili Lalila",
+      "tr": "Larili Lalila"
+    },
+    {
+      "id": "larili_lalila_description",
+      "ru": "-1 к входящему урону",
+      "en": "-1 income damage",
+      "tr": "-1 gelen hasar"
+    },
+    {
+      "id": "trallalero_tralala_title",
+      "ru": "Траллалеро Тралала",
+      "en": "Trallalero Tralala",
+      "tr": "Trallalero Tralala"
+    },
+    {
+      "id": "trallalero_tralala_description",
+      "ru": "+1.5 к скорости",
+      "en": "+1.5 speed",
+      "tr": "+1.5 hız"
+    },
+    {
+      "id": "tung_tung_bat_title",
+      "ru": "Тунг-Тунг Бита",
+      "en": "Tung-Tung Bat",
+      "tr": "Tung-Tung Sopası"
+    },
+    {
+      "id": "tung_tung_bat_description",
+      "ru": "Конусная базовая атака в движении",
+      "en": "Cone base attack in motion",
+      "tr": "Hareket halinde koni tabanlı saldırı"
+    },
+    {
+      "id": "pause_title",
+      "ru": "Пауза",
+      "en": "Pause",
+      "tr": "Duraklat"
+    },
+    {
+      "id": "resume_to_game_bt",
+      "ru": "Продолжить",
+      "en": "Resume",
+      "tr": "Devam Et"
+    },
+    {
+      "id": "to_main_menu_bt",
+      "ru": "В главное меню",
+      "en": "Main Menu",
+      "tr": "Ana Menü"
+    },
+    {
+      "id": "death_title",
+      "ru": "Вы мертвы",
+      "en": "You Are Dead",
+      "tr": "Öldünüz"
+    },
+    {
+      "id": "want_survive",
+      "ru": "Воскреснуть за рекламу?",
+      "en": "Revive with ad?",
+      "tr": "Reklamla dirilmek ister misiniz?"
+    },
+    {
+      "id": "watch_adv",
+      "ru": "Смотреть рекламу",
+      "en": "Watch Ad",
+      "tr": "Reklam İzle"
+    },
+    {
+      "id": "death",
+      "ru": "Умереть",
+      "en": "Die",
+      "tr": "Öl"
+    },
+    {
+      "id": "lvl",
+      "ru": "Уровень",
+      "en": "Level",
+      "tr": "Seviye"
     }
   ]
 }
