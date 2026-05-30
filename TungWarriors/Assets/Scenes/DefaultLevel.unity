@@ -4073,6 +4073,70 @@ PrefabInstance:
       value: PauseButton
       objectReference: {fileID: 0}
     - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.014921188
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.015686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.015686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.015686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.9087789
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784408685632381718, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -4095,7 +4159,19 @@ PrefabInstance:
     - target: {fileID: 3157597694898234345, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8878088185706026076, guid: 23588c0b26c610949b210d54ad522d50, type: 3}
+      objectReference: {fileID: 4822689125754791117, guid: 6a1f205966789cf459468314d118eed8, type: 3}
+    - target: {fileID: 3157597694898234345, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157597694898234345, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_UseSpriteMesh
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157597694898234345, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3157597694898234345, guid: 21d95339088e6184ebfc8247aecb47a5, type: 3}
       propertyPath: m_RaycastPadding.x
       value: 0

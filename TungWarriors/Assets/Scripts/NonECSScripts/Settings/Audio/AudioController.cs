@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
 using YG;
@@ -64,9 +59,25 @@ public class AudioController : MonoBehaviour
 
     #endregion
 
-    public float MusicVolume => audioMixer.GetFloat(musicVolumeName, out var volume) ? Mathf.InverseLerp(minVolumeDB, maxVolumeDB, volume) : 0.5f;
+    public float MusicVolume
+    {
+        get
+        {
+            if (audioMixer.GetFloat(musicVolumeName, out var volume))
+                return volume <= minVolumeDB ? 0f : Mathf.Clamp01(Mathf.Pow(10.0f, volume / 20.0f));
+            return 0.5f;
+        }
+    }
 
-    public float SoundVolume => audioMixer.GetFloat(soundVolumeName, out var volume) ? Mathf.InverseLerp(minVolumeDB, maxVolumeDB, volume) : 0.5f;
+    public float SoundVolume
+    {
+        get
+        {
+            if (audioMixer.GetFloat(soundVolumeName, out var volume))
+                return volume <= minVolumeDB ? 0f : Mathf.Clamp01(Mathf.Pow(10.0f, volume / 20.0f));
+            return 0.5f;
+        }
+    }
 
     private void Awake()
     {
@@ -88,7 +99,6 @@ public class AudioController : MonoBehaviour
     public void LoadSaves()
     {
         if (YG2.saves == null) return;
-
         ChangeMusicVolume(YG2.saves.musicVolume);
         ChangeSoundVolume(YG2.saves.soundVolume);
     }
@@ -96,18 +106,19 @@ public class AudioController : MonoBehaviour
     public void Save()
     {
         YG2.saves.musicVolume = MusicVolume;
-
         YG2.saves.soundVolume = SoundVolume;
     }
 
     public void ChangeMusicVolume(float volume)
     {
-        audioMixer.SetFloat(musicVolumeName, Mathf.Lerp(minVolumeDB, maxVolumeDB, volume));
+        var clampedVol = Mathf.Clamp(volume, 0.0001f, 1f);
+        audioMixer.SetFloat(musicVolumeName, 20f * Mathf.Log10(clampedVol));
     }
 
     public void ChangeSoundVolume(float volume)
     {
-        audioMixer.SetFloat(soundVolumeName, Mathf.Lerp(minVolumeDB, maxVolumeDB, volume));
+        var clampedVol = Mathf.Clamp(volume, 0.0001f, 1f);
+        audioMixer.SetFloat(soundVolumeName, 20f * Mathf.Log10(clampedVol));
     }
 
     #region Play Methods

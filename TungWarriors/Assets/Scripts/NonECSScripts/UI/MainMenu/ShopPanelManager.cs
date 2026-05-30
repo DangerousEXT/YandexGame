@@ -70,8 +70,6 @@ public class ShopPanelManager : MonoBehaviour
         buyGoldForAdv.onClick.AddListener(BuyGoldForAdv);
 
         buyDiamondsForAdv.onClick.AddListener(BuyDiamondsForAdv);
-        buyDiamondsForMoneyLittle.onClick.AddListener(BuyDiamondsForMoneyLittle);
-        buyDiamondsForMoneyLarge.onClick.AddListener(BuyDiamondsForMoneyLarge);
 
         closeMessagePanel.onClick.AddListener(CloseMessagePanel);
     }
@@ -87,8 +85,6 @@ public class ShopPanelManager : MonoBehaviour
         buyGoldForAdv.onClick.RemoveListener(BuyGoldForAdv);
 
         buyDiamondsForAdv.onClick.RemoveListener(BuyDiamondsForAdv);
-        buyDiamondsForMoneyLittle.onClick.RemoveListener(BuyDiamondsForMoneyLittle);
-        buyDiamondsForMoneyLarge.onClick.RemoveListener(BuyDiamondsForMoneyLarge);
 
         closeMessagePanel.onClick.RemoveListener(CloseMessagePanel);
     }
