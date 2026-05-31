@@ -41,6 +41,8 @@ public struct PlayerResolvedStats : IComponentData
 
 public struct InitializePlayerStatsFlag : IComponentData, IEnableableComponent { }
 
+public struct InitializePlayerCurrentHitPointsToMaxFlag : IComponentData, IEnableableComponent { }
+
 public enum PlayerStatType : byte
 {
     Damage = 0,

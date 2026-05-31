@@ -8,6 +8,35 @@ using UnityEngine.Rendering;
 
 public sealed class WebGLVisualFallback : MonoBehaviour
 {
+    private const int MaxInactiveQuadVisuals = 64;
+    private const int MaxInactiveBatVisuals = 4;
+
+    private enum VisualKind
+    {
+        Quad,
+        Bat
+    }
+
+    private sealed class VisualInstance
+    {
+        public readonly Renderer Renderer;
+        public readonly Transform Transform;
+        public readonly VisualKind Kind;
+
+        public float3 LastPosition;
+        public quaternion LastRotation;
+        public float LastScale;
+        public Vector3 LastScaleMultiplier;
+        public bool HasCachedTransform;
+
+        public VisualInstance(Renderer renderer, VisualKind kind)
+        {
+            Renderer = renderer;
+            Transform = renderer.transform;
+            Kind = kind;
+        }
+    }
+
     [SerializeField] private Material playerMaterial;
     [SerializeField] private Material enemyMaterial;
     [SerializeField] private Material plasmaBlastMaterial;
@@ -17,9 +46,11 @@ public sealed class WebGLVisualFallback : MonoBehaviour
     [SerializeField] private Material batMaterial;
     [SerializeField] private Color batColor = Color.white;
 
-    private readonly Dictionary<Entity, Renderer> _visuals = new();
+    private readonly Dictionary<Entity, VisualInstance> _visuals = new(128);
     private readonly HashSet<Entity> _seenThisFrame = new();
-    private readonly List<Entity> _removeBuffer = new();
+    private readonly List<Entity> _removeBuffer = new(128);
+    private readonly Stack<VisualInstance> _quadPool = new();
+    private readonly Stack<VisualInstance> _batPool = new();
 
     private EntityManager _entityManager;
     private EntityQuery _playerQuery;
@@ -28,6 +59,7 @@ public sealed class WebGLVisualFallback : MonoBehaviour
     private EntityQuery _gemQuery;
     private EntityQuery _rockQuery;
     private EntityQuery _batOrbitQuery;
+    private bool _shouldUseFallback;
     private bool _initialized;
 
     private static bool ShouldUseFallback()
@@ -35,9 +67,15 @@ public sealed class WebGLVisualFallback : MonoBehaviour
         return Application.platform == RuntimePlatform.WebGLPlayer || !SystemInfo.supportsComputeShaders;
     }
 
+    private void Awake()
+    {
+        _shouldUseFallback = ShouldUseFallback();
+        enabled = _shouldUseFallback;
+    }
+
     private void LateUpdate()
     {
-        if (!ShouldUseFallback() || !TryInitialize())
+        if (!_shouldUseFallback || !TryInitialize())
             return;
 
         _seenThisFrame.Clear();
@@ -88,13 +126,10 @@ public sealed class WebGLVisualFallback : MonoBehaviour
 
         foreach (var entity in entities)
         {
-            if (!_entityManager.Exists(entity) || !_entityManager.HasComponent<LocalToWorld>(entity))
-                continue;
-
             _seenThisFrame.Add(entity);
 
             var localToWorld = _entityManager.GetComponentData<LocalToWorld>(entity);
-            var renderer = GetOrCreateVisual(entity, material, visualName, sortingOrder);
+            var visual = GetOrCreateQuadVisual(entity, material, visualName, sortingOrder);
             var position = localToWorld.Position;
             var rotation = quaternion.identity;
             var scale = 1f;
@@ -106,11 +141,7 @@ public sealed class WebGLVisualFallback : MonoBehaviour
                 scale = localTransform.Scale;
             }
 
-            renderer.transform.SetPositionAndRotation(
-                new Vector3(position.x, position.y, position.z),
-                new Quaternion(rotation.value.x, rotation.value.y, rotation.value.z, rotation.value.w));
-
-            renderer.transform.localScale = scaleMultiplier * scale;
+            UpdateVisualTransform(visual, position, rotation, scale, scaleMultiplier);
         }
     }
 
@@ -123,69 +154,152 @@ public sealed class WebGLVisualFallback : MonoBehaviour
 
         foreach (var entity in entities)
         {
-            if (!_entityManager.Exists(entity) || !_entityManager.HasComponent<LocalToWorld>(entity))
-                continue;
-
             _seenThisFrame.Add(entity);
 
             var localToWorld = _entityManager.GetComponentData<LocalToWorld>(entity);
-            var renderer = GetOrCreateBatVisual(entity);
+            var visual = GetOrCreateBatVisual(entity);
             var position = localToWorld.Position;
+            var orbitData = _entityManager.GetComponentData<BatOrbitData>(entity);
+            var rotation = quaternion.RotateZ(orbitData.CurrentAngle);
 
-            renderer.transform.position = new Vector3(position.x, position.y, position.z);
-
-            if (_entityManager.HasComponent<BatOrbitData>(entity))
-            {
-                var orbitData = _entityManager.GetComponentData<BatOrbitData>(entity);
-                renderer.transform.rotation = Quaternion.Euler(0f, 0f, math.degrees(orbitData.CurrentAngle));
-            }
+            UpdateVisualTransform(visual, position, rotation, 1f, Vector3.one);
         }
     }
 
-    private Renderer GetOrCreateVisual(Entity entity, Material material, string visualName, int sortingOrder)
+    private VisualInstance GetOrCreateQuadVisual(Entity entity, Material material, string visualName, int sortingOrder)
     {
-        if (_visuals.TryGetValue(entity, out var renderer) && renderer != null)
+        if (_visuals.TryGetValue(entity, out var visual) && visual != null && visual.Renderer != null)
         {
-            if (renderer.sharedMaterial != material)
-                renderer.sharedMaterial = material;
+            ApplyQuadVisualSettings(visual, material, visualName, sortingOrder);
+            return visual;
+        }
 
-            return renderer;
+        var createdVisual = AcquireQuadVisual();
+        ApplyQuadVisualSettings(createdVisual, material, visualName, sortingOrder);
+        _visuals[entity] = createdVisual;
+        return createdVisual;
+    }
+
+    private static void ApplyQuadVisualSettings(VisualInstance visual, Material material, string visualName, int sortingOrder)
+    {
+        var renderer = visual.Renderer;
+        if (renderer.sharedMaterial != material)
+            renderer.sharedMaterial = material;
+
+        if (renderer.sortingOrder != sortingOrder)
+            renderer.sortingOrder = sortingOrder;
+
+        if (renderer.gameObject.name != visualName)
+            renderer.gameObject.name = visualName;
+    }
+
+    private VisualInstance AcquireQuadVisual()
+    {
+        while (_quadPool.Count > 0)
+        {
+            var pooledVisual = _quadPool.Pop();
+            if (pooledVisual == null || pooledVisual.Renderer == null)
+                continue;
+
+            pooledVisual.Renderer.gameObject.SetActive(true);
+            pooledVisual.Transform.SetParent(transform, false);
+            pooledVisual.HasCachedTransform = false;
+            return pooledVisual;
         }
 
         var visual = GameObject.CreatePrimitive(PrimitiveType.Quad);
-        visual.name = visualName;
         visual.transform.SetParent(transform, false);
 
         var collider = visual.GetComponent<Collider>();
         if (collider != null)
             Destroy(collider);
 
-        renderer = visual.GetComponent<MeshRenderer>();
-        renderer.sharedMaterial = material;
+        var renderer = visual.GetComponent<MeshRenderer>();
         renderer.shadowCastingMode = ShadowCastingMode.Off;
         renderer.receiveShadows = false;
-        renderer.sortingOrder = sortingOrder;
-
-        _visuals[entity] = renderer;
-        return renderer;
+        return new VisualInstance(renderer, VisualKind.Quad);
     }
 
-    private Renderer GetOrCreateBatVisual(Entity entity)
+    private VisualInstance GetOrCreateBatVisual(Entity entity)
     {
-        if (_visuals.TryGetValue(entity, out var renderer) && renderer != null)
-            return renderer;
+        if (_visuals.TryGetValue(entity, out var visual) && visual != null && visual.Renderer != null)
+        {
+            ApplyBatVisualSettings(visual);
+            return visual;
+        }
+
+        var createdVisual = AcquireBatVisual();
+        ApplyBatVisualSettings(createdVisual);
+        _visuals[entity] = createdVisual;
+        return createdVisual;
+    }
+
+    private void ApplyBatVisualSettings(VisualInstance visual)
+    {
+        if (visual.Renderer is not SpriteRenderer spriteRenderer)
+            return;
+
+        if (spriteRenderer.sprite != batSprite)
+            spriteRenderer.sprite = batSprite;
+
+        if (spriteRenderer.sharedMaterial != batMaterial)
+            spriteRenderer.sharedMaterial = batMaterial;
+
+        if (spriteRenderer.color != batColor)
+            spriteRenderer.color = batColor;
+
+        if (spriteRenderer.sortingOrder != 25)
+            spriteRenderer.sortingOrder = 25;
+
+        if (spriteRenderer.gameObject.name != "Bat Visual")
+            spriteRenderer.gameObject.name = "Bat Visual";
+    }
+
+    private VisualInstance AcquireBatVisual()
+    {
+        while (_batPool.Count > 0)
+        {
+            var pooledVisual = _batPool.Pop();
+            if (pooledVisual == null || pooledVisual.Renderer == null)
+                continue;
+
+            pooledVisual.Renderer.gameObject.SetActive(true);
+            pooledVisual.Transform.SetParent(transform, false);
+            pooledVisual.HasCachedTransform = false;
+            return pooledVisual;
+        }
 
         var visual = new GameObject("Bat Visual");
         visual.transform.SetParent(transform, false);
-
         var spriteRenderer = visual.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = batSprite;
-        spriteRenderer.sharedMaterial = batMaterial;
-        spriteRenderer.color = batColor;
-        spriteRenderer.sortingOrder = 25;
+        return new VisualInstance(spriteRenderer, VisualKind.Bat);
+    }
 
-        _visuals[entity] = spriteRenderer;
-        return spriteRenderer;
+    private void UpdateVisualTransform(VisualInstance visual, float3 position, quaternion rotation, float scale, Vector3 scaleMultiplier)
+    {
+        var targetScale = scaleMultiplier * scale;
+
+        if (visual.HasCachedTransform &&
+            math.all(visual.LastPosition == position) &&
+            math.all(visual.LastRotation.value == rotation.value) &&
+            Mathf.Approximately(visual.LastScale, scale) &&
+            visual.LastScaleMultiplier == scaleMultiplier)
+        {
+            return;
+        }
+
+        visual.Transform.SetPositionAndRotation(
+            new Vector3(position.x, position.y, position.z),
+            new Quaternion(rotation.value.x, rotation.value.y, rotation.value.z, rotation.value.w));
+
+        if (!visual.HasCachedTransform || visual.LastScaleMultiplier != scaleMultiplier || !Mathf.Approximately(visual.LastScale, scale))
+            visual.Transform.localScale = targetScale;
+
+        visual.LastPosition = position;
+        visual.LastRotation = rotation;
+        visual.LastScale = scale;
+        visual.LastScaleMultiplier = scaleMultiplier;
+        visual.HasCachedTransform = true;
     }
 
     private void CleanupStaleVisuals()
@@ -194,29 +308,73 @@ public sealed class WebGLVisualFallback : MonoBehaviour
 
         foreach (var pair in _visuals)
         {
-            if (_seenThisFrame.Contains(pair.Key) && _entityManager.Exists(pair.Key))
+            if (_seenThisFrame.Contains(pair.Key))
                 continue;
-
-            if (pair.Value != null)
-                Destroy(pair.Value.gameObject);
 
             _removeBuffer.Add(pair.Key);
         }
 
         foreach (var entity in _removeBuffer)
+        {
+            if (_visuals.TryGetValue(entity, out var visual))
+                RecycleVisual(visual);
+
             _visuals.Remove(entity);
+        }
+    }
+
+    private void RecycleVisual(VisualInstance visual)
+    {
+        if (visual == null || visual.Renderer == null)
+            return;
+
+        visual.HasCachedTransform = false;
+        var gameObject = visual.Renderer.gameObject;
+        gameObject.SetActive(false);
+
+        if (visual.Kind == VisualKind.Bat)
+        {
+            if (_batPool.Count < MaxInactiveBatVisuals)
+            {
+                _batPool.Push(visual);
+                return;
+            }
+        }
+        else
+        {
+            if (_quadPool.Count < MaxInactiveQuadVisuals)
+            {
+                _quadPool.Push(visual);
+                return;
+            }
+        }
+
+        Destroy(gameObject);
+    }
+
+    private void DestroyVisual(VisualInstance visual)
+    {
+        if (visual == null || visual.Renderer == null)
+            return;
+
+        Destroy(visual.Renderer.gameObject);
     }
 
     private void OnDisable()
     {
-        foreach (var renderer in _visuals.Values)
-        {
-            if (renderer != null)
-                Destroy(renderer.gameObject);
-        }
+        foreach (var visual in _visuals.Values)
+            DestroyVisual(visual);
+
+        foreach (var pooledVisual in _quadPool)
+            DestroyVisual(pooledVisual);
+
+        foreach (var pooledVisual in _batPool)
+            DestroyVisual(pooledVisual);
 
         _visuals.Clear();
         _seenThisFrame.Clear();
         _removeBuffer.Clear();
+        _quadPool.Clear();
+        _batPool.Clear();
     }
 }
