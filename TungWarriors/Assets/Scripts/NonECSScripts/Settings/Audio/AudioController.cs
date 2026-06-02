@@ -6,6 +6,9 @@ using YG;
 
 public class AudioController : MonoBehaviour
 {
+    private const float RunningTimeScale = 1f;
+    private const float PausedTimeScale = 0f;
+
     public static AudioController Instance { get; private set; }
 
     [Header("Audio Source")]
@@ -40,6 +43,8 @@ public class AudioController : MonoBehaviour
 
     private const float minVolumeDB = -80;
     private const float maxVolumeDB = 0;
+
+    private bool _isMenuFocusPaused;
 
     #region PublicFields
     public AudioClip MenuBackgroundMusic => menuBackgroundMusic;
@@ -109,6 +114,16 @@ public class AudioController : MonoBehaviour
         YG2.onFocusWindowGame -= Pause;
     }
 
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        SetMenuFocusPause(!hasFocus);
+    }
+
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        SetMenuFocusPause(pauseStatus);
+    }
+
     public void LoadSaves()
     {
         if (YG2.saves == null) return;
@@ -148,6 +163,22 @@ public class AudioController : MonoBehaviour
             musicSource.UnPause();
             soundSource.UnPause();
         }
+    }
+
+    private void SetMenuFocusPause(bool pause)
+    {
+        if (GameUIController.Instance != null)
+            return;
+
+        if (_isMenuFocusPaused == pause)
+            return;
+
+        _isMenuFocusPaused = pause;
+
+        PauseGameYG.SetState(
+            pause ? PausedTimeScale : RunningTimeScale,
+            pause,
+            true);
     }
 
     #region Play Methods

@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.DeathConsequencesSystems;
+using Assets.Scripts.DeathConsequencesSystems;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,7 +31,7 @@ public class RevivePanel : MonoBehaviour
     {
         bool isShowing = !panelRoot.activeInHierarchy;
         panelRoot.SetActive(isShowing);
-        GameUIController.Instance.TogglePause(isShowing);
+        GameUIController.Instance.SetRevivePause(isShowing);
         SetPlayerThinkingEcsState(isShowing);
     }
 
@@ -45,12 +45,14 @@ public class RevivePanel : MonoBehaviour
         var world = World.DefaultGameObjectInjectionWorld;
         if (world == null || !world.IsCreated)
             return;
+
         var playerQuery = world.EntityManager.CreateEntityQuery(typeof(PlayerTag));
         if (!playerQuery.IsEmpty)
         {
             var playerEntity = playerQuery.GetSingletonEntity();
             world.EntityManager.SetComponentEnabled<PlayerThinkingFlag>(playerEntity, isThinking);
         }
+
         playerQuery.Dispose();
     }
 }

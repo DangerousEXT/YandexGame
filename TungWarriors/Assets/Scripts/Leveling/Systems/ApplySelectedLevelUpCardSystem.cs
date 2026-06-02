@@ -1,4 +1,4 @@
-﻿using Unity.Collections;
+using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
@@ -47,10 +47,7 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
         ApplyCardEffects(entityManager, playerEntity, selectedCardEntity);
 
         if (GameUIController.Instance != null)
-        {
             GameUIController.Instance.HideLevelUpPanel();
-            GameUIController.Instance.TogglePause(false);
-        }
     }
 
     private static bool Contains(DynamicBuffer<OfferedLevelUpCardElement> buffer, Entity e)
