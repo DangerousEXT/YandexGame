@@ -41,12 +41,12 @@ public class NewEquipmentPanelManager : MonoBehaviour
     private void SellButton()
     {
         PlayerData.Instance.Gold += _equipment.Cost;
+        PlayerData.Instance.RemoveEquipment(_equipment);
         newEquipmentPanel.SetActive(false);
     }
 
     private void TakeButton()
     {
-        PlayerData.Instance.AddEquipment(_equipment);
         newEquipmentPanel.SetActive(false);
         Debug.Log($"{PlayerData.Instance.Inventory.Count}");
     }

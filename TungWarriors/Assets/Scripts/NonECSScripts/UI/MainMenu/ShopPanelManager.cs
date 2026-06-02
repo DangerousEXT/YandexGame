@@ -176,7 +176,9 @@ public class ShopPanelManager : MonoBehaviour
 
     private void GetNewEquipment()
     {
-        newEquipmentPanel.NewEquipment(equipmentFactory.CreateRandomEquipment());
+        var equip = equipmentFactory.CreateRandomEquipment();
+        PlayerData.Instance.AddEquipment(equip);
+        newEquipmentPanel.NewEquipment(equip);
     }
 
     private void OpenMessagePanel(string message)

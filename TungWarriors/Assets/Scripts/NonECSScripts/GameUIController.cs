@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using YG;
 
 public class GameUIController : MonoBehaviour
 {
@@ -30,6 +31,21 @@ public class GameUIController : MonoBehaviour
     {
         if (levelUpSelectionPanel != null) //
             levelUpSelectionPanel.Hide();
+    }
+
+    private void OnEnable()
+    {
+        YG2.onFocusWindowGame += OnFocusWindowGame;
+    }
+
+    private void OnDisable()
+    {
+        YG2.onFocusWindowGame -= OnFocusWindowGame;
+    }
+
+    private void OnFocusWindowGame(bool isFocused)
+    {
+        TogglePause(true);
     }
 
     public void TogglePause(bool pause)
