@@ -1,5 +1,5 @@
 {
-    "idSave": 67,
+    "idSave": 90,
     "gold": 1000,
     "gems": 123,
     "rubies": 123,
@@ -8,6 +8,6 @@
     "equipmentOnPlayer": [],
     "metaUpgradeLevels": [],
     "lang": "tr",
-    "musicVolume": 0.003124640788882971,
-    "soundVolume": 0.007550031412392855
+    "musicVolume": 1.0,
+    "soundVolume": 0.9358174204826355
 }

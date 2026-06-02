@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PausePanel : MonoBehaviour
@@ -9,7 +9,7 @@ public class PausePanel : MonoBehaviour
 
     private void OnEnable()
     {
-        resumeButton.onClick.AddListener(Hide);
+        resumeButton.onClick.AddListener(OnResumeClicked);
         quitButton.onClick.AddListener(GameUIController.Instance.QuitToMainMenu);
 
         resumeButton.onClick.AddListener(AudioController.Instance.PlayButtonClick);
@@ -18,7 +18,7 @@ public class PausePanel : MonoBehaviour
 
     private void OnDisable()
     {
-        resumeButton.onClick.RemoveListener(Hide);
+        resumeButton.onClick.RemoveListener(OnResumeClicked);
         quitButton.onClick.RemoveListener(GameUIController.Instance.QuitToMainMenu);
 
         resumeButton.onClick.RemoveListener(AudioController.Instance.PlayButtonClick);
@@ -27,9 +27,10 @@ public class PausePanel : MonoBehaviour
 
     public void Show() => panelRoot.SetActive(true);
 
-    private void Hide()
+    public void Hide() => panelRoot.SetActive(false);
+
+    private void OnResumeClicked()
     {
-        panelRoot.SetActive(false);
-        GameUIController.Instance.TogglePause(false);
+        GameUIController.Instance.HidePauseMenu();
     }
 }
