@@ -21,7 +21,7 @@ public class PlayerAuthoring : MonoBehaviour
             AddComponent<PlayerTag>(entity);
             AddComponent<InitializeCameraTargetTag>(entity);
             AddComponent<CameraTarget>(entity);
-
+            
             var EnemyLayer = LayerMask.NameToLayer("Enemy");
             var EnemyLayerMask = (uint)math.pow(2, EnemyLayer);
 
@@ -61,13 +61,16 @@ public class PlayerAuthoring : MonoBehaviour
             AddBuffer<PlayerStatOperationElement>(entity);
             AddComponent<InitializePlayerStatsFlag>(entity);
             SetComponentEnabled<InitializePlayerStatsFlag>(entity, true);
+            AddComponent<InitializePlayerCurrentHitPointsToMaxFlag>(entity);
+            SetComponentEnabled<InitializePlayerCurrentHitPointsToMaxFlag>(entity, true);
             AddComponent(entity, new PlayerStatsResolvedAfterMainMenu { HasResolved = false });
             AddComponent(entity, new PlayerBaseStats { 
                 Damage = authoring.BaseDamage, 
                 MoveSpeed = authoring.BaseMoveSpeed, 
                 MaxHitPoints = authoring.BaseHealth 
             });
-
+            AddComponent<PlayerStatsDirtyTag>(entity);
+            SetComponentEnabled<PlayerStatsDirtyTag>(entity, true);
             Debug.Log("Player Creates");
         }
     }

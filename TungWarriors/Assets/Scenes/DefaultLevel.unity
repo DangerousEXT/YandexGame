@@ -3484,7 +3484,7 @@ MonoBehaviour:
   enemyMaterial: {fileID: 2100000, guid: e1c90e7eee73c5742bdad970b68890c2, type: 2}
   plasmaBlastMaterial: {fileID: 2100000, guid: ec47dff8b377c12409696e83aa087a40, type: 2}
   gemMaterial: {fileID: 2100000, guid: 386cdaf3298f3c840922a4311bc9208e, type: 2}
-  rockMaterial: {fileID: 2100000, guid: d0109c3750f6c8343bc93b9f38dff11b, type: 2}
+  rockMaterial: {fileID: 2100000, guid: ed145d72c6591274eab86c4388c66082, type: 2}
   batSprite: {fileID: -6966406976031087857, guid: c56bbe26565729043992dd992b8f34c0, type: 3}
   batMaterial: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   batColor: {r: 1, g: 1, b: 1, a: 1}
