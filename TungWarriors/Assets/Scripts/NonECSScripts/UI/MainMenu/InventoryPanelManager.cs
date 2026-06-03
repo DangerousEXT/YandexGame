@@ -155,7 +155,7 @@ public class InventoryPanelManager : MonoBehaviour
     {
         PlayerData.Instance.TakeOffEquipment(currentEquipmentOnPlayerType);
         var ceil = equipmentOnPlayerCells.Where(cell => cell.equipmentOnPlayerType == currentEquipmentOnPlayerType).Select(ceil => ceil.cellPrefabData).FirstOrDefault();
-        ceil.Image.sprite = null;
+        ceil.Image.sprite = ceil.DefaultIcon;
         CloseItemPanels();
     }
 

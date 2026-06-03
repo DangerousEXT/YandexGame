@@ -11,6 +11,7 @@ public class CellPrefabData : MonoBehaviour
     [SerializeField] private Image image;
     [SerializeField] private Button button;
     [SerializeField] private Equipment equipment;
+    [SerializeField] private Sprite defaultIcon;
     public Image Image
     {
         get => image;
@@ -26,5 +27,11 @@ public class CellPrefabData : MonoBehaviour
     {
         get => equipment;
         set => equipment = value;
+    }
+
+    public Sprite DefaultIcon
+    {
+        get => defaultIcon;
+        set => defaultIcon = value;
     }
 }
