@@ -49,17 +49,24 @@ public class GameUIController : MonoBehaviour
     private void OnEnable()
     {
         YG2.onPauseGame += OnPluginPauseStateChanged;
+        YG2.onFocusWindowGame += OnFocusWindowGame;
     }
 
     private void OnDisable()
     {
         YG2.onPauseGame -= OnPluginPauseStateChanged;
+        YG2.onFocusWindowGame -= OnFocusWindowGame;
     }
 
     private void Start()
     {
         if (levelUpSelectionPanel != null)
             levelUpSelectionPanel.Hide();
+    }
+
+    private void OnFocusWindowGame(bool isFocused)
+    {
+        TogglePause(true);
     }
 
     private void OnApplicationFocus(bool hasFocus)

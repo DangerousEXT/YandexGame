@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,29 @@ public class SaveManager : MonoBehaviour
         Application.wantsToQuit += OnQuit;
         YG2.onGetSDKData += LoadGame;
         YG2.onDefaultSaves += DefaultSaves;
+
+        WaitForPlayerData();
+        WaitForAudioController();
+    }
+
+    private IEnumerator WaitForPlayerData()
+    {
+        while (PlayerData.Instance == null)
+            yield return null;
+
+        PlayerData.Instance.OnGoldChanged += SaveSmth;
+        PlayerData.Instance.OnGemsChanged += SaveSmth;
+        PlayerData.Instance.OnBestSurvivalTimeChanged += SaveSmth;
+        PlayerData.Instance.OnInventoryChanged += SaveSmth;
+        PlayerData.Instance.OnMetaProgressionChanged += SaveSmth;
+    }
+
+    private IEnumerator WaitForAudioController()
+    {
+        while (AudioController.Instance == null)
+            yield return null;
+
+        AudioController.Instance.OnVolumesChanged += SaveSmth;
     }
 
     private void OnDisable()
@@ -38,6 +62,12 @@ public class SaveManager : MonoBehaviour
         YG2.onGetSDKData -= LoadGame;
         YG2.onDefaultSaves -= DefaultSaves;
     }
+
+    #region SaveSmth
+    private void SaveSmth() => SaveGame();
+    private void SaveSmth<T>(T arg) => SaveGame();
+    private void SaveSmth<T, Q>(T arg, Q arg2) => SaveGame();
+    #endregion
 
     private void DefaultSaves()
     {

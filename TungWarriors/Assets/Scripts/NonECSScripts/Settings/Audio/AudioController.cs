@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
 using YG;
@@ -84,6 +85,8 @@ public class AudioController : MonoBehaviour
         }
     }
 
+    public Action OnVolumesChanged;
+
     private void Awake()
     {
         if (Instance != null)
@@ -99,6 +102,16 @@ public class AudioController : MonoBehaviour
     private void Start()
     {
         LoadSaves();
+    }
+
+    private void OnEnable()
+    {
+        YG2.onFocusWindowGame += Pause;
+    }
+
+    private void OnDisable()
+    {
+        YG2.onFocusWindowGame -= Pause;
     }
 
     private void OnApplicationFocus(bool hasFocus)
@@ -128,12 +141,28 @@ public class AudioController : MonoBehaviour
     {
         var clampedVol = Mathf.Clamp(volume, 0.0001f, 1f);
         audioMixer.SetFloat(musicVolumeName, 20f * Mathf.Log10(clampedVol));
+        OnVolumesChanged?.Invoke();
     }
 
     public void ChangeSoundVolume(float volume)
     {
         var clampedVol = Mathf.Clamp(volume, 0.0001f, 1f);
         audioMixer.SetFloat(soundVolumeName, 20f * Mathf.Log10(clampedVol));
+        OnVolumesChanged?.Invoke();
+    }
+
+    private void Pause(bool pause)
+    {
+        if(!pause)
+        {
+            musicSource.Pause();
+            soundSource.Pause();
+        }
+        else
+        {
+            musicSource.UnPause();
+            soundSource.UnPause();
+        }
     }
 
     private void SetMenuFocusPause(bool pause)
@@ -157,6 +186,7 @@ public class AudioController : MonoBehaviour
     {
         if (musicSource == null || audioClip == null) return;
         musicSource.clip = audioClip;
+        musicSource.loop = true;
         musicSource.Play();
     }
 

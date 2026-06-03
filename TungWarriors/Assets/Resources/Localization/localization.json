@@ -261,6 +261,12 @@
       "ru": "Экипировано",
       "en": "On Player",
       "tr": "Giyilmiş"
+    },
+    {
+      "id": "title",
+      "ru": "Инвентарь",
+      "en": "Inventory",
+      "tr": "Envanter"
     }
   ],
   "meta_progression": [
