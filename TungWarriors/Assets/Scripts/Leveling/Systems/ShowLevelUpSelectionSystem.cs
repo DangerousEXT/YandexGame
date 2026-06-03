@@ -10,7 +10,6 @@ public partial struct ShowLevelUpSelectionSystem : ISystem
     {
         if (GameUIController.Instance == null)
             return;
-
         var entityManager = state.EntityManager;
         foreach (var (randomState, availableCards, offeredCards, playerUpgradeProgress, entity) in
                  SystemAPI.Query<RefRW<PlayerCardRandom>,
@@ -22,38 +21,29 @@ public partial struct ShowLevelUpSelectionSystem : ISystem
         {
             if (!SystemAPI.IsComponentEnabled<ShowLevelUpSelectionFlag>(entity))
                 continue;
-
             SystemAPI.SetComponentEnabled<ShowLevelUpSelectionFlag>(entity, false);
-
             offeredCards.Clear();
             var eligibleCards = new NativeList<Entity>(availableCards.Length, Allocator.Temp);
             var eligibleWeights = new NativeList<int>(availableCards.Length, Allocator.Temp);
-
             for (int i = 0; i < availableCards.Length; i++)
             {
                 var cardEntity = availableCards[i].Value;
-                if (!entityManager.Exists(cardEntity))
-                    continue;
-                if (!IsCardEligible(entityManager, cardEntity, playerUpgradeProgress))
-                    continue;
+                if (!entityManager.Exists(cardEntity)) continue;
+                if (!IsCardEligible(entityManager, cardEntity, playerUpgradeProgress)) continue;
 
-                var weight = 1;
-                if (entityManager.HasComponent<LevelUpCardUpgradeTrack>(cardEntity))
-                {
-                    weight = math.max(1, entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEntity).OfferWeight);
-                }
+                var weight = entityManager.HasComponent<LevelUpCardUpgradeTrack>(cardEntity)
+                    ? math.max(1, entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEntity).OfferWeight)
+                    : 1;
 
                 eligibleCards.Add(cardEntity);
                 eligibleWeights.Add(weight);
             }
-
             if (eligibleCards.Length == 0)
             {
                 eligibleCards.Dispose();
                 eligibleWeights.Dispose();
                 continue;
             }
-
             var random = randomState.ValueRW.Value;
             var offerCount = math.min(3, eligibleCards.Length);
 
@@ -64,24 +54,56 @@ public partial struct ShowLevelUpSelectionSystem : ISystem
                 eligibleCards.RemoveAtSwapBack(selectedIndex);
                 eligibleWeights.RemoveAtSwapBack(selectedIndex);
             }
-
             randomState.ValueRW.Value = random;
             eligibleCards.Dispose();
             eligibleWeights.Dispose();
-
             var cardsToShow = new List<LevelUpCardViewData>(offeredCards.Length);
             for (int i = 0; i < offeredCards.Length; i++)
             {
-                var meta = entityManager.GetComponentData<LevelUpCardMeta>(offeredCards[i].Value);
+                var cardEnt = offeredCards[i].Value;
+                var meta = entityManager.GetComponentData<LevelUpCardMeta>(cardEnt);
+                var track = entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEnt);
+                var currentLevel = GetPlayerUpgradeLevel(playerUpgradeProgress, track.UpgradeId);
+                var nextLevel = currentLevel + 1;
+                var scale = math.pow(1.5f, math.max(0, nextLevel - 1));
+                var effectValue = 0f;
+                var hasValue = false;
+                if (entityManager.HasComponent<CardDamageBonusEffect>(cardEnt))
+                {
+                    effectValue = math.round(entityManager.GetComponentData<CardDamageBonusEffect>(cardEnt).Value * scale);
+                    hasValue = true;
+                }
+                else if (entityManager.HasComponent<CardDefenseBonusEffect>(cardEnt))
+                {
+                    effectValue = math.round(entityManager.GetComponentData<CardDefenseBonusEffect>(cardEnt).Value * scale);
+                    hasValue = true;
+                }
+                else if (entityManager.HasComponent<CardHealthRegenEffect>(cardEnt))
+                {
+                    effectValue = entityManager.GetComponentData<CardHealthRegenEffect>(cardEnt).ValuePerSecond * scale;
+                    hasValue = true;
+                }
+                else if (entityManager.HasComponent<CardMoveSpeedBonusEffect>(cardEnt))
+                {
+                    effectValue = entityManager.GetComponentData<CardMoveSpeedBonusEffect>(cardEnt).Value * scale;
+                    hasValue = true;
+                }
+                else if (entityManager.HasComponent<CardUnlockBatWeaponEffect>(cardEnt) && nextLevel > 1)
+                {
+                    effectValue = math.round(2 * scale);
+                    hasValue = true;
+                }
                 cardsToShow.Add(new LevelUpCardViewData(
-                    offeredCards[i].Value,
+                    cardEnt,
                     meta.CardId.ToString(),
                     meta.Title.ToString(),
                     meta.Description.ToString(),
-                    meta.Icon.Value
+                    meta.Icon.Value,
+                    nextLevel,
+                    effectValue,
+                    hasValue
                 ));
             }
-
             GameUIController.Instance.ShowLevelUpPanel(cardsToShow);
         }
     }
@@ -90,53 +112,36 @@ public partial struct ShowLevelUpSelectionSystem : ISystem
     {
         if (entityManager.HasComponent<LevelUpCardRequirement>(cardEntity))
         {
-            var requirement = entityManager.GetComponentData<LevelUpCardRequirement>(cardEntity);
-            if (requirement.RequiredLevel > 0)
-            {
-                var requirementCurrent = GetPlayerUpgradeLevel(progress, requirement.UpgradeId);
-                if (requirementCurrent < requirement.RequiredLevel)
-                    return false;
-            }
+            var req = entityManager.GetComponentData<LevelUpCardRequirement>(cardEntity);
+            if (req.RequiredLevel > 0 && GetPlayerUpgradeLevel(progress, req.UpgradeId) < req.RequiredLevel)
+                return false;
         }
         if (!entityManager.HasComponent<LevelUpCardUpgradeTrack>(cardEntity))
             return true;
         var track = entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEntity);
-        var currentUpgradeLevel = GetPlayerUpgradeLevel(progress, track.UpgradeId);
-        if (track.IsInfinite)
-            return true;
-        if (currentUpgradeLevel >= track.MaxLevel)
-            return false;
-        return currentUpgradeLevel + 1 == track.UpgradeLevel;
+        var currentLevel = GetPlayerUpgradeLevel(progress, track.UpgradeId);
+        return currentLevel < track.MaxLevel;
     }
 
     private static int GetPlayerUpgradeLevel(DynamicBuffer<PlayerUpgradeProgressElement> progress, FixedString64Bytes upgradeId)
     {
-        if (upgradeId.Length == 0)
-            return 0;
-
+        if (upgradeId.Length == 0) return 0;
         for (int i = 0; i < progress.Length; i++)
-        {
-            if (progress[i].UpgradeId.Equals(upgradeId))
-                return progress[i].CurrentLevel;
-        }
-
+            if (progress[i].UpgradeId.Equals(upgradeId)) return progress[i].CurrentLevel;
         return 0;
     }
 
     private static int GetWeightedIndex(ref Unity.Mathematics.Random random, NativeList<int> weights)
     {
         var totalWeight = 0;
-        for (int i = 0; i < weights.Length; i++)
-            totalWeight += math.max(1, weights[i]);
+        for (int i = 0; i < weights.Length; i++) totalWeight += weights[i];
 
         var roll = random.NextInt(0, totalWeight);
         for (int i = 0; i < weights.Length; i++)
         {
-            roll -= math.max(1, weights[i]);
-            if (roll < 0)
-                return i;
+            roll -= weights[i];
+            if (roll < 0) return i;
         }
-
         return weights.Length - 1;
     }
 }

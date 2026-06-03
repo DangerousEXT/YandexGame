@@ -384,21 +384,21 @@
     },
     {
       "id": "capuccino_assassino_description",
-      "ru": "+2 к урону",
-      "en": "+2 dmg",
-      "tr": "+2 hasar"
+      "ru": "+{0} к урону",
+      "en": "+{0} dmg",
+      "tr": "+{0} hasar"
     },
     {
       "id": "cocosini_bobrini_title",
-"ru": "Кокосини Бобрини",
-"en": "Cocosini Bobrini",
-"tr": "Kokosini Bobrini"
+      "ru": "Кокосини Бобрини",
+      "en": "Cocosini Bobrini",
+      "tr": "Kokosini Bobrini"
     },
     {
       "id": "cocosini_bobrini_description",
-      "ru": "+1 HP/сек",
-      "en": "+1 HP/sec",
-      "tr": "+1 HP/saniye"
+      "ru": "+{0} HP/сек",
+      "en": "+{0} HP/sec",
+      "tr": "+{0} HP/saniye"
     },
     {
       "id": "larili_lalila_title",
@@ -408,9 +408,9 @@
     },
     {
       "id": "larili_lalila_description",
-      "ru": "-1 к входящему урону",
-      "en": "-1 income damage",
-      "tr": "-1 gelen hasar"
+      "ru": "-{0} к входящему урону",
+      "en": "-{0} income damage",
+      "tr": "-{0} gelen hasar"
     },
     {
       "id": "trallalero_tralala_title",
@@ -420,9 +420,9 @@
     },
     {
       "id": "trallalero_tralala_description",
-      "ru": "+1.5 к скорости",
-      "en": "+1.5 speed",
-      "tr": "+1.5 hız"
+      "ru": "+{0} к скорости",
+      "en": "+{0} speed",
+      "tr": "+{0} hız"
     },
     {
       "id": "tung_tung_bat_title",
@@ -432,9 +432,9 @@
     },
     {
       "id": "tung_tung_bat_description",
-      "ru": "Конусная базовая атака в движении",
-      "en": "Cone base attack in motion",
-      "tr": "Hareket halinde koni tabanlı saldırı"
+      "ru": "Конусная атака. С каждым уровнем растет урон и скорость.",
+      "en": "Cone attack. Damage and speed increase with level.",
+      "tr": "Koni saldırısı. Her seviyede hasar ve hız artar."
     },
     {
       "id": "pause_title",

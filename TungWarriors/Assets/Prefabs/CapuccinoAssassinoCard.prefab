@@ -49,11 +49,11 @@ MonoBehaviour:
   Title: Capuccino Assassino
   Description: +2 dmg
   Icon: {fileID: 7928174699423067813, guid: cd836a61643e97044b04f789dd2c5379, type: 3}
-  UpgradeId: 
-  IsInfinite: 1
+  UpgradeId: dmg_bonus
+  IsInfinite: 0
   UpgradeLevel: 1
-  MaxLevel: 1
-  OfferWeight: 1
+  MaxLevel: 5
+  OfferWeight: 2
   RequiredUpgradeId: 
   RequiredUpgradeLevel: 0
 --- !u!114 &167024223750090264

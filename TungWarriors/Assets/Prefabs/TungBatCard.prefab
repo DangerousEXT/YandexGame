@@ -49,9 +49,10 @@ MonoBehaviour:
   Title: TungTungBat
   Description: Cone base attack in motion
   Icon: {fileID: -6966406976031087857, guid: c56bbe26565729043992dd992b8f34c0, type: 3}
-  UpgradeId: 
+  UpgradeId: shit_bat
+  IsInfinite: 0
   UpgradeLevel: 1
-  MaxLevel: 1
+  MaxLevel: 3
   OfferWeight: 1
   RequiredUpgradeId: 
   RequiredUpgradeLevel: 0

@@ -20,6 +20,7 @@ public class LevelUpSelectionPanel : MonoBehaviour
         public Image Icon;
         public TextMeshProUGUI Title;
         public TextMeshProUGUI Description;
+        public TextMeshProUGUI LevelText;
     }
 
     public void Show(IReadOnlyList<LevelUpCardViewData> cards, Action<Entity> onCardSelected)
@@ -36,7 +37,13 @@ public class LevelUpSelectionPanel : MonoBehaviour
             var card = cards[i];
             var btn = cardButtons[i];
             btn.Title.text = LocalizationManager.Instance.Get(LocalizationCategories.game, $"{card.CardId}_title");
-            btn.Description.text = LocalizationManager.Instance.Get(LocalizationCategories.game, $"{card.CardId}_description");
+            var rawDescription = LocalizationManager.Instance.Get(LocalizationCategories.game, $"{card.CardId}_description");
+            if (card.HasEffectValue)
+                btn.Description.text = rawDescription.Replace("{0}", card.PrimaryEffectValue.ToString("0.#"));
+            else
+                btn.Description.text = rawDescription;
+            if (btn.LevelText != null)
+                btn.LevelText.text = $"Lvl {card.Level}";
             if (btn.Icon != null)
             {
                 btn.Icon.sprite = card.Icon;

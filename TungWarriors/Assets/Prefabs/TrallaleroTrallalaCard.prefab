@@ -47,13 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardId: trallalero_tralala
   Title: TrallaleroTralala
-  Description: +1.5 speed
+  Description: +0.5 speed
   Icon: {fileID: -8393551445879122312, guid: bfc01adb70654b4419f7cd63a5ceede6, type: 3}
-  UpgradeId: 
-  IsInfinite: 1
+  UpgradeId: speed_bonus
+  IsInfinite: 0
   UpgradeLevel: 1
-  MaxLevel: 1
-  OfferWeight: 1
+  MaxLevel: 5
+  OfferWeight: 2
   RequiredUpgradeId: 
   RequiredUpgradeLevel: 0
 --- !u!114 &4383808195894974232
@@ -68,4 +68,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e473dfd1fa19544cba14eb33e10a72a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Value: 1.5
+  Value: 0.5

@@ -18,7 +18,7 @@ public partial struct PlayerLevelProgressionSystem : ISystem
             var newLevel = level.ValueRO.Value + 1;
             experience.ValueRW.Current -= experience.ValueRO.RequiredForNext;
             level.ValueRW.Value = newLevel;
-            experience.ValueRW.RequiredForNext = 5 + newLevel * 3 + newLevel * newLevel * 2;
+            experience.ValueRW.RequiredForNext = 10 + (newLevel * 2) + ((newLevel * newLevel) / 4);
             if (availableCards.Length > 0)
             {
                 SystemAPI.SetComponentEnabled<ShowLevelUpSelectionFlag>(entity, true);
