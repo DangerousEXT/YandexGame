@@ -1,4 +1,4 @@
-using Unity.Collections;
+﻿using Unity.Collections;
 using Unity.Entities;
 using UnityEngine;
 
@@ -35,8 +35,11 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
 
             playerEntity = entity;
             selectedCardEntity = selected;
-
-            RemoveFromAvailable(availableCards, selected);
+            var isInfinite = false;
+            if (entityManager.HasComponent<LevelUpCardUpgradeTrack>(selectedCardEntity))
+                isInfinite = entityManager.GetComponentData<LevelUpCardUpgradeTrack>(selectedCardEntity).IsInfinite;
+            if (!isInfinite)
+                RemoveFromAvailable(availableCards, selected);
             ApplyUpgradeProgress(entityManager, upgradeProgress, selectedCardEntity);
             offeredCards.Clear();
         }
@@ -84,10 +87,11 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
             return true;
 
         var track = entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEntity);
+        if (track.IsInfinite)
+            return true;
         var currentUpgradeLevel = GetPlayerUpgradeLevel(progress, track.UpgradeId);
         if (currentUpgradeLevel >= track.MaxLevel)
             return false;
-
         return currentUpgradeLevel + 1 == track.UpgradeLevel;
     }
 
@@ -108,7 +112,7 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
             progress[i] = new PlayerUpgradeProgressElement
             {
                 UpgradeId = track.UpgradeId,
-                CurrentLevel = track.UpgradeLevel
+                CurrentLevel = track.IsInfinite ? progress[i].CurrentLevel + 1 : track.UpgradeLevel
             };
             return;
         }
@@ -116,7 +120,7 @@ public partial struct ApplySelectedLevelUpCardSystem : ISystem
         progress.Add(new PlayerUpgradeProgressElement
         {
             UpgradeId = track.UpgradeId,
-            CurrentLevel = track.UpgradeLevel
+            CurrentLevel = track.IsInfinite ? 1 : track.UpgradeLevel
         });
     }
 

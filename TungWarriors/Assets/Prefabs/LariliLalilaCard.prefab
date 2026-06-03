@@ -50,6 +50,7 @@ MonoBehaviour:
   Description: -1 income damage
   Icon: {fileID: -1172219952361528130, guid: 3da8b3a2d9ae95249afead86e2ed9a7c, type: 3}
   UpgradeId: 
+  IsInfinite: 1
   UpgradeLevel: 1
   MaxLevel: 1
   OfferWeight: 1

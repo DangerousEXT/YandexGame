@@ -50,6 +50,7 @@ MonoBehaviour:
   Description: +2 dmg
   Icon: {fileID: 7928174699423067813, guid: cd836a61643e97044b04f789dd2c5379, type: 3}
   UpgradeId: 
+  IsInfinite: 1
   UpgradeLevel: 1
   MaxLevel: 1
   OfferWeight: 1

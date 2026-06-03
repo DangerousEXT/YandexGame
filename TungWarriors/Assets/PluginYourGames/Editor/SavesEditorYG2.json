@@ -1,13 +1,40 @@
 {
-    "idSave": 151,
-    "gold": 1057,
+    "idSave": 158,
+    "gold": 894,
     "gems": 123,
     "rubies": 123,
     "bestSurvivalTimeMilliseconds": 81923,
-    "inventory": [],
-    "equipmentOnPlayer": [],
+    "inventory": [
+        {
+            "name": "Абононо Шимпазиноно",
+            "iconId": "ringmail_0",
+            "type": 2,
+            "buffsData": [
+                {
+                    "typeName": "AddPercentHealthBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                    "value": -0.9966343641281128
+                }
+            ]
+        }
+    ],
+    "equipmentOnPlayer": [
+        {
+            "type": 5,
+            "equipmentData": {
+                "name": "Аааааааро Хамстеро",
+                "iconId": "ring_0",
+                "type": 3,
+                "buffsData": [
+                    {
+                        "typeName": "CritDamageBuff, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+                        "value": 0.16248084604740144
+                    }
+                ]
+            }
+        }
+    ],
     "metaUpgradeLevels": [],
-    "lang": "tr",
+    "lang": "ru",
     "musicVolume": 0.4999999701976776,
-    "soundVolume": 0.4999999701976776
+    "soundVolume": 0.3514346778392792
 }

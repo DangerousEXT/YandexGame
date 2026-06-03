@@ -98,16 +98,14 @@ public partial struct ShowLevelUpSelectionSystem : ISystem
                     return false;
             }
         }
-
         if (!entityManager.HasComponent<LevelUpCardUpgradeTrack>(cardEntity))
             return true;
-
         var track = entityManager.GetComponentData<LevelUpCardUpgradeTrack>(cardEntity);
         var currentUpgradeLevel = GetPlayerUpgradeLevel(progress, track.UpgradeId);
-
+        if (track.IsInfinite)
+            return true;
         if (currentUpgradeLevel >= track.MaxLevel)
             return false;
-
         return currentUpgradeLevel + 1 == track.UpgradeLevel;
     }
 

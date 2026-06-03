@@ -11,6 +11,7 @@ public class LevelUpCardAuthoring : MonoBehaviour
 
     [Header("Progression")]
     public string UpgradeId;
+    public bool IsInfinite = false;
     [Min(1)] public int UpgradeLevel = 1;
     [Min(1)] public int MaxLevel = 1;
     [Min(1)] public int OfferWeight = 1;
@@ -37,7 +38,8 @@ public class LevelUpCardAuthoring : MonoBehaviour
                 UpgradeId = authoring.UpgradeId,
                 UpgradeLevel = Mathf.Max(1, authoring.UpgradeLevel),
                 MaxLevel = Mathf.Max(1, authoring.MaxLevel),
-                OfferWeight = Mathf.Max(1, authoring.OfferWeight)
+                OfferWeight = Mathf.Max(1, authoring.OfferWeight),
+                IsInfinite = authoring.IsInfinite
             });
 
             AddComponent(entity, new LevelUpCardRequirement

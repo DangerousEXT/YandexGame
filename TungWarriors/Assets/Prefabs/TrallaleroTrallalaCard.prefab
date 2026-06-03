@@ -50,6 +50,7 @@ MonoBehaviour:
   Description: +1.5 speed
   Icon: {fileID: -8393551445879122312, guid: bfc01adb70654b4419f7cd63a5ceede6, type: 3}
   UpgradeId: 
+  IsInfinite: 1
   UpgradeLevel: 1
   MaxLevel: 1
   OfferWeight: 1

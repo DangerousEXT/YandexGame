@@ -23,6 +23,7 @@ public struct LevelUpCardUpgradeTrack : IComponentData
     public int UpgradeLevel;
     public int MaxLevel;
     public int OfferWeight;
+    public bool IsInfinite;
 }
 
 public struct LevelUpCardRequirement : IComponentData

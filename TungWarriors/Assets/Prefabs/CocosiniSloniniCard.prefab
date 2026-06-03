@@ -50,6 +50,7 @@ MonoBehaviour:
   Description: +1 HP/sec
   Icon: {fileID: -3776726162088173902, guid: 73902bf0dd20e724b858c0dfc9183260, type: 3}
   UpgradeId: 
+  IsInfinite: 1
   UpgradeLevel: 1
   MaxLevel: 1
   OfferWeight: 1
