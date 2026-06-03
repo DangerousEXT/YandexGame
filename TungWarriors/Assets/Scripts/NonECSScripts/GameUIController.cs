@@ -66,6 +66,8 @@ public class GameUIController : MonoBehaviour
 
     private void OnFocusWindowGame(bool isFocused)
     {
+        if (!isFocused)
+            ShowPauseMenu();
         TogglePause(true);
     }
 
