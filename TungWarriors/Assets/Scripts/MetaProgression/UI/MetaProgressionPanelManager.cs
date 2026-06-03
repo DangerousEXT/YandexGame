@@ -1,7 +1,8 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using YG;
+using GameAnalyticsSDK;
 
 public class MetaProgressionPanelManager : MonoBehaviour
 {
@@ -132,7 +133,8 @@ public class MetaProgressionPanelManager : MonoBehaviour
 
         if (!PlayerData.Instance.TryPurchaseMetaUpgrade(definition))
             return;
-
+        var newLevel = PlayerData.Instance.GetMetaUpgradeLevel(definition.UpgradeId);
+        GameAnalytics.NewDesignEvent($"Meta_Upgrade:{definition.UpgradeId}:Level_{newLevel}");
         Refresh();
     }
 

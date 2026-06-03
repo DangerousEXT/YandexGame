@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameAnalyticsSDK;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Entities;
@@ -34,19 +35,15 @@ public class LevelUpSelectionPanel : MonoBehaviour
             }
             var card = cards[i];
             var btn = cardButtons[i];
-
-
             btn.Title.text = LocalizationManager.Instance.Get(LocalizationCategories.game, $"{card.CardId}_title");
             btn.Description.text = LocalizationManager.Instance.Get(LocalizationCategories.game, $"{card.CardId}_description");
-
-
             if (btn.Icon != null)
             {
                 btn.Icon.sprite = card.Icon;
                 btn.Icon.enabled = card.Icon != null;
             }
             btn.Button.onClick.RemoveAllListeners();
-            btn.Button.onClick.AddListener(() => OnButtonClicked(card.CardEntity));
+            btn.Button.onClick.AddListener(() => OnButtonClicked(card.CardEntity, card.CardId));
             btn.Button.gameObject.SetActive(true);
         }
     }
@@ -62,8 +59,9 @@ public class LevelUpSelectionPanel : MonoBehaviour
         OnCardSelected = null;
     }
 
-    private void OnButtonClicked(Entity cardEntity)
+    private void OnButtonClicked(Entity cardEntity, string cardId)
     {
+        GameAnalytics.NewDesignEvent($"Card_Picked:{cardId}");
         OnCardSelected?.Invoke(cardEntity);
     }
 }

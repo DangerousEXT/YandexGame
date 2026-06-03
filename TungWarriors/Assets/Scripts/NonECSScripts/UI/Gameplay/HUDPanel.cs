@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using Unity.Entities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -43,6 +43,12 @@ public class HUDPanel : MonoBehaviour
 
         _lastTimerSeconds = wholeSeconds;
         UpdateTimerText(wholeSeconds);
+
+        if (wholeSeconds > 0 && wholeSeconds % 60 == 0)
+        {
+            var currentMinute = wholeSeconds / 60;
+            GameAnalyticsSDK.GameAnalytics.NewDesignEvent($"Survival_Funnel:Reached_Minute_{currentMinute}");
+        }
     }
 
     public void UpdateGemsText(int gems)
@@ -105,4 +111,6 @@ public class HUDPanel : MonoBehaviour
     {
         GameUIController.Instance.ShowPauseMenu();
     }
+
+    public int GetSurvivedSeconds() => Mathf.Max(0, _lastTimerSeconds);
 }

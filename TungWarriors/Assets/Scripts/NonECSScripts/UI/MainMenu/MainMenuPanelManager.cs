@@ -1,7 +1,8 @@
-﻿using UnityEngine.SceneManagement;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using GameAnalyticsSDK;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuPanelManager : MonoBehaviour
 {
@@ -23,9 +24,9 @@ public class MainMenuPanelManager : MonoBehaviour
     private void OnPlayButtonClicked()
     {
         AudioController.Instance.PlayGameMusic(); //с отложением в 3 секунды
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Endless_Run");
         SceneManager.LoadScene("DefaultLevel");
         StartCoroutine(StartGameMusic());
-        
     }
 
     private IEnumerator StartGameMusic()
